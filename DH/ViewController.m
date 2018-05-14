@@ -62,15 +62,19 @@ NSData *MTExp(NSData *base, NSData *exp, NSData *modulus)
 char* gmpExp(const char *base, const char *exp, const char *mod)
 {
     mpz_t mpBase;
+    mpz_init(mpBase);
     mpz_init_set_str(mpBase,base,10);
     
     mpz_t mpExp;
+    mpz_init(mpExp);
     mpz_init_set_str(mpExp,exp,10);
 
     mpz_t mpMod;
+    mpz_init(mpMod);
     mpz_init_set_str(mpMod,mod,10);
     
     mpz_t mpModResult;
+    mpz_init(mpModResult);
     mpz_powm_sec(mpModResult,mpBase,mpExp,mpMod);
    
 //    int len = mpz_sizeinbase (mpMod, 10) + 2;
