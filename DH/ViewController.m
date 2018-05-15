@@ -84,6 +84,7 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
 
 }
 
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -138,8 +139,18 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
     result =SecRandomCopyBytes(kSecRandomDefault, 256, (void*)bBytes);
     NSAssert(result == 0, @"随机数生成失败");
     
+    BIGNUM *randomB = BN_bin2bn(bBytes, 256, NULL);
+    char * pRandomB = BN_bn2dec(randomB);
     
+    char* gb = gmpExp(gStr, pRandomB, pStr);
+    
+    char* keyA = gmpExp(gb, pRandomA, pStr);
+    char* keyB = gmpExp(ga, pRandomB, pStr);
+    
+    NSAssert(strcmp(keyA, keyB)==0, @"key不相等");
 }
+
+
 
 
 - (void)testBIGNUM {
