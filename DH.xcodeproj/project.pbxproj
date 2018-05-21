@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74CEC94120B2FB0A00F044A2 /* RCDH.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CEC94020B2FB0A00F044A2 /* RCDH.m */; };
 		B20D1C2220A5AE6D00A54353 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20D1C2120A5AE6D00A54353 /* libcrypto.a */; };
 		B20D1C5A20A92CC700A54353 /* libgmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B20D1C5920A92CC700A54353 /* libgmp.a */; };
 		B21E561920A4498C00D6BB82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E561820A4498C00D6BB82 /* AppDelegate.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		74CEC93F20B2FB0A00F044A2 /* RCDH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDH.h; sourceTree = "<group>"; };
+		74CEC94020B2FB0A00F044A2 /* RCDH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDH.m; sourceTree = "<group>"; };
 		B20D1C2120A5AE6D00A54353 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = vendor/libcrypto.a; sourceTree = "<group>"; };
 		B20D1C5920A92CC700A54353 /* libgmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmp.a; path = vendor/gmp/libgmp.a; sourceTree = "<group>"; };
 		B21E561420A4498C00D6BB82 /* DH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DH.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +129,8 @@
 				B21E562220A4498E00D6BB82 /* LaunchScreen.storyboard */,
 				B21E562520A4498E00D6BB82 /* Info.plist */,
 				B21E562620A4498E00D6BB82 /* main.m */,
+				74CEC93F20B2FB0A00F044A2 /* RCDH.h */,
+				74CEC94020B2FB0A00F044A2 /* RCDH.m */,
 			);
 			path = DH;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				B21E561C20A4498C00D6BB82 /* ViewController.m in Sources */,
 				B21E562720A4498E00D6BB82 /* main.m in Sources */,
 				B21E561920A4498C00D6BB82 /* AppDelegate.m in Sources */,
+				74CEC94120B2FB0A00F044A2 /* RCDH.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

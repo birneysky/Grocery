@@ -11,6 +11,7 @@
 #import <Security/Security.h>
 #include <openssl/bn.h>
 #include <gmp.h>
+#import "RCDH.h"
 
 @interface ViewController ()
 
@@ -92,6 +93,8 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
    
     [self testBIGNUM];
     [self testGPM];
+    [self gmpRandom];
+    [self testDH];
 }
 
 - (void)testGPM {
@@ -212,8 +215,39 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
     NSAssert([keya isEqual:keyb], @"key不相等");
 }
 
+- (void)gmpRandom {
+    long seed; int count;
+    gmp_randstate_t california; mpz_t  n, temp;
+    
+    gmp_randinit(california, 0, 128); mpz_init(n); mpz_init(temp);
+    mpz_set_str(n,"25135566567101483196994790440833279750474660393232382279277736257066266618532493517139001963526957179514521981877335815379755618191324858392834843718048308951653115284529736874534289456833723962912807104017411854314007953484461899139734367756070456068592886771130491355511301923675421649355211882120329692353507392677087555292357140606251171702417804959957862991259464749806480821163999054978911727901705780417863120490095024926067731615229486812312187386108568833026386220686253160504779704721744600638258183939573405528962511242337923530869616215532193967628076922234051908977996352800560160181197923404454023908443",10);
+    
+    /* use time (in seconds) to set the value of seed: */
+    time (&seed);
+    gmp_randseed_ui (california, seed);
+    
+    for(count=5; count; count--)
+    {
+        mpz_urandomm (temp, california, n);
+        mpz_out_str (stdout, 10, temp);
+    }
+    
+    gmp_randclear (california); mpz_clear(n); mpz_clear(temp);
+}
 
-
+- (void)testDH {
+    PairKey* a = [RCDH generatePairKey];
+    PairKey* b = [RCDH generatePairKey];
+    NSString* akey = [RCDH computeKey:b.pubKey privKey:a.privKey];
+    NSString* bKey = [RCDH computeKey:a.pubKey privKey:b.privKey];
+    
+    NSString* encrypt = [RCDH encryptMessage:@"hello world" key:akey];
+    NSString* decrpty = [RCDH decryptMessage:encrypt key:akey];
+    
+    
+    NSAssert([akey isEqual:bKey], @"key不相等");
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
