@@ -209,5 +209,12 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
     // Dispose of any resources that can be recreated.
 }
 
+//- p;
+//- g;
+//- (XA,YA)random();
+//-NSString* generateKey(const char *random, const char *remoteKey);
+//- encode:key data:
+//- decode:key data
+
 
 @end
