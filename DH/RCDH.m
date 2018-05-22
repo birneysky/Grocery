@@ -131,7 +131,7 @@ NSData * cipherOperation(NSData *contentData, NSData *keyData, CCOperation opera
                                           kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
                                           keyBytes,
-                                          kKeySize,
+                                          32,
                                           initVectorBytes,
                                           contentBytes,
                                           dataLength,
@@ -151,8 +151,6 @@ NSData * aesDecryptData(NSData *contentData, NSData *keyData) {
     NSCParameterAssert(contentData);
     NSCParameterAssert(keyData);
     
-    NSString *hint = [NSString stringWithFormat:@"The key size of AES-%lu should be %lu bytes!", kKeySize * 8, kKeySize];
-    NSCAssert(keyData.length == kKeySize, hint);
     return cipherOperation(contentData, keyData, kCCDecrypt);
 }
 
@@ -170,8 +168,6 @@ NSData * aesEncryptData(NSData *contentData, NSData *keyData) {
     NSCParameterAssert(contentData);
     NSCParameterAssert(keyData);
     
-    NSString *hint = [NSString stringWithFormat:@"The key size of AES-%lu should be %lu bytes!", kKeySize * 8, kKeySize];
-    NSCAssert(keyData.length == kKeySize, hint);
     return cipherOperation(contentData, keyData, kCCEncrypt);
 }
 
