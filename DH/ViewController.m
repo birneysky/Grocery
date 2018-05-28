@@ -247,6 +247,25 @@ char* gmpExp(const char *base, const char *exp, const char *mod)
     
     NSAssert([akey isEqual:bKey], @"key不相等");
     
+    
+    NSString* url = @"https://et-rce-test-guanyu.rongcloud.net/admin/#/login";
+//    NSCharacterSet* charSet = [NSCharacterSet characterSetWithCharactersInString:@"#"].invertedSet;
+//    url = [url stringByAddingPercentEncodingWithAllowedCharacters:charSet];
+//    charSet = [NSCharacterSet characterSetWithCharactersInString:@"#"];
+//     url = [url stringByAddingPercentEncodingWithAllowedCharacters:charSet];
+    
+    NSMutableCharacterSet* mcharSet = [[NSMutableCharacterSet alloc] init];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLHostAllowedCharacterSet]];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLPasswordAllowedCharacterSet]];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLPathAllowedCharacterSet]];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [mcharSet formIntersectionWithCharacterSet:[NSCharacterSet URLUserAllowedCharacterSet]];
+    //[mcharSet removeCharactersInString:@"#"];
+    NSData* data =  mcharSet.bitmapRepresentation;
+    NSString* string  = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    url = [url stringByAddingPercentEncodingWithAllowedCharacters:mcharSet.invertedSet];
+    NSLog(@"%@",url);
 }
 
 - (void)didReceiveMemoryWarning {
