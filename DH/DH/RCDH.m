@@ -34,8 +34,8 @@ size_t const kKeySize = kCCKeySizeAES128;
 
 @interface PairKey ()
 
-@property(nonatomic,copy) NSString* pubKey;
-@property(nonatomic,copy) NSString* privKey;
+//@property(nonatomic,copy) NSString* pubKey;
+//@property(nonatomic,copy) NSString* privKey;
 
 @end
 
@@ -75,7 +75,7 @@ size_t const kKeySize = kCCKeySizeAES128;
 }
 
 + (NSString*)random {
-    long seed;
+    clock_t seed = clock();
     gmp_randstate_t california;
     mpz_t  n, random;
     
@@ -85,7 +85,7 @@ size_t const kKeySize = kCCKeySizeAES128;
     mpz_set_str(n,pStr.UTF8String,10);
     
     /* use time (in seconds) to set the value of seed: */
-    time (&seed);
+    //time (&seed);
     gmp_randseed_ui (california, seed);
     
     mpz_urandomm (random, california, n);
@@ -116,7 +116,12 @@ size_t const kKeySize = kCCKeySizeAES128;
 NSData * cipherOperation(NSData *contentData, NSData *keyData, CCOperation operation) {
     NSUInteger dataLength = contentData.length;
     
-    void const *initVectorBytes = [kInitVector dataUsingEncoding:NSUTF8StringEncoding].bytes;
+    NSMutableData *aesIv = [[NSMutableData alloc] init];
+    [aesIv appendBytes:((int8_t *)keyData.bytes) + 0 length:8];
+    [aesIv appendBytes:((int8_t *)keyData.bytes) + 8 length:16];
+    [aesIv appendBytes:((int8_t *)keyData.bytes) + 24 length:8];
+    
+    //void const *initVectorBytes = [kInitVector dataUsingEncoding:NSUTF8StringEncoding].bytes;
     void const *contentBytes = contentData.bytes;
     void const *keyBytes = keyData.bytes;
     
@@ -131,8 +136,8 @@ NSData * cipherOperation(NSData *contentData, NSData *keyData, CCOperation opera
                                           kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
                                           keyBytes,
-                                          32,
-                                          initVectorBytes,
+                                          keyData.length,
+                                          aesIv.bytes,
                                           contentBytes,
                                           dataLength,
                                           operationBytes,
@@ -171,22 +176,38 @@ NSData * aesEncryptData(NSData *contentData, NSData *keyData) {
     return cipherOperation(contentData, keyData, kCCEncrypt);
 }
 
-+ (NSString *)encryptMessage:(NSString *)jsonContent key:(NSString *)key {
-    NSCParameterAssert(jsonContent);
++ (NSString *)encryptMessage:(NSString *)plainJson key:(NSString *)key {
+    NSCParameterAssert(plainJson);
     NSCParameterAssert(key);
     
-    NSData *contentData = [jsonContent dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+
+    NSData* keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    CC_SHA256(keyData.bytes, (CC_LONG)keyData.length, digest);
+    keyData = [[NSData alloc] initWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
+    NSData *contentData = [plainJson dataUsingEncoding:NSUTF8StringEncoding];
+    NSString* basePlain = [contentData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    contentData = [basePlain dataUsingEncoding:NSUTF8StringEncoding];
+    //NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+//    printf("hello");
+//    for(int i = 0; i < 32;i ++) {
+//        printf("%d,",(int)digest[i]);
+//    }
+//    printf("\n");
     NSData *encrptedData = aesEncryptData(contentData, keyData);
     return [encrptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 }
 
-+ (NSString *)decryptMessage:(NSString *)jsonContent key:(NSString *)key {
-    NSCParameterAssert(jsonContent);
++ (NSString *)decryptMessage:(NSString *)cipherJson key:(NSString *)key {
+    NSCParameterAssert(cipherJson);
     NSCParameterAssert(key);
     
-    NSData *contentData = [[NSData alloc] initWithBase64EncodedString:jsonContent options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+    NSData* keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    CC_SHA256(keyData.bytes, (CC_LONG)keyData.length, digest);
+    keyData = [[NSData alloc] initWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
+    
+    NSData *contentData = [[NSData alloc] initWithBase64EncodedString:cipherJson options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSData *decryptedData = aesDecryptData(contentData, keyData);
     return [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
 }
