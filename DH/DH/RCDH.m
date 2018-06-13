@@ -119,12 +119,11 @@ NSData * cipherOperation(NSData *contentData, NSData *keyData, CCOperation opera
     NSMutableData *aesIv = [[NSMutableData alloc] init];
     [aesIv appendBytes:((int8_t *)keyData.bytes) + 0 length:8];
     [aesIv appendBytes:((int8_t *)keyData.bytes) + 8 length:16];
-    [aesIv appendBytes:((int8_t *)keyData.bytes) + 24 length:8];
+    //[aesIv appendBytes:((int8_t *)keyData.bytes) + 24 length:8];
     
-    //void const *initVectorBytes = [kInitVector dataUsingEncoding:NSUTF8StringEncoding].bytes;
     void const *contentBytes = contentData.bytes;
     void const *keyBytes = keyData.bytes;
-    
+
     size_t operationSize = dataLength + kCCBlockSizeAES128;
     void *operationBytes = malloc(operationSize);
     if (operationBytes == NULL) {
@@ -186,14 +185,7 @@ NSData * aesEncryptData(NSData *contentData, NSData *keyData) {
     CC_SHA256(keyData.bytes, (CC_LONG)keyData.length, digest);
     keyData = [[NSData alloc] initWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
     NSData *contentData = [plainJson dataUsingEncoding:NSUTF8StringEncoding];
-    NSString* basePlain = [contentData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    contentData = [basePlain dataUsingEncoding:NSUTF8StringEncoding];
-    //NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
-//    printf("hello");
-//    for(int i = 0; i < 32;i ++) {
-//        printf("%d,",(int)digest[i]);
-//    }
-//    printf("\n");
+ 
     NSData *encrptedData = aesEncryptData(contentData, keyData);
     return [encrptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 }
