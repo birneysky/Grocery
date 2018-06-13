@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PairKey : NSObject
+@interface GSPairKey : NSObject
 
-@property(nonatomic,copy) NSString* pubKey;
-@property(nonatomic,copy) NSString* privKey;
+@property(nonatomic,copy,readonly) NSString* pubKey;
+@property(nonatomic,copy,readonly) NSString* privKey;
 
 @end
 
@@ -19,14 +19,14 @@
 /**
  DH 对称加密工具类
  */
-@interface RCDH : NSObject
+@interface GSDH : NSObject
 
 /**
  随机生成私有密钥和公开密钥
  
  @return RCPairKey 实例
  */
-+ (PairKey*)generatePairKey;
++ (GSPairKey*)generatePairKey;
 
 /**
  根据对方pubKey和自己的privKey计算对称加密密钥

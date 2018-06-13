@@ -6,7 +6,7 @@
 //  Copyright © 2018年 RongCloud. All rights reserved.
 //
 
-#import "RCDH.h"
+#import "GSDH.h"
 #include <gmp.h>
 #import <CommonCrypto/CommonCrypto.h>
 
@@ -32,18 +32,18 @@ NSString* const gStr = @"3";
 NSString *const kInitVector = @"0123456789abcdef";
 size_t const kKeySize = kCCKeySizeAES128;
 
-@interface PairKey ()
+@interface GSPairKey ()
 
-//@property(nonatomic,copy) NSString* pubKey;
-//@property(nonatomic,copy) NSString* privKey;
+@property(nonatomic,copy) NSString* pubKey;
+@property(nonatomic,copy) NSString* privKey;
 
 @end
 
-@implementation PairKey
+@implementation GSPairKey
 @end
 
 
-@implementation RCDH
+@implementation GSDH
 
 + (NSString*)powM:(NSString*)base
               exp:(NSString*)exp
@@ -99,16 +99,16 @@ size_t const kKeySize = kCCKeySizeAES128;
     return result;
 }
 
-+ (PairKey*)generatePairKey {
-    PairKey* pair = [[PairKey alloc] init];
-    NSString* random = [RCDH random];
-    NSString* key = [RCDH powM:gStr exp:random mod:pStr];
++ (GSPairKey*)generatePairKey {
+    GSPairKey* pair = [[GSPairKey alloc] init];
+    NSString* random = [GSDH random];
+    NSString* key = [GSDH powM:gStr exp:random mod:pStr];
     pair.pubKey = key;
     pair.privKey = random;
     return pair;
 }
 + (NSString*)computeKey:(NSString*)pubKey privKey:(NSString*)privKey {
-    NSString* key = [RCDH powM:pubKey exp:privKey mod:pStr];
+    NSString* key = [GSDH powM:pubKey exp:privKey mod:pStr];
     return key;
 }
 
@@ -203,7 +203,5 @@ NSData * aesEncryptData(NSData *contentData, NSData *keyData) {
     NSData *decryptedData = aesDecryptData(contentData, keyData);
     return [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
 }
-
-
 
 @end
