@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RCEAsyncLabel : UIView
+@interface GSAsyncLabel : UIView
 
 @property (nonatomic,strong) NSAttributedString* attributedText;
 

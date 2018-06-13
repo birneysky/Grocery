@@ -6,15 +6,13 @@
 //  Copyright © 2018年 one. All rights reserved.
 //
 
-#import "TestFlowLayout.h"
+#import "GSTestFlowLayout.h"
 
-@interface TestFlowLayout()
-
-//@property(nonatomic,assign) CGSize oldContentSize;
+@interface GSTestFlowLayout()
 
 @end
 
-@implementation TestFlowLayout
+@implementation GSTestFlowLayout
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
@@ -24,10 +22,9 @@
 
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
-    NSLog(@"😓😓😓😓😓😓😓😓 targetContentOffsetForProposedContentOffset %@  contentsize %@,contentOffset %@",NSStringFromCGPoint(proposedContentOffset),NSStringFromCGSize(self.collectionView.contentSize),NSStringFromCGPoint(self.collectionView.contentOffset));
+    /// self.collectionView.contentSize.height 此时获取到的contentsize 是变化前的
     CGFloat offset = self.newContentSize.height - self.collectionView.contentSize.height;
     proposedContentOffset.y += offset;
-
      return proposedContentOffset;
 }
 

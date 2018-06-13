@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UICollectionViewController
+@interface GSViewController : UICollectionViewController
 
 @end

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B237BB1A20CF75770062F45D /* TestFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1920CF75770062F45D /* TestFlowLayout.m */; };
-		B237BB1D20D0CF070062F45D /* TestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1C20D0CF070062F45D /* TestHeaderView.m */; };
-		B25702841F79EB710039AD23 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25702831F79EB710039AD23 /* ViewController.m */; };
-		B25702871F79ECEA0039AD23 /* TestViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25702861F79ECEA0039AD23 /* TestViewCell.m */; };
-		B28C43CF20625A7100CBFA67 /* RCEAsyncLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B28C43CE20625A7100CBFA67 /* RCEAsyncLabel.m */; };
-		B28C43D22062A30900CBFA67 /* RCETextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B28C43D12062A30900CBFA67 /* RCETextAttribute.m */; };
+		B237BB1A20CF75770062F45D /* GSTestFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1920CF75770062F45D /* GSTestFlowLayout.m */; };
+		B237BB1D20D0CF070062F45D /* GSTestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1C20D0CF070062F45D /* GSTestHeaderView.m */; };
+		B25702841F79EB710039AD23 /* GSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25702831F79EB710039AD23 /* GSViewController.m */; };
+		B25702871F79ECEA0039AD23 /* GSTestViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25702861F79ECEA0039AD23 /* GSTestViewCell.m */; };
+		B28C43CF20625A7100CBFA67 /* GSAsyncLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B28C43CE20625A7100CBFA67 /* GSAsyncLabel.m */; };
+		B28C43D22062A30900CBFA67 /* GSTextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B28C43D12062A30900CBFA67 /* GSTextAttribute.m */; };
 		B2BC65472089964C002DB5CA /* YYAsyncLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BC65462089964C002DB5CA /* YYAsyncLayer.m */; };
 		B2BC654A20899674002DB5CA /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BC654920899673002DB5CA /* YYSentinel.m */; };
 		B2C73E3E1F4B19070057B3E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C73E3D1F4B19070057B3E0 /* main.m */; };
@@ -42,18 +42,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B237BB1820CF75770062F45D /* TestFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFlowLayout.h; sourceTree = "<group>"; };
-		B237BB1920CF75770062F45D /* TestFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestFlowLayout.m; sourceTree = "<group>"; };
-		B237BB1B20D0CF070062F45D /* TestHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeaderView.h; sourceTree = "<group>"; };
-		B237BB1C20D0CF070062F45D /* TestHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeaderView.m; sourceTree = "<group>"; };
-		B25702821F79EB710039AD23 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B25702831F79EB710039AD23 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B25702851F79ECEA0039AD23 /* TestViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewCell.h; sourceTree = "<group>"; };
-		B25702861F79ECEA0039AD23 /* TestViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewCell.m; sourceTree = "<group>"; };
-		B28C43CD20625A7100CBFA67 /* RCEAsyncLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCEAsyncLabel.h; sourceTree = "<group>"; };
-		B28C43CE20625A7100CBFA67 /* RCEAsyncLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCEAsyncLabel.m; sourceTree = "<group>"; };
-		B28C43D02062A30900CBFA67 /* RCETextAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCETextAttribute.h; sourceTree = "<group>"; };
-		B28C43D12062A30900CBFA67 /* RCETextAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCETextAttribute.m; sourceTree = "<group>"; };
+		B237BB1820CF75770062F45D /* GSTestFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTestFlowLayout.h; sourceTree = "<group>"; };
+		B237BB1920CF75770062F45D /* GSTestFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTestFlowLayout.m; sourceTree = "<group>"; };
+		B237BB1B20D0CF070062F45D /* GSTestHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTestHeaderView.h; sourceTree = "<group>"; };
+		B237BB1C20D0CF070062F45D /* GSTestHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTestHeaderView.m; sourceTree = "<group>"; };
+		B25702821F79EB710039AD23 /* GSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSViewController.h; sourceTree = "<group>"; };
+		B25702831F79EB710039AD23 /* GSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSViewController.m; sourceTree = "<group>"; };
+		B25702851F79ECEA0039AD23 /* GSTestViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTestViewCell.h; sourceTree = "<group>"; };
+		B25702861F79ECEA0039AD23 /* GSTestViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTestViewCell.m; sourceTree = "<group>"; };
+		B28C43CD20625A7100CBFA67 /* GSAsyncLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAsyncLabel.h; sourceTree = "<group>"; };
+		B28C43CE20625A7100CBFA67 /* GSAsyncLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAsyncLabel.m; sourceTree = "<group>"; };
+		B28C43D02062A30900CBFA67 /* GSTextAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTextAttribute.h; sourceTree = "<group>"; };
+		B28C43D12062A30900CBFA67 /* GSTextAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTextAttribute.m; sourceTree = "<group>"; };
 		B2BC65452089964C002DB5CA /* YYAsyncLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAsyncLayer.h; sourceTree = "<group>"; };
 		B2BC65462089964C002DB5CA /* YYAsyncLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAsyncLayer.m; sourceTree = "<group>"; };
 		B2BC654820899673002DB5CA /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSentinel.h; sourceTree = "<group>"; };
@@ -124,22 +124,22 @@
 			children = (
 				B2C73E3F1F4B19070057B3E0 /* AppDelegate.h */,
 				B2C73E401F4B19070057B3E0 /* AppDelegate.m */,
-				B25702821F79EB710039AD23 /* ViewController.h */,
-				B25702831F79EB710039AD23 /* ViewController.m */,
-				B237BB1820CF75770062F45D /* TestFlowLayout.h */,
-				B237BB1920CF75770062F45D /* TestFlowLayout.m */,
-				B237BB1B20D0CF070062F45D /* TestHeaderView.h */,
-				B237BB1C20D0CF070062F45D /* TestHeaderView.m */,
+				B25702821F79EB710039AD23 /* GSViewController.h */,
+				B25702831F79EB710039AD23 /* GSViewController.m */,
+				B237BB1820CF75770062F45D /* GSTestFlowLayout.h */,
+				B237BB1920CF75770062F45D /* GSTestFlowLayout.m */,
+				B237BB1B20D0CF070062F45D /* GSTestHeaderView.h */,
+				B237BB1C20D0CF070062F45D /* GSTestHeaderView.m */,
 				B2BC65452089964C002DB5CA /* YYAsyncLayer.h */,
 				B2BC65462089964C002DB5CA /* YYAsyncLayer.m */,
 				B2BC654820899673002DB5CA /* YYSentinel.h */,
 				B2BC654920899673002DB5CA /* YYSentinel.m */,
-				B28C43D02062A30900CBFA67 /* RCETextAttribute.h */,
-				B28C43D12062A30900CBFA67 /* RCETextAttribute.m */,
-				B28C43CD20625A7100CBFA67 /* RCEAsyncLabel.h */,
-				B28C43CE20625A7100CBFA67 /* RCEAsyncLabel.m */,
-				B25702851F79ECEA0039AD23 /* TestViewCell.h */,
-				B25702861F79ECEA0039AD23 /* TestViewCell.m */,
+				B28C43D02062A30900CBFA67 /* GSTextAttribute.h */,
+				B28C43D12062A30900CBFA67 /* GSTextAttribute.m */,
+				B28C43CD20625A7100CBFA67 /* GSAsyncLabel.h */,
+				B28C43CE20625A7100CBFA67 /* GSAsyncLabel.m */,
+				B25702851F79ECEA0039AD23 /* GSTestViewCell.h */,
+				B25702861F79ECEA0039AD23 /* GSTestViewCell.m */,
 				B2C73E451F4B19070057B3E0 /* Main.storyboard */,
 				B2C73E481F4B19070057B3E0 /* Assets.xcassets */,
 				B2C73E4A1F4B19070057B3E0 /* LaunchScreen.storyboard */,
@@ -326,15 +326,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B28C43CF20625A7100CBFA67 /* RCEAsyncLabel.m in Sources */,
-				B25702871F79ECEA0039AD23 /* TestViewCell.m in Sources */,
-				B25702841F79EB710039AD23 /* ViewController.m in Sources */,
+				B28C43CF20625A7100CBFA67 /* GSAsyncLabel.m in Sources */,
+				B25702871F79ECEA0039AD23 /* GSTestViewCell.m in Sources */,
+				B25702841F79EB710039AD23 /* GSViewController.m in Sources */,
 				B2BC654A20899674002DB5CA /* YYSentinel.m in Sources */,
 				B2BC65472089964C002DB5CA /* YYAsyncLayer.m in Sources */,
 				B2C73E411F4B19070057B3E0 /* AppDelegate.m in Sources */,
-				B28C43D22062A30900CBFA67 /* RCETextAttribute.m in Sources */,
-				B237BB1D20D0CF070062F45D /* TestHeaderView.m in Sources */,
-				B237BB1A20CF75770062F45D /* TestFlowLayout.m in Sources */,
+				B28C43D22062A30900CBFA67 /* GSTextAttribute.m in Sources */,
+				B237BB1D20D0CF070062F45D /* GSTestHeaderView.m in Sources */,
+				B237BB1A20CF75770062F45D /* GSTestFlowLayout.m in Sources */,
 				B2C73E3E1F4B19070057B3E0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

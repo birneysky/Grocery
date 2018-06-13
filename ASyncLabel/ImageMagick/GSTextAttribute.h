@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 //    RCETextCheckingTypePhoneNumber = 1
 //};
 
-@interface RCETextAttribute : NSObject
+@interface GSTextAttribute : NSObject
 
 @property (class,nonatomic,readonly) NSString* name;
 @property (nonatomic,readonly,copy) NSDictionary* attributes;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface RCETextHighlightedAttribute : RCETextAttribute
+@interface GSTextHighlightedAttribute : GSTextAttribute
 
 @property (nonatomic, assign) UIEdgeInsets backgroudInset;
 @property (nonatomic, assign) CGFloat backgroudRadius;

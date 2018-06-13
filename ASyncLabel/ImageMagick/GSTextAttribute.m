@@ -6,16 +6,16 @@
 //  Copyright © 2018年 one. All rights reserved.
 //
 
-#import "RCETextAttribute.h"
+#import "GSTextAttribute.h"
 
-@interface RCETextAttribute ()
+@interface GSTextAttribute ()
 
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic,strong) NSMutableDictionary* mAttributes;
 
 @end
 
-@implementation RCETextAttribute
+@implementation GSTextAttribute
 
 #pragma mark - Properties
 - (NSMutableDictionary*)mAttributes {
@@ -38,7 +38,7 @@
 //}
 
 + (instancetype)defaultAttribute {
-    RCETextAttribute* attribute = [[RCETextAttribute alloc] init];
+    GSTextAttribute* attribute = [[GSTextAttribute alloc] init];
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.alignment = NSTextAlignmentLeft;
     paragraph.lineSpacing = 0;
@@ -104,14 +104,14 @@
 @end
 
 
-@implementation RCETextHighlightedAttribute
+@implementation GSTextHighlightedAttribute
 
 + (NSString*)name {
     return @"RCETextHighlightedAttribute";
 }
 
 + (instancetype)defaultTextHiglightedAttribute {
-    RCETextHighlightedAttribute* attribute = [[RCETextHighlightedAttribute alloc] init];
+    GSTextHighlightedAttribute* attribute = [[GSTextHighlightedAttribute alloc] init];
     attribute.foregroundcolor = [UIColor whiteColor];
     attribute.backgroundColor = [UIColor blueColor];
     return attribute;

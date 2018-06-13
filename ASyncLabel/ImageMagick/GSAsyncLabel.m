@@ -6,16 +6,16 @@
 //  Copyright © 2018年 one. All rights reserved.
 //
 
-#import "RCEAsyncLabel.h"
-#import "RCETextAttribute.h"
+#import "GSAsyncLabel.h"
+#import "GSTextAttribute.h"
 #import "YYAsyncLayer.h"
 
-@interface RCEAsyncLabel () <NSLayoutManagerDelegate>
+@interface GSAsyncLabel () <NSLayoutManagerDelegate>
 
 @property (nonatomic,strong) NSLayoutManager* layoutManager;
 @property (nonatomic,strong) NSTextContainer *textContainer;
 @property (nonatomic,strong) NSTextStorage *textStorage;
-@property (nonatomic,strong) RCETextHighlightedAttribute* hightlightedAttribute;
+@property (nonatomic,strong) GSTextHighlightedAttribute* hightlightedAttribute;
 @property (nonatomic,assign) NSRange heightRange;
 @property (nonatomic,readonly) YYAsyncLayer* asyncLayer;
 
@@ -25,7 +25,7 @@
 
 
 
-@implementation RCEAsyncLabel
+@implementation GSAsyncLabel
 - (NSTextStorage *)textStorage {
     if (!_textStorage) {
         _textStorage = [[NSTextStorage alloc] init];
@@ -84,13 +84,13 @@
     self.asyncLayer.opaque = YES;
 }
 
-- (RCETextHighlightedAttribute*)textHeightlightedAttributeAtPoint:(CGPoint)point
+- (GSTextHighlightedAttribute*)textHeightlightedAttributeAtPoint:(CGPoint)point
                                                    effectiveRange:(NSRangePointer)range {
     CGFloat distanceToPoint = 1.0;
     NSUInteger index = [self.layoutManager characterIndexForPoint:point
                                                   inTextContainer:self.textContainer
                          fractionOfDistanceBetweenInsertionPoints:&distanceToPoint];
-    RCETextHighlightedAttribute* attribute = [self.textStorage attribute:RCETextHighlightedAttribute.name
+    GSTextHighlightedAttribute* attribute = [self.textStorage attribute:GSTextHighlightedAttribute.name
                                                                  atIndex:index
                                                    longestEffectiveRange:range
                                                                  inRange:NSMakeRange(0, self.textStorage.length)];
@@ -161,7 +161,7 @@
     UITouch *touch = touches.anyObject;
     CGPoint point = [touch locationInView:self];
     NSRange range = NSMakeRange(0, 0);
-    RCETextHighlightedAttribute* hightlightedAttribute =
+    GSTextHighlightedAttribute* hightlightedAttribute =
         [self textHeightlightedAttributeAtPoint:point effectiveRange:&range];
     if (!hightlightedAttribute) {
         [super touchesBegan:touches withEvent:event];
@@ -181,7 +181,7 @@
     UITouch *touch = touches.anyObject;
     CGPoint point = [touch locationInView:self];
     NSRange range = NSMakeRange(0, 0);
-    RCETextHighlightedAttribute* hightlightedAttribute =
+    GSTextHighlightedAttribute* hightlightedAttribute =
         [self textHeightlightedAttributeAtPoint:point effectiveRange:&range];
     if (self.hightlightedAttribute != hightlightedAttribute) {
         self.hightlightedAttribute = nil;
@@ -194,7 +194,7 @@
     UITouch *touch = touches.anyObject;
     CGPoint point = [touch locationInView:self];
     NSRange range = NSMakeRange(0, 0);
-    RCETextHighlightedAttribute* hightlightedAttribute =
+    GSTextHighlightedAttribute* hightlightedAttribute =
         [self textHeightlightedAttributeAtPoint:point effectiveRange:&range];
     if (self.hightlightedAttribute != hightlightedAttribute) {
         self.hightlightedAttribute = nil;

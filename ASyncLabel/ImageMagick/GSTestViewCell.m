@@ -6,8 +6,8 @@
 //  Copyright © 2017年 one. All rights reserved.
 //
 
-#import "TestViewCell.h"
+#import "GSTestViewCell.h"
 
-@implementation TestViewCell
+@implementation GSTestViewCell
 
 @end

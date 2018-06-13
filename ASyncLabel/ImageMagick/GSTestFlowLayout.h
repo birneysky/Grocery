@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestFlowLayout : UICollectionViewFlowLayout
+@interface GSTestFlowLayout : UICollectionViewFlowLayout
 
 @property(nonatomic,assign) CGSize newContentSize;
 

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RCEAsyncLabel.h"
+#import "GSAsyncLabel.h"
 
-@interface TestViewCell : UICollectionViewCell
+@interface GSTestViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet RCEAsyncLabel *label;
+@property (weak, nonatomic) IBOutlet GSAsyncLabel *label;
 
 @end

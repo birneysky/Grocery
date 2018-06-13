@@ -6,13 +6,13 @@
 //  Copyright © 2018年 one. All rights reserved.
 //
 
-#import "TestHeaderView.h"
+#import "GSTestHeaderView.h"
 
-@interface TestHeaderView()
+@interface GSTestHeaderView()
 @property(nonatomic,strong) UIActivityIndicatorView* indicator;
 @end
 
-@implementation TestHeaderView
+@implementation GSTestHeaderView
 
 - (UIActivityIndicatorView*)indicator{
     if (!_indicator) {

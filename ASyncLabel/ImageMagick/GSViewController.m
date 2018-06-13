@@ -6,22 +6,22 @@
 //  Copyright © 2017年 one. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "TestViewCell.h"
-#import "RCETextAttribute.h"
-#import "TestFlowLayout.h"
-#import "TestHeaderView.h"
+#import "GSViewController.h"
+#import "GSTestViewCell.h"
+#import "GSTextAttribute.h"
+#import "GSTestFlowLayout.h"
+#import "GSTestHeaderView.h"
 
-@interface ViewController ()
+@interface GSViewController ()
 @property (nonatomic,strong) NSMutableArray<NSAttributedString*>* dataSource;
 @property (nonatomic,strong) NSMutableDictionary<NSString*,NSNumber*>* usageCountDic;
-@property (nonatomic,weak) TestHeaderView* header;
+@property (nonatomic,weak) GSTestHeaderView* header;
 @property (nonatomic,assign) BOOL loading;
-@property (nonatomic,weak) TestFlowLayout* layout;
+@property (nonatomic,weak) GSTestFlowLayout* layout;
 @property (nonatomic,assign) BOOL end;
 @end
 
-@implementation ViewController
+@implementation GSViewController
 
 static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - properties
@@ -59,13 +59,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
 //    UIButton* button = [[UIButton alloc] init];
 //    [button setImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted]
-    TestFlowLayout* layout = (TestFlowLayout*)self.collectionView.collectionViewLayout;
+    GSTestFlowLayout* layout = (GSTestFlowLayout*)self.collectionView.collectionViewLayout;
 //    layout.itemSize = CGSizeMake(375, 18230);
     layout.itemSize = CGSizeMake(375, 100);
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
     self.layout = layout;
-    [self.collectionView registerClass:[TestHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TestHeaderView"];
+    [self.collectionView registerClass:[GSTestHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TestHeaderView"];
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:19 inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
     
 }
@@ -76,24 +76,24 @@ static NSString * const reuseIdentifier = @"Cell";
 //}
 
 - (NSAttributedString*)generateAttributedString:(NSString*)text {
-    RCETextAttribute* defaultAttribute = [RCETextAttribute defaultAttribute];
+    GSTextAttribute* defaultAttribute = [GSTextAttribute defaultAttribute];
     NSMutableAttributedString* resultAttributedString =
         [[NSMutableAttributedString alloc] initWithString:text attributes:defaultAttribute.attributes];
     NSError *error;
     NSTextCheckingTypes checkingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
     NSDataDetector *dataDetector = [[NSDataDetector alloc] initWithTypes:checkingTypes error:&error];
-    RCETextAttribute* linkAttribute = [[RCETextAttribute alloc] init];
+    GSTextAttribute* linkAttribute = [[GSTextAttribute alloc] init];
     linkAttribute.foregroundcolor = [UIColor blueColor];
     
     
-    RCETextHighlightedAttribute* heightLinght = [RCETextHighlightedAttribute defaultTextHiglightedAttribute];
+    GSTextHighlightedAttribute* heightLinght = [GSTextHighlightedAttribute defaultTextHiglightedAttribute];
     
     if (!error) {
         void (^usingBlock)(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL *stop)
         = ^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
                 [resultAttributedString addAttributes:linkAttribute.attributes
                                                 range:result.range];
-                [resultAttributedString addAttribute:RCETextHighlightedAttribute.name value:heightLinght range:result.range];
+                [resultAttributedString addAttribute:GSTextHighlightedAttribute.name value:heightLinght range:result.range];
 
         };
         [dataDetector enumerateMatchesInString:text
@@ -128,7 +128,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    TestViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    GSTestViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
   cell.label.attributedText = self.dataSource[indexPath.row];
@@ -147,7 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionReusableView* header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"TestHeaderView" forIndexPath:indexPath];
-    self.header = (TestHeaderView*)header;
+    self.header = (GSTestHeaderView*)header;
     return header;
 }
 

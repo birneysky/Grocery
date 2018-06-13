@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestHeaderView : UICollectionReusableView
+@interface GSTestHeaderView : UICollectionReusableView
 
 - (void)startAnimating;
 
