@@ -28,7 +28,7 @@
         <!--View Controller-->
         <scene sceneID="boV-au-i2e">
             <objects>
-                <viewController id="gc2-BO-IAP" sceneMemberID="viewController">
+                <viewController id="gc2-BO-IAP" customClass="GSViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S90-4H-19e"/>
                         <viewControllerLayoutGuide type="bottom" id="wgk-rv-4kW"/>

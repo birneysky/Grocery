@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B2427022200353640010CE59 /* STSearchBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427021200353640010CE59 /* STSearchBarContainerView.m */; };
 		B2427026200379200010CE59 /* STSearchBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427025200379200010CE59 /* STSearchBarTextField.m */; };
+		B24FF24920D3BB16002E5F45 /* GSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24FF24820D3BB16002E5F45 /* GSViewController.m */; };
 		B28B2AB7200468EB00F1D98B /* STSampleResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B2AB6200468EB00F1D98B /* STSampleResultController.m */; };
 		B2B235372000DC8B00A925C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B235362000DC8B00A925C4 /* AppDelegate.m */; };
 		B2B2353D2000DC8B00A925C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2B2353B2000DC8B00A925C4 /* Main.storyboard */; };
@@ -53,6 +54,8 @@
 		B2427021200353640010CE59 /* STSearchBarContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSearchBarContainerView.m; sourceTree = "<group>"; };
 		B2427024200379200010CE59 /* STSearchBarTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSearchBarTextField.h; sourceTree = "<group>"; };
 		B2427025200379200010CE59 /* STSearchBarTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSearchBarTextField.m; sourceTree = "<group>"; };
+		B24FF24720D3BB16002E5F45 /* GSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSViewController.h; sourceTree = "<group>"; };
+		B24FF24820D3BB16002E5F45 /* GSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSViewController.m; sourceTree = "<group>"; };
 		B28B2AB5200468EB00F1D98B /* STSampleResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSampleResultController.h; sourceTree = "<group>"; };
 		B28B2AB6200468EB00F1D98B /* STSampleResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSampleResultController.m; sourceTree = "<group>"; };
 		B28EED552016D64E009A6DA7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,8 @@
 				B2B235362000DC8B00A925C4 /* AppDelegate.m */,
 				B2E4EBC420049E9600D280AA /* AppleProduct.h */,
 				B2E4EBC520049E9600D280AA /* AppleProduct.m */,
+				B24FF24720D3BB16002E5F45 /* GSViewController.h */,
+				B24FF24820D3BB16002E5F45 /* GSViewController.m */,
 				B2C295C82000DD3800055804 /* MainTableViewController.h */,
 				B2C295C92000DD3800055804 /* MainTableViewController.m */,
 				B28B2AB5200468EB00F1D98B /* STSampleResultController.h */,
@@ -299,6 +304,7 @@
 				B2E4EBC620049E9600D280AA /* AppleProduct.m in Sources */,
 				B2C295CA2000DD3800055804 /* MainTableViewController.m in Sources */,
 				B2C295D4200262AE00055804 /* STSearchBar.m in Sources */,
+				B24FF24920D3BB16002E5F45 /* GSViewController.m in Sources */,
 				B2E4EBC92006129000D280AA /* STSampleDetailViewController.m in Sources */,
 				B2427026200379200010CE59 /* STSearchBarTextField.m in Sources */,
 				B2C295CF2000DE5A00055804 /* STSearchViewController.m in Sources */,
@@ -457,7 +463,7 @@
 				INFOPLIST_FILE = SearchTTT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.test;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -472,7 +478,7 @@
 				INFOPLIST_FILE = SearchTTT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.test;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
