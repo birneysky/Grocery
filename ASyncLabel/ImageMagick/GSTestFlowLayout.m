@@ -21,10 +21,21 @@
 }
 
 
+
+//- (void)finalizeLayoutTransition {
+//
+//}
+//
+//- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+//    return proposedContentOffset;
+//}
+
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
     /// self.collectionView.contentSize.height 此时获取到的contentsize 是变化前的
     CGFloat offset = self.newContentSize.height - self.collectionView.contentSize.height;
-    proposedContentOffset.y += offset;
+    if (offset > 0) {
+        proposedContentOffset.y += offset;
+    }
      return proposedContentOffset;
 }
 
