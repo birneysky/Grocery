@@ -32,8 +32,9 @@
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
     /// self.collectionView.contentSize.height 此时获取到的contentsize 是变化前的
+    /// self.collectionView.contentSize.height > self.collectionView.frame.size.height
     CGFloat offset = self.newContentSize.height - self.collectionView.contentSize.height;
-    if (offset > 0) {
+    if (offset > 0 ) {
         proposedContentOffset.y += offset;
     }
      return proposedContentOffset;
