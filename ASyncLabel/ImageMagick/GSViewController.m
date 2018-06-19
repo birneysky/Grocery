@@ -122,6 +122,8 @@ static NSString * const reuseIdentifier = @"Cell";
         self.loading = YES;
         [self.header startAnimating];
         [self performSelector:@selector(insertNewItem) withObject:nil afterDelay:0.8f];
+    } else {
+        self.layout.newContentSize = scrollView.contentSize;
     }
 }
 
@@ -254,10 +256,38 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
 }
 
+- (void)addNewItem {
+    NSUInteger index = self.dataSource.count;
+    NSMutableArray* indexPathes = [[NSMutableArray alloc] init];
+    CGFloat height = 0;
+    NSUInteger count = arc4random() % 10;
+    count = count == 0 ? 1 : count;
+    for (int i = 0; i < 1; i++) {
+        NSString* text = [NSString stringWithFormat:@"%ld github:https://www.github.com/birneysky 89 年，马化腾高考。93 年～98 年，他在寻呼机公司工作。98 年开始创业。当时创业的 5 位合伙人是：马化腾，张志东，陈一丹，许晨晔，曾李青。而 OICQ 本来是他们打算拿来竞标的产品，但是竞标失败，大家激烈讨论之后，马化腾还是决定要做。虽然不知道怎么挣钱，但是马化腾还是打算「养」这个产品。http://www.baidu.com 一开始OICQ就在产品和技术上展现出强大的竞争力13260398606 属于巨大的竞争力◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐🚋🎊😡🚖🚌💖💗💛💙🏨✺◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐😣😡🚖🚌🚋🎊😡🚖🚌💖💗💛💙🏨 ",(long)index];
+        NSAttributedString* attributedString = [self generateAttributedString:text];
+        [self.dataSource addObject:attributedString];
+        [indexPathes addObject:[NSIndexPath indexPathForItem:index inSection:0]];
+        index ++;
+        CGSize itemSize = [self collectionView:self.collectionView layout:nil sizeForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        height += itemSize.height;
+        height += 10;
+    }
+    
+    CGSize contentSize = self.collectionView.contentSize;
+    contentSize.height += height;
+    self.layout.newContentSize = contentSize;
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView insertItemsAtIndexPaths:indexPathes];
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+
 #pragma mark - Target Action
 
 - (IBAction)updateAction:(id)sender {
-    
+    [self addNewItem];
 }
 @end
 
