@@ -12,4 +12,6 @@
 
 @property(nonatomic,assign) CGSize newContentSize;
 
+@property(nonatomic,assign) BOOL keepOffset;
+
 @end
