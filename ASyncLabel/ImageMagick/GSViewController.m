@@ -53,10 +53,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     self.collectionView.backgroundColor = [UIColor colorNamed:@"test_blue"];
     self.collectionView.alwaysBounceVertical = YES;
+    
     GSTestFlowLayout* layout = (GSTestFlowLayout*)self.collectionView.collectionViewLayout;;
     layout.itemSize = CGSizeMake(375, 100);
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
+    //layout.headerReferenceSize = CGSizeMake(375, 30);
     self.layout = layout;
     self.end = YES;
     [self.collectionView registerClass:[GSTestHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TestHeaderView"];
@@ -72,6 +74,7 @@ static NSString * const reuseIdentifier = @"Cell";
                 [self.collectionView.collectionViewLayout invalidateLayout];
                 [self.collectionView setCollectionViewLayout:layout];
             } completion:^(BOOL finished) {
+                NSLog(@"😓😓😓😓😓😓😓 performBatchUpdates");
                 self.collectionView.contentOffset = offset;
                 self.loading = NO;
                 [UIView setAnimationsEnabled:YES];
@@ -81,7 +84,6 @@ static NSString * const reuseIdentifier = @"Cell";
         });
     });
 //    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:19 inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-    
 }
 
 - (NSAttributedString*)generateAttributedString:(NSString*)text {
