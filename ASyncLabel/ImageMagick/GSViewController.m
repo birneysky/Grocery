@@ -30,9 +30,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (NSMutableArray*)dataSource {
   if (!_dataSource) {
     _dataSource = [[NSMutableArray alloc] init];
-    //NSInteger random =  arc4random() % 10;
+    //NSInteger random =  arc4random() % 20;
     
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 15; i++) {
         ///
         NSString* text = [NSString stringWithFormat:@"%d github:https://www.github.com/birneysky 89 年，马化腾高考。93 年～98 年，他在寻呼机公司工作。98 年开始创业。当时创业的 5 位合伙人是：马化腾，张志东，陈一丹，许晨晔，曾李青。而 OICQ 本来是他们打算拿来竞标的产品，但是竞标失败，大家激烈讨论之后，马化腾还是决定要做。虽然不知道怎么挣钱，但是马化腾还是打算「养」这个产品。http://www.baidu.com 一开始OICQ就在产品和技术上展现出强大的竞争力13260398606 属于巨大的竞争力◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐🚋🎊😡🚖🚌💖💗💛💙🏨✺◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐😣😡🚖🚌🚋🎊😡🚖🚌💖💗💛💙🏨 ",i];
         NSAttributedString* attributedString = [self generateAttributedString:text];
@@ -70,12 +70,12 @@ static NSString * const reuseIdentifier = @"Cell";
             CGPoint offset = self.collectionView.contentOffset;
             offset.y += 30;
             [UIView setAnimationsEnabled:NO];
+            [self.collectionView.collectionViewLayout invalidateLayout];
+            [self.collectionView setCollectionViewLayout:layout];
             [self.collectionView performBatchUpdates:^{
-                [self.collectionView.collectionViewLayout invalidateLayout];
-                [self.collectionView setCollectionViewLayout:layout];
+                self.collectionView.contentOffset = offset;
             } completion:^(BOOL finished) {
                 NSLog(@"😓😓😓😓😓😓😓 performBatchUpdates");
-                self.collectionView.contentOffset = offset;
                 self.loading = NO;
                 [UIView setAnimationsEnabled:YES];
             }];
@@ -215,7 +215,9 @@ static NSString * const reuseIdentifier = @"Cell";
     static NSInteger index = -1;
     NSMutableArray* indexPathes = [[NSMutableArray alloc] init];
     CGFloat height = 0;
-    for (int i = 0; i < 8; i++) {
+    NSUInteger count = arc4random() % 10;
+    count = count == 0 ? 1 : count;
+    for (int i = 0; i < count; i++) {
         NSString* text = [NSString stringWithFormat:@"%ld github:https://www.github.com/birneysky 89 年，马化腾高考。93 年～98 年，他在寻呼机公司工作。98 年开始创业。当时创业的 5 位合伙人是：马化腾，张志东，陈一丹，许晨晔，曾李青。而 OICQ 本来是他们打算拿来竞标的产品，但是竞标失败，大家激烈讨论之后，马化腾还是决定要做。虽然不知道怎么挣钱，但是马化腾还是打算「养」这个产品。http://www.baidu.com 一开始OICQ就在产品和技术上展现出强大的竞争力13260398606 属于巨大的竞争力◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐🚋🎊😡🚖🚌💖💗💛💙🏨✺◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐😣😡🚖🚌🚋🎊😡🚖🚌💖💗💛💙🏨 ",(long)index];
         NSAttributedString* attributedString = [self generateAttributedString:text];
         [self.dataSource insertObject:attributedString atIndex:0];
