@@ -19,8 +19,8 @@ NSString* const tag = @"dev";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wilResignActive) name:UIApplicationWillResignActiveNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wilResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     ///   键盘通知的正确注册方式
 }
