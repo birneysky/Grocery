@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         exportSession?.shouldOptimizeForNetworkUse = true
         exportSession?.outputURL = URL(fileURLWithPath: outputPath)
         exportSession?.outputFileType = AVFileType.mp4
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { (_) in
             NSLog("progress %f", exportSession!.progress)
         }
         exportSession?.exportAsynchronously(completionHandler: {
