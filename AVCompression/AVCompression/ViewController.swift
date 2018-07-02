@@ -8,14 +8,14 @@
 
 import UIKit
 import AVFoundation
-
+import Photos
 class ViewController: UIViewController {
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let path = Bundle.main.bundlePath + "/ScreenRecording.m4v"
-        compressVideo(atUrl: URL(fileURLWithPath: path))
+//        compressVideo(atUrl: URL(fileURLWithPath: path))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -43,6 +43,17 @@ class ViewController: UIViewController {
         
     }
 
-
+    @IBAction func saveAction(_ sender: UIBarButtonItem) {
+        let path = Bundle.main.bundlePath + "/test1.m4v"
+        let url = URL(fileURLWithPath: path)
+        PHPhotoLibrary.shared() .performChanges({
+            let assetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }) { (success:Bool, error: Error?) in
+            if(!success) {
+                print(error)
+            }
+        }
+    }
+    
 }
 
