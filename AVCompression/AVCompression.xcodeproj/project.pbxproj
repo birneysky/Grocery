@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74DCC83620EA730C00685021 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74DCC83520EA730C00685021 /* test.mp4 */; };
 		B2C04FA72021A66E001FEEC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */; };
 		B2C04FA92021A66E001FEEC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C04FA82021A66E001FEEC0 /* ViewController.swift */; };
 		B2C04FAC2021A66E001FEEC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C04FAA2021A66E001FEEC0 /* Main.storyboard */; };
@@ -28,7 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		74DCC83520EA730C00685021 /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
 		B2C04FA32021A66E001FEEC0 /* AVCompression.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVCompression.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2C04FA82021A66E001FEEC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */,
 				B2C04FA82021A66E001FEEC0 /* ViewController.swift */,
 				B2C04FC82021B1CD001FEEC0 /* ScreenRecording.m4v */,
-				74DCC83520EA730C00685021 /* test.mp4 */,
 				B2C04FAA2021A66E001FEEC0 /* Main.storyboard */,
 				B2C04FAD2021A66E001FEEC0 /* Assets.xcassets */,
 				B2C04FAF2021A66E001FEEC0 /* LaunchScreen.storyboard */,
@@ -189,7 +186,6 @@
 				B2C04FC92021B1CD001FEEC0 /* ScreenRecording.m4v in Resources */,
 				B2C04FAE2021A66E001FEEC0 /* Assets.xcassets in Resources */,
 				B2C04FAC2021A66E001FEEC0 /* Main.storyboard in Resources */,
-				74DCC83620EA730C00685021 /* test.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
