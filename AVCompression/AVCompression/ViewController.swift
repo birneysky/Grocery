@@ -48,9 +48,12 @@ class ViewController: UIViewController {
         let url = URL(fileURLWithPath: path)
         PHPhotoLibrary.shared() .performChanges({
             let assetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+            let placeHolder = assetRequest?.placeholderForCreatedAsset
+            
+            
         }) { (success:Bool, error: Error?) in
             if(!success) {
-                print(error)
+                print(error!)
             }
         }
     }
