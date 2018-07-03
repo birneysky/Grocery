@@ -8,14 +8,15 @@
 
 import UIKit
 import AVFoundation
-import Photos
+import AssetsLibrary
+
 class ViewController: UIViewController {
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let path = Bundle.main.bundlePath + "/ScreenRecording.m4v"
-//        compressVideo(atUrl: URL(fileURLWithPath: path))
+        compressVideo(atUrl: URL(fileURLWithPath: path))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -33,27 +34,26 @@ class ViewController: UIViewController {
         exportSession?.shouldOptimizeForNetworkUse = true
         exportSession?.outputURL = URL(fileURLWithPath: outputPath)
         exportSession?.outputFileType = AVFileType.mp4
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { (_) in
+        let sourceTimer = DispatchSource.makeTimerSource()
+        sourceTimer.setEventHandler {
             NSLog("progress %f", exportSession!.progress)
         }
+        sourceTimer.schedule(deadline: DispatchTime.now(), repeating: 0.25)
         exportSession?.exportAsynchronously(completionHandler: {
             NSLog("stauts %d", exportSession!.status.rawValue)
-            timer.invalidate()
+            sourceTimer.cancel()
         });
+        sourceTimer.resume()
         
     }
 
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
-        let path = Bundle.main.bundlePath + "/test1.m4v"
-        let url = URL(fileURLWithPath: path)
-        PHPhotoLibrary.shared() .performChanges({
-            let assetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-            let placeHolder = assetRequest?.placeholderForCreatedAsset
-            
-            
-        }) { (success:Bool, error: Error?) in
-            if(!success) {
-                print(error!)
+        let path = Bundle.main.bundlePath + "/test.mp4"
+        let assetL = ALAssetsLibrary()
+        let videoUrl = URL(fileURLWithPath: path)
+        if assetL.videoAtPathIs(compatibleWithSavedPhotosAlbum: videoUrl) {
+            assetL.writeVideoAtPath(toSavedPhotosAlbum: videoUrl) { (assertUrl, error) in
+                print("assertUrl %@", assertUrl ?? "nil")
             }
         }
     }

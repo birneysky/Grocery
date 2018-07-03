@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B26321CB20EA3A04001C4A06 /* test1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B26321CA20EA3A03001C4A06 /* test1.mp4 */; };
+		B26321CB20EA3A04001C4A06 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B26321CA20EA3A03001C4A06 /* test.mp4 */; };
+		B26321CF20EB1400001C4A06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B26321CD20EB1400001C4A06 /* Main.storyboard */; };
 		B2C04FA72021A66E001FEEC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */; };
 		B2C04FA92021A66E001FEEC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C04FA82021A66E001FEEC0 /* ViewController.swift */; };
-		B2C04FAC2021A66E001FEEC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C04FAA2021A66E001FEEC0 /* Main.storyboard */; };
 		B2C04FAE2021A66E001FEEC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2C04FAD2021A66E001FEEC0 /* Assets.xcassets */; };
 		B2C04FB12021A66E001FEEC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2C04FAF2021A66E001FEEC0 /* LaunchScreen.storyboard */; };
 		B2C04FBC2021A66E001FEEC0 /* AVCompressionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C04FBB2021A66E001FEEC0 /* AVCompressionUITests.swift */; };
@@ -28,11 +28,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B26321CA20EA3A03001C4A06 /* test1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.mp4; sourceTree = "<group>"; };
+		B26321CA20EA3A03001C4A06 /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
+		B26321CE20EB1400001C4A06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2C04FA32021A66E001FEEC0 /* AVCompression.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVCompression.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2C04FA82021A66E001FEEC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B2C04FAB2021A66E001FEEC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2C04FAD2021A66E001FEEC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2C04FB02021A66E001FEEC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2C04FB22021A66E001FEEC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,12 +83,12 @@
 			children = (
 				B2C04FA62021A66E001FEEC0 /* AppDelegate.swift */,
 				B2C04FA82021A66E001FEEC0 /* ViewController.swift */,
-				B26321CA20EA3A03001C4A06 /* test1.mp4 */,
+				B26321CA20EA3A03001C4A06 /* test.mp4 */,
 				B2C04FC82021B1CD001FEEC0 /* ScreenRecording.m4v */,
-				B2C04FAA2021A66E001FEEC0 /* Main.storyboard */,
 				B2C04FAD2021A66E001FEEC0 /* Assets.xcassets */,
 				B2C04FAF2021A66E001FEEC0 /* LaunchScreen.storyboard */,
 				B2C04FB22021A66E001FEEC0 /* Info.plist */,
+				B26321CD20EB1400001C4A06 /* Main.storyboard */,
 			);
 			path = AVCompression;
 			sourceTree = "<group>";
@@ -186,10 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2C04FB12021A66E001FEEC0 /* LaunchScreen.storyboard in Resources */,
-				B26321CB20EA3A04001C4A06 /* test1.mp4 in Resources */,
+				B26321CF20EB1400001C4A06 /* Main.storyboard in Resources */,
+				B26321CB20EA3A04001C4A06 /* test.mp4 in Resources */,
 				B2C04FC92021B1CD001FEEC0 /* ScreenRecording.m4v in Resources */,
 				B2C04FAE2021A66E001FEEC0 /* Assets.xcassets in Resources */,
-				B2C04FAC2021A66E001FEEC0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,10 +231,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B2C04FAA2021A66E001FEEC0 /* Main.storyboard */ = {
+		B26321CD20EB1400001C4A06 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B2C04FAB2021A66E001FEEC0 /* Base */,
+				B26321CE20EB1400001C4A06 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = AVCompression/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -380,7 +380,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = AVCompression/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
