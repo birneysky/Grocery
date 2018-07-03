@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         NSLog("%@", outputPath)
         let asset = AVAsset(url: atUrl)
         let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality)
+        print(exportSession?.supportedFileTypes ?? "nil")
         exportSession?.shouldOptimizeForNetworkUse = true
         exportSession?.outputURL = URL(fileURLWithPath: outputPath)
         exportSession?.outputFileType = AVFileType.mp4
