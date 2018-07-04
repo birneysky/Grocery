@@ -113,6 +113,7 @@
 				TargetAttributes = {
 					85E56B9A1CECE26E0036F3A5 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 9CVMN4UZK4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -272,10 +273,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = "Photo Transitioning/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.Photo-Transitioning";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -288,10 +290,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = "Photo Transitioning/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.Photo-Transitioning";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.rce.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
