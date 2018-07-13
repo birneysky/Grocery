@@ -10,4 +10,11 @@
 
 @implementation UIResponder (Grocery)
 
+- (void)routerEventWithName:(NSString *)eventName
+                   userInfo:(NSDictionary *)userInfo
+{
+    [[self nextResponder] routerEventWithName:eventName
+                                     userInfo:userInfo];
+}
+
 @end

@@ -10,4 +10,7 @@
 
 @interface UIResponder (Grocery)
 
+- (void)routerEventWithName:(NSString *)eventName
+                   userInfo:(NSDictionary *)userInfo;
+
 @end
