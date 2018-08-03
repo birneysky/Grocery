@@ -255,7 +255,7 @@ class AssetTransitionDriver: NSObject {
             case .began, .changed:
                 // Ask the gesture recognizer for it's translation
                 let translation = fromGesture.translation(in: transitionContext.containerView)
-                
+                NSLog("translation %@", NSStringFromCGPoint(translation))
                 // Calculate the percent complete
                 let percentComplete = transitionAnimator.fractionComplete + progressStepFor(translation: translation)
                 
