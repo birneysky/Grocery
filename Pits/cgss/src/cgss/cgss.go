@@ -3,44 +3,17 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"github.com/gorilla/websocket"
 )
 
 func Add(first int, second int) int {
 	return first + second
 }
 
-var (
-	upgrader = websocket.Upgrader{
-		CheckOrigin: func(r *http.Request) bool {
-			return true
-		},
-	}
-)
+
 
 func wsHandler(w http.ResponseWriter, r* http.Request) {
-	var(
-		conn *websocket.Conn
-		err error
-		data []byte
-	)
-	//w.Write([]byte("hello"))
-	if conn, err = upgrader.Upgrade(w,r,nil); err != nil {
-		return
-	}
+	w.Write([]byte("hello"))
 
-	for{
-		/// Text Binary
-		if _,data,err = conn.ReadMessage(); err != nil {
-			goto ERR
-		}
-		if err = conn.WriteMessage(websocket.TextMessage,data); err != nil {
-			goto ERR
-		}
-	}
-
-	ERR:
-		conn.Close()
 }
 
 
