@@ -6,7 +6,7 @@
 //  Copyright © 2018年 RongCloud. All rights reserved.
 //
 
-#import "STSampleDetailViewController.h"
+#import "GSSampleDetailViewController.h"
 
 @interface STSampleDetailViewController ()
 

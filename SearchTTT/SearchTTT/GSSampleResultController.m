@@ -6,14 +6,14 @@
 //  Copyright © 2018年 RongCloud. All rights reserved.
 //
 
-#import "STSampleResultController.h"
-#import "STSampleDetailViewController.h"
+#import "GSSampleResultController.h"
+#import "GSSampleDetailViewController.h"
 
-@interface STSampleResultController ()
+@interface GSSampleResultController ()
 
 @end
 
-@implementation STSampleResultController
+@implementation GSSampleResultController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

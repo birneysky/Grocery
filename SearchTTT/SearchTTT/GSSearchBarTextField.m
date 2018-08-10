@@ -6,7 +6,7 @@
 //  Copyright © 2018年 RongCloud. All rights reserved.
 //
 
-#import "STSearchBarTextField.h"
+#import "GSSearchBarTextField.h"
 
 @implementation STSearchBarTextField
 

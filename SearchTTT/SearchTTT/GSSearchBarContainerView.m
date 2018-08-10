@@ -6,13 +6,13 @@
 //  Copyright © 2018年 RongCloud. All rights reserved.
 //
 
-#import "STSearchBarContainerView.h"
+#import "GSSearchBarContainerView.h"
 
-@interface STSearchBarContainerView ()
+@interface GSSearchBarContainerView ()
 @property (nonatomic,weak) UIView* searchView;
 @end
 
-@implementation STSearchBarContainerView
+@implementation GSSearchBarContainerView
 
 //- (void)didAddSubview:(UIView *)subview {
 //    self.searchView = subview;

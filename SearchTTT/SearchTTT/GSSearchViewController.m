@@ -6,26 +6,26 @@
 //  Copyright © 2017年 Search. All rights reserved.
 //
 
-#import "STSearchViewController.h"
-#import "STSearchPresentationController.h"
-#import "STSearchBar.h"
+#import "GSSearchViewController.h"
+#import "GSSearchPresentationController.h"
+#import "GSSearchBar.h"
 
-@interface STSearchViewController () <STSearchBarDelegate,UIGestureRecognizerDelegate>
-@property (nonatomic,strong) STSearchBar* searchBar;
+@interface GSSearchViewController () <GSSearchBarDelegate,UIGestureRecognizerDelegate>
+@property (nonatomic,strong) GSSearchBar* searchBar;
 @property (nonatomic,strong) UIViewController* searchResultsController;
-@property (nonatomic,strong) STSearchPresentationController *presentationController;
+@property (nonatomic,strong) GSSearchPresentationController *presentationController;
 @end
 
 extern NSNotificationName const RCESearchBarResignFirstResponderNotification;
 extern NSNotificationName const RCESearchBarInputTextDidChangeNotification;
 
-@implementation STSearchViewController
+@implementation GSSearchViewController
 #pragma mark - Properties
 
-- (STSearchBar*)searchBar {
+- (GSSearchBar*)searchBar {
     if (!_searchBar) {
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        _searchBar = [[STSearchBar alloc] initWithFrame:(CGRect){0,0,width,44}];
+        _searchBar = [[GSSearchBar alloc] initWithFrame:(CGRect){0,0,width,44}];
         _searchBar.delegate = self;
     }
     return _searchBar;
@@ -117,9 +117,9 @@ extern NSNotificationName const RCESearchBarInputTextDidChangeNotification;
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self];
     nav.navigationBarHidden = YES;
     UIViewController *viewController = [self currentviewController];
-    STSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
+    GSSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
     
-    presentationController = [[STSearchPresentationController alloc] initWithPresentedViewController:nav
+    presentationController = [[GSSearchPresentationController alloc] initWithPresentedViewController:nav
                                                                              presentingViewController:viewController];
     
     nav.transitioningDelegate = presentationController;
@@ -142,13 +142,13 @@ extern NSNotificationName const RCESearchBarInputTextDidChangeNotification;
 
 #pragma mark - RCESearchBarDelegate
 
-- (BOOL)searchBarShouldBeginEditing:(STSearchBar *)searchBar {
+- (BOOL)searchBarShouldBeginEditing:(GSSearchBar *)searchBar {
     //UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self];
     //nav.navigationBarHidden = YES;
     UIViewController *viewController = [self currentviewController];
-    STSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
+    GSSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self];
-    presentationController = [[STSearchPresentationController alloc] initWithPresentedViewController:nav presentingViewController:viewController];
+    presentationController = [[GSSearchPresentationController alloc] initWithPresentedViewController:nav presentingViewController:viewController];
     
     nav.transitioningDelegate = presentationController;
     
@@ -156,7 +156,7 @@ extern NSNotificationName const RCESearchBarInputTextDidChangeNotification;
     return YES;
 }
 
-- (void)searchBarTextDidBeginEditing:(STSearchBar *)searchBar {
+- (void)searchBarTextDidBeginEditing:(GSSearchBar *)searchBar {
 
 }
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface STSearchControllerView : UIView
+@interface GSSearchControllerView : UIView
 
 @property (nonatomic,weak) UIView* hitView;
 

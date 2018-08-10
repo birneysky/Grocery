@@ -6,33 +6,33 @@
 //  Copyright © 2017年 Search. All rights reserved.
 //
 
-#import "STSearchPresentationController.h"
-#import "STSearchViewController.h"
-#import "STSearchBarContainerView.h"
-#import "STSearchBar.h"
+#import "GSSearchPresentationController.h"
+#import "GSSearchViewController.h"
+#import "GSSearchBarContainerView.h"
+#import "GSSearchBar.h"
 
 //! The corner radius applied to the view containing the presented view
 //! controller.
 #define CORNER_RADIUS   16.f
 
-@interface STSearchPresentationController () <UIViewControllerAnimatedTransitioning>
+@interface GSSearchPresentationController () <UIViewControllerAnimatedTransitioning>
 @property (nonatomic, weak) UIView *dimmingView;
 @property (nonatomic, weak) UIView *presentationWrappingView;
 @property (nonatomic, weak) UITableView * originSuperView;
 @property (nonatomic, weak) UIView* searchBar;
 @property (nonatomic, assign) CGRect originFrme;
-@property (nonatomic, strong) STSearchBarContainerView* searchBarContainer;
+@property (nonatomic, strong) GSSearchBarContainerView* searchBarContainer;
 
 @end
 
 
-@implementation STSearchPresentationController
+@implementation GSSearchPresentationController
 
 
-- (STSearchBarContainerView*)searchBarContainer {
+- (GSSearchBarContainerView*)searchBarContainer {
     if (!_searchBarContainer) {
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        _searchBarContainer =[[STSearchBarContainerView alloc] initWithFrame:(CGRect){0,0,width,44}];
+        _searchBarContainer =[[GSSearchBarContainerView alloc] initWithFrame:(CGRect){0,0,width,44}];
         _searchBarContainer.backgroundColor = [UIColor colorWithRed:201/255.0f green:201/255.0f blue:206/255.0f alpha:1];
     }
     return _searchBarContainer;
@@ -183,8 +183,8 @@
     if (isPresenting) {
         //RCESearchViewController* svc = (RCESearchViewController*)self.presentedViewController;
         UINavigationController* nav = (UINavigationController*)self.presentedViewController;
-        STSearchViewController* svc = (STSearchViewController*)nav.viewControllers.firstObject;
-        STSearchBar* searchBar = svc.searchBar;
+        GSSearchViewController* svc = (GSSearchViewController*)nav.viewControllers.firstObject;
+        GSSearchBar* searchBar = svc.searchBar;
         self.originSuperView = (UITableView*)searchBar.superview;
       
 //        self.originSuperView.tableHeaderView = nil;

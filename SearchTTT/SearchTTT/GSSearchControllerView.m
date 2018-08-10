@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Search. All rights reserved.
 //
 
-#import "STSearchControllerView.h"
+#import "GSSearchControllerView.h"
 
-@implementation STSearchControllerView
+@implementation GSSearchControllerView
 
 /*
 // Only override drawRect: if you perform custom drawing.

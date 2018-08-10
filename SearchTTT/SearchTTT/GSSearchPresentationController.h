@@ -8,5 +8,5 @@
 
 @import UIKit;
 
-@interface STSearchPresentationController : UIPresentationController <UIViewControllerTransitioningDelegate>
+@interface GSSearchPresentationController : UIPresentationController <UIViewControllerTransitioningDelegate>
 @end

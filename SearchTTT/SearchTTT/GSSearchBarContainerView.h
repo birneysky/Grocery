@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface STSearchBarContainerView : UIView
+@interface GSSearchBarContainerView : UIView
 
 @end

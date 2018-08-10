@@ -7,16 +7,16 @@
 //
 
 #import "MainTableViewController.h"
-#import "STSearchPresentationController.h"
-#import "STSearchViewController.h"
-#import "STSampleResultController.h"
+#import "GSSearchPresentationController.h"
+#import "GSSearchViewController.h"
+#import "GSSampleResultController.h"
 #import "AppleProduct.h"
-#import "STSearchBar.h"
+#import "GSSearchBar.h"
 
-@interface MainTableViewController () <STSearchResultsUpdating>
+@interface MainTableViewController () <GSSearchResultsUpdating>
 
-@property (nonatomic,strong) STSearchViewController* searchVC;
-@property (nonatomic,strong) STSampleResultController* sampleResultVC;
+@property (nonatomic,strong) GSSearchViewController* searchVC;
+@property (nonatomic,strong) GSSampleResultController* sampleResultVC;
 @property (nonatomic,strong) NSArray<AppleProduct*>* dataSource;
 
 @end
@@ -24,17 +24,17 @@
 @implementation MainTableViewController
 
 #pragma mark - Properties
-- (STSearchViewController*)searchVC {
+- (GSSearchViewController*)searchVC {
     if (!_searchVC) {
-        _searchVC = [[STSearchViewController alloc] initWithSearchResultsController:self.sampleResultVC];
+        _searchVC = [[GSSearchViewController alloc] initWithSearchResultsController:self.sampleResultVC];
         _searchVC.searchResultsUpdater = self;
     }
     return _searchVC;
 }
 
-- (STSampleResultController*)sampleResultVC {
+- (GSSampleResultController*)sampleResultVC {
     if (!_sampleResultVC) {
-        _sampleResultVC = [[STSampleResultController alloc] init];
+        _sampleResultVC = [[GSSampleResultController alloc] init];
     }
     return _sampleResultVC;
 }
@@ -136,12 +136,12 @@
 #pragma mark - Target Action
 
 - (IBAction)newAction:(id)sender {
-    STSearchViewController *secondViewController = [[STSearchViewController alloc] init];
+    GSSearchViewController *secondViewController = [[GSSearchViewController alloc] init];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:secondViewController];
     nav.navigationBarHidden = YES;
-    STSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
+    GSSearchPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
     
-    presentationController = [[STSearchPresentationController alloc] initWithPresentedViewController:nav presentingViewController:self];
+    presentationController = [[GSSearchPresentationController alloc] initWithPresentedViewController:nav presentingViewController:self];
     
     nav.transitioningDelegate = presentationController;
     
@@ -152,7 +152,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - RCESearchResultsUpdating
-- (void)updateSearchResultsForSearchController:(STSearchViewController *)searchController {
+- (void)updateSearchResultsForSearchController:(GSSearchViewController *)searchController {
     NSString *searchText = searchController.searchBar.text;
     NSMutableArray *searchResults = [self.dataSource mutableCopy];
     

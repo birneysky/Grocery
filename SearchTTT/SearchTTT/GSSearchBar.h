@@ -10,29 +10,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol STSearchBarDelegate;
+@protocol GSSearchBarDelegate;
 
 IB_DESIGNABLE
 
-@interface STSearchBar : UIView
+@interface GSSearchBar : UIView
 
 - (instancetype)init;
 - (instancetype)initWithFrame:(CGRect)frame;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
 
-@property (nullable,nonatomic,weak) id <STSearchBarDelegate> delegate;
+@property (nullable,nonatomic,weak) id <GSSearchBarDelegate> delegate;
 @property (nullable,nonatomic,copy) NSString* text;
 
 @end
 
 
-@protocol STSearchBarDelegate <NSObject>
+@protocol GSSearchBarDelegate <NSObject>
 
 @optional
 
-- (BOOL)searchBarShouldBeginEditing:(STSearchBar *)searchBar;
-- (void)searchBarTextDidBeginEditing:(STSearchBar *)searchBar;
-- (BOOL)searchBarShouldEndEditing:(STSearchBar *)searchBar;
+- (BOOL)searchBarShouldBeginEditing:(GSSearchBar *)searchBar;
+- (void)searchBarTextDidBeginEditing:(GSSearchBar *)searchBar;
+- (BOOL)searchBarShouldEndEditing:(GSSearchBar *)searchBar;
 
 @end
 

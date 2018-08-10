@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppleProduct.h"
 
-@interface STSampleResultController : UITableViewController
+@interface GSSampleResultController : UITableViewController
 
 @property (nonatomic,copy) NSArray<AppleProduct*>* products;
 

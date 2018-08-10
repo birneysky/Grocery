@@ -6,11 +6,11 @@
 //  Copyright © 2017年 Search. All rights reserved.
 //
 
-#import "STSearchBar.h"
-#import "STSearchBarTextField.h"
-#import "STSearchBarContainerView.h"
+#import "GSSearchBar.h"
+#import "GSSearchBarTextField.h"
+#import "GSSearchBarContainerView.h"
 
-@interface STSearchBar () <UITextFieldDelegate>
+@interface GSSearchBar () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UIImageView* background;
 @property (nonatomic, strong) UIView* contentView;
@@ -24,7 +24,7 @@
 NSNotificationName const RCESearchBarResignFirstResponderNotification = @"RCESearchBarResignFirstResponder";
 NSNotificationName const RCESearchBarInputTextDidChangeNotification = @"RCESearchBarInputTextDidChangeNotification";
 
-@implementation STSearchBar
+@implementation GSSearchBar
 #pragma mark - Properties
 - (UIImageView*)background {
     if (!_background) {
@@ -42,7 +42,7 @@ NSNotificationName const RCESearchBarInputTextDidChangeNotification = @"RCESearc
 }
 
 - (void)setFrame:(CGRect)frame {
-    if ([self.superview isKindOfClass:[STSearchBarContainerView class]]) {
+    if ([self.superview isKindOfClass:[GSSearchBarContainerView class]]) {
             CGRect rect = self.superview.frame;
             rect.origin.y = rect.size.height - 44;
             rect.size.height = 44;
