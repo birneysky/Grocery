@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9de7582-cf5f-4ab2-954a-655977ff9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/cgss" beforeDir="false" afterPath="$PROJECT_DIR$/bin/cgss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cgss/cgss.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cgss/cgss.go" afterDir="false" />
-    </list>
+    <list default="true" id="c9de7582-cf5f-4ab2-954a-655977ff9c34" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +47,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cgss/cgss.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
+            <state relative-caret-position="483">
               <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
               <folding>
                 <element signature="e#14#43#0" expanded="true" />
@@ -205,7 +201,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cgss/cgss.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
+        <state relative-caret-position="483">
           <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
           <folding>
             <element signature="e#14#43#0" expanded="true" />
