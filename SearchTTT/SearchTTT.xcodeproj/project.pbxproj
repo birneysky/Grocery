@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B2427022200353640010CE59 /* STSearchBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427021200353640010CE59 /* STSearchBarContainerView.m */; };
-		B2427026200379200010CE59 /* STSearchBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427025200379200010CE59 /* STSearchBarTextField.m */; };
+		B2427022200353640010CE59 /* GSSearchBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427021200353640010CE59 /* GSSearchBarContainerView.m */; };
+		B2427026200379200010CE59 /* GSSearchBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B2427025200379200010CE59 /* GSSearchBarTextField.m */; };
 		B24FF24920D3BB16002E5F45 /* GSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24FF24820D3BB16002E5F45 /* GSViewController.m */; };
-		B28B2AB7200468EB00F1D98B /* STSampleResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B2AB6200468EB00F1D98B /* STSampleResultController.m */; };
+		B28B2AB7200468EB00F1D98B /* GSSampleResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28B2AB6200468EB00F1D98B /* GSSampleResultController.m */; };
 		B2B235372000DC8B00A925C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B235362000DC8B00A925C4 /* AppDelegate.m */; };
 		B2B2353D2000DC8B00A925C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2B2353B2000DC8B00A925C4 /* Main.storyboard */; };
 		B2B2353F2000DC8B00A925C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2B2353E2000DC8B00A925C4 /* Assets.xcassets */; };
@@ -18,12 +18,12 @@
 		B2B235452000DC8B00A925C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B235442000DC8B00A925C4 /* main.m */; };
 		B2B2354F2000DC8B00A925C4 /* SearchTTTUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B2354E2000DC8B00A925C4 /* SearchTTTUITests.m */; };
 		B2C295CA2000DD3800055804 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295C92000DD3800055804 /* MainTableViewController.m */; };
-		B2C295CF2000DE5A00055804 /* STSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295CC2000DE5900055804 /* STSearchViewController.m */; };
-		B2C295D02000DE5A00055804 /* STSearchPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295CE2000DE5900055804 /* STSearchPresentationController.m */; };
-		B2C295D4200262AE00055804 /* STSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295D3200262AE00055804 /* STSearchBar.m */; };
-		B2C295D82003105100055804 /* STSearchControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295D62003105100055804 /* STSearchControllerView.m */; };
+		B2C295CF2000DE5A00055804 /* GSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295CC2000DE5900055804 /* GSSearchViewController.m */; };
+		B2C295D02000DE5A00055804 /* GSSearchPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295CE2000DE5900055804 /* GSSearchPresentationController.m */; };
+		B2C295D4200262AE00055804 /* GSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295D3200262AE00055804 /* GSSearchBar.m */; };
+		B2C295D82003105100055804 /* GSSearchControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C295D62003105100055804 /* GSSearchControllerView.m */; };
 		B2E4EBC620049E9600D280AA /* AppleProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E4EBC520049E9600D280AA /* AppleProduct.m */; };
-		B2E4EBC92006129000D280AA /* STSampleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E4EBC82006129000D280AA /* STSampleDetailViewController.m */; };
+		B2E4EBC92006129000D280AA /* GSSampleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E4EBC82006129000D280AA /* GSSampleDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,14 +50,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B2427020200353640010CE59 /* STSearchBarContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSearchBarContainerView.h; sourceTree = "<group>"; };
-		B2427021200353640010CE59 /* STSearchBarContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSearchBarContainerView.m; sourceTree = "<group>"; };
-		B2427024200379200010CE59 /* STSearchBarTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSearchBarTextField.h; sourceTree = "<group>"; };
-		B2427025200379200010CE59 /* STSearchBarTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSearchBarTextField.m; sourceTree = "<group>"; };
+		B2427020200353640010CE59 /* GSSearchBarContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSearchBarContainerView.h; sourceTree = "<group>"; };
+		B2427021200353640010CE59 /* GSSearchBarContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSearchBarContainerView.m; sourceTree = "<group>"; };
+		B2427024200379200010CE59 /* GSSearchBarTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSearchBarTextField.h; sourceTree = "<group>"; };
+		B2427025200379200010CE59 /* GSSearchBarTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSearchBarTextField.m; sourceTree = "<group>"; };
 		B24FF24720D3BB16002E5F45 /* GSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSViewController.h; sourceTree = "<group>"; };
 		B24FF24820D3BB16002E5F45 /* GSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSViewController.m; sourceTree = "<group>"; };
-		B28B2AB5200468EB00F1D98B /* STSampleResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSampleResultController.h; sourceTree = "<group>"; };
-		B28B2AB6200468EB00F1D98B /* STSampleResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSampleResultController.m; sourceTree = "<group>"; };
+		B28B2AB5200468EB00F1D98B /* GSSampleResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSampleResultController.h; sourceTree = "<group>"; };
+		B28B2AB6200468EB00F1D98B /* GSSampleResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSampleResultController.m; sourceTree = "<group>"; };
 		B28EED552016D64E009A6DA7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B2B235322000DC8B00A925C4 /* SearchTTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchTTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B235352000DC8B00A925C4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,18 +72,18 @@
 		B2B235502000DC8B00A925C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2C295C82000DD3800055804 /* MainTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		B2C295C92000DD3800055804 /* MainTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
-		B2C295CB2000DE5900055804 /* STSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSearchViewController.h; sourceTree = "<group>"; };
-		B2C295CC2000DE5900055804 /* STSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSearchViewController.m; sourceTree = "<group>"; };
-		B2C295CD2000DE5900055804 /* STSearchPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSearchPresentationController.h; sourceTree = "<group>"; };
-		B2C295CE2000DE5900055804 /* STSearchPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSearchPresentationController.m; sourceTree = "<group>"; };
-		B2C295D2200262AE00055804 /* STSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSearchBar.h; sourceTree = "<group>"; };
-		B2C295D3200262AE00055804 /* STSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSearchBar.m; sourceTree = "<group>"; };
-		B2C295D62003105100055804 /* STSearchControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSearchControllerView.m; sourceTree = "<group>"; };
-		B2C295D72003105100055804 /* STSearchControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSearchControllerView.h; sourceTree = "<group>"; };
+		B2C295CB2000DE5900055804 /* GSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSearchViewController.h; sourceTree = "<group>"; };
+		B2C295CC2000DE5900055804 /* GSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSearchViewController.m; sourceTree = "<group>"; };
+		B2C295CD2000DE5900055804 /* GSSearchPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSearchPresentationController.h; sourceTree = "<group>"; };
+		B2C295CE2000DE5900055804 /* GSSearchPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSearchPresentationController.m; sourceTree = "<group>"; };
+		B2C295D2200262AE00055804 /* GSSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSearchBar.h; sourceTree = "<group>"; };
+		B2C295D3200262AE00055804 /* GSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSearchBar.m; sourceTree = "<group>"; };
+		B2C295D62003105100055804 /* GSSearchControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSearchControllerView.m; sourceTree = "<group>"; };
+		B2C295D72003105100055804 /* GSSearchControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSearchControllerView.h; sourceTree = "<group>"; };
 		B2E4EBC420049E9600D280AA /* AppleProduct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleProduct.h; sourceTree = "<group>"; };
 		B2E4EBC520049E9600D280AA /* AppleProduct.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleProduct.m; sourceTree = "<group>"; };
-		B2E4EBC72006129000D280AA /* STSampleDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSampleDetailViewController.h; sourceTree = "<group>"; };
-		B2E4EBC82006129000D280AA /* STSampleDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSampleDetailViewController.m; sourceTree = "<group>"; };
+		B2E4EBC72006129000D280AA /* GSSampleDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSampleDetailViewController.h; sourceTree = "<group>"; };
+		B2E4EBC82006129000D280AA /* GSSampleDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSampleDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,22 +142,22 @@
 				B24FF24820D3BB16002E5F45 /* GSViewController.m */,
 				B2C295C82000DD3800055804 /* MainTableViewController.h */,
 				B2C295C92000DD3800055804 /* MainTableViewController.m */,
-				B28B2AB5200468EB00F1D98B /* STSampleResultController.h */,
-				B28B2AB6200468EB00F1D98B /* STSampleResultController.m */,
-				B2E4EBC72006129000D280AA /* STSampleDetailViewController.h */,
-				B2E4EBC82006129000D280AA /* STSampleDetailViewController.m */,
-				B2C295D2200262AE00055804 /* STSearchBar.h */,
-				B2C295D3200262AE00055804 /* STSearchBar.m */,
-				B2C295D72003105100055804 /* STSearchControllerView.h */,
-				B2C295D62003105100055804 /* STSearchControllerView.m */,
-				B2C295CD2000DE5900055804 /* STSearchPresentationController.h */,
-				B2C295CE2000DE5900055804 /* STSearchPresentationController.m */,
-				B2427024200379200010CE59 /* STSearchBarTextField.h */,
-				B2427025200379200010CE59 /* STSearchBarTextField.m */,
-				B2427020200353640010CE59 /* STSearchBarContainerView.h */,
-				B2427021200353640010CE59 /* STSearchBarContainerView.m */,
-				B2C295CB2000DE5900055804 /* STSearchViewController.h */,
-				B2C295CC2000DE5900055804 /* STSearchViewController.m */,
+				B28B2AB5200468EB00F1D98B /* GSSampleResultController.h */,
+				B28B2AB6200468EB00F1D98B /* GSSampleResultController.m */,
+				B2E4EBC72006129000D280AA /* GSSampleDetailViewController.h */,
+				B2E4EBC82006129000D280AA /* GSSampleDetailViewController.m */,
+				B2C295D2200262AE00055804 /* GSSearchBar.h */,
+				B2C295D3200262AE00055804 /* GSSearchBar.m */,
+				B2C295D72003105100055804 /* GSSearchControllerView.h */,
+				B2C295D62003105100055804 /* GSSearchControllerView.m */,
+				B2C295CD2000DE5900055804 /* GSSearchPresentationController.h */,
+				B2C295CE2000DE5900055804 /* GSSearchPresentationController.m */,
+				B2427024200379200010CE59 /* GSSearchBarTextField.h */,
+				B2427025200379200010CE59 /* GSSearchBarTextField.m */,
+				B2427020200353640010CE59 /* GSSearchBarContainerView.h */,
+				B2427021200353640010CE59 /* GSSearchBarContainerView.m */,
+				B2C295CB2000DE5900055804 /* GSSearchViewController.h */,
+				B2C295CC2000DE5900055804 /* GSSearchViewController.m */,
 				B2B2353B2000DC8B00A925C4 /* Main.storyboard */,
 				B2B2353E2000DC8B00A925C4 /* Assets.xcassets */,
 				B2B235402000DC8B00A925C4 /* LaunchScreen.storyboard */,
@@ -296,19 +296,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2C295D02000DE5A00055804 /* STSearchPresentationController.m in Sources */,
-				B28B2AB7200468EB00F1D98B /* STSampleResultController.m in Sources */,
-				B2427022200353640010CE59 /* STSearchBarContainerView.m in Sources */,
+				B2C295D02000DE5A00055804 /* GSSearchPresentationController.m in Sources */,
+				B28B2AB7200468EB00F1D98B /* GSSampleResultController.m in Sources */,
+				B2427022200353640010CE59 /* GSSearchBarContainerView.m in Sources */,
 				B2B235452000DC8B00A925C4 /* main.m in Sources */,
 				B2B235372000DC8B00A925C4 /* AppDelegate.m in Sources */,
 				B2E4EBC620049E9600D280AA /* AppleProduct.m in Sources */,
 				B2C295CA2000DD3800055804 /* MainTableViewController.m in Sources */,
-				B2C295D4200262AE00055804 /* STSearchBar.m in Sources */,
+				B2C295D4200262AE00055804 /* GSSearchBar.m in Sources */,
 				B24FF24920D3BB16002E5F45 /* GSViewController.m in Sources */,
-				B2E4EBC92006129000D280AA /* STSampleDetailViewController.m in Sources */,
-				B2427026200379200010CE59 /* STSearchBarTextField.m in Sources */,
-				B2C295CF2000DE5A00055804 /* STSearchViewController.m in Sources */,
-				B2C295D82003105100055804 /* STSearchControllerView.m in Sources */,
+				B2E4EBC92006129000D280AA /* GSSampleDetailViewController.m in Sources */,
+				B2427026200379200010CE59 /* GSSearchBarTextField.m in Sources */,
+				B2C295CF2000DE5A00055804 /* GSSearchViewController.m in Sources */,
+				B2C295D82003105100055804 /* GSSearchControllerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

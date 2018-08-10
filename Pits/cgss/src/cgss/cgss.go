@@ -82,7 +82,7 @@ func main() {
 	infos = make(map[string] UserInfo)
 	infos["123455"] = UserInfo{"12345","Tom cat","romm 302"}
 	infos["1"] = UserInfo{"1","toney","shen zheng shi "}
-	
+
 
 	http.HandleFunc("/ws",wsHandler)
 
