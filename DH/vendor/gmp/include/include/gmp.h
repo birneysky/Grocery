@@ -864,8 +864,6 @@ __GMP_DECLSPEC void mpz_init_set_si (mpz_ptr, signed long int);
 
 #define mpz_init_set_str __gmpz_init_set_str
 __GMP_DECLSPEC int mpz_init_set_str (mpz_ptr, const char *, int);
-    
-void mpz_inp_data (mpz_ptr x, const void *data,int len);
 
 #define mpz_init_set_ui __gmpz_init_set_ui
 __GMP_DECLSPEC void mpz_init_set_ui (mpz_ptr, unsigned long int);

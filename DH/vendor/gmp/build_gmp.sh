@@ -11,10 +11,10 @@ GMP_VERSION="6.1.2"
 
 SDKVERSION=`xcrun -sdk iphoneos --show-sdk-version`
 
-MIN_IOS="9.0"
+MIN_IOS="8.0"
 
 BITCODE="-fembed-bitcode"
-if [ "${SDKVERSION}" == "9.0" ]; then
+if [ "${SDKVERSION}" == "8.0" ]; then
 	BITCODE=""
 fi
 
@@ -74,11 +74,11 @@ build()
 	make install &> "${CURRENT}/gmplib-${ARCH}-install.log"
 }
 
-#downloadGMP
+downloadGMP
 
-#rm -rf gmp
-#tar xfj "gmp-${GMP_VERSION}.tar.bz2"
-#mv gmp-${GMP_VERSION} gmp
+rm -rf gmp
+tar xfj "gmp-${GMP_VERSION}.tar.bz2"
+mv gmp-${GMP_VERSION} gmp
 
 cd gmp
 CURRENT=`pwd`
