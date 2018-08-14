@@ -5,6 +5,7 @@ import (
 
 	"two"
 	"one"
+	"mlib"
 )
 
 func Add(first int, second int) int {
@@ -145,6 +146,13 @@ func main() {
 
 	file5 = file6
 
+
+	var manager *mlib.MusicManager = mlib.NewMusicManager()
+	manager.Add(&mlib.MusicEntry{"1","我就是我","张国荣","香港","流行音乐粤语"})
+	manager.Add(&mlib.MusicEntry{"2","忘情水","刘德华","香港","流行音乐国语"})
+	manager.Add(&mlib.MusicEntry{"3","十年","陈奕迅","香港","流行音乐国语"})
+	manager.Add(&mlib.MusicEntry{"4","曾经的你","许巍","内地","流行音乐国语"})
+	manager.Add(&mlib.MusicEntry{"5","双杰伦","周杰棍","台湾","流行音乐国语"})
 
 	//http.HandleFunc("/ws",wsHandler)
 
