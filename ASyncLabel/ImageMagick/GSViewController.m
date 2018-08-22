@@ -43,12 +43,12 @@ static NSString * const reuseIdentifier = @"Cell";
     _dataSource = [[NSMutableArray alloc] init];
     
     
-    for (int i = 0; i < self.random; i++) {
-        ///
-        NSString* text = [NSString stringWithFormat:@"%d github:https://www.github.com/birneysky 89 年，马化腾高考。93 年～98 年，他在寻呼机公司工作。98 年开始创业。当时创业的 5 位合伙人是：马化腾，张志东，陈一丹，许晨晔，曾李青。而 OICQ 本来是他们打算拿来竞标的产品，但是竞标失败，大家激烈讨论之后，马化腾还是决定要做。虽然不知道怎么挣钱，但是马化腾还是打算「养」这个产品。http://www.baidu.com 一开始OICQ就在产品和技术上展现出强大的竞争力13260398606 属于巨大的竞争力◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐🚋🎊😡🚖🚌💖💗💛💙🏨✺◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐😣😡🚖🚌🚋🎊😡🚖🚌💖💗💛💙🏨 ",i];
-        NSAttributedString* attributedString = [self generateAttributedString:text];
-      [_dataSource addObject:attributedString];
-    }
+//    for (int i = 0; i < self.random; i++) {
+//        ///
+//        NSString* text = [NSString stringWithFormat:@"%d github:https://www.github.com/birneysky 89 年，马化腾高考。93 年～98 年，他在寻呼机公司工作。98 年开始创业。当时创业的 5 位合伙人是：马化腾，张志东，陈一丹，许晨晔，曾李青。而 OICQ 本来是他们打算拿来竞标的产品，但是竞标失败，大家激烈讨论之后，马化腾还是决定要做。虽然不知道怎么挣钱，但是马化腾还是打算「养」这个产品。http://www.baidu.com 一开始OICQ就在产品和技术上展现出强大的竞争力13260398606 属于巨大的竞争力◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐🚋🎊😡🚖🚌💖💗💛💙🏨✺◟(∗❛ัᴗ❛ั∗)◞✺ 😀😖😐😣😡🚖🚌🚋🎊😡🚖🚌💖💗💛💙🏨 ",i];
+//        NSAttributedString* attributedString = [self generateAttributedString:text];
+//      [_dataSource addObject:attributedString];
+//    }
   }
   return _dataSource;
 }
@@ -137,10 +137,10 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
+//
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    return 1;
+//}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.dataSource.count;
