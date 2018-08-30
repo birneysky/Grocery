@@ -13,5 +13,4 @@ func (p Prefix) Shift(word string) {
 	p[len(p)-1] = word
 }
 
-type chanin	
 

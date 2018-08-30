@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
-
 	"two"
 	"one"
 	"mlib"
+	"strings"
+	"net/http"
+	"io/ioutil"
+	"time"
 )
 
 func Add(first int, second int) int {
@@ -159,4 +162,89 @@ func main() {
 	//error := http.ListenAndServe(":8080",nil)
 	//fmt.Print(error)
 
+	go httpPost()
+
+	time.Sleep(1000*time.Second)
+	fmt.Println(" ttt exit")
 }
+
+const data = `------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"K_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"market\"
+
+sz
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"type\"
+
+hq
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"code\"
+
+000651
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"orgid\"
+
+gssz0000651
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"minYear\"
+
+2016
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"maxYear\"
+
+2018
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"hq_code\"
+
+000651
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"hq_k_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"cw_code\"
+
+000651
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"cw_k_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"hq_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"hq_k_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"cw_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ
+Content-Disposition: form-data; name=\"cw_k_code\"
+
+
+------WebKitFormBoundarymVsj1pWgFHfrafqZ--
+`
+
+
+func httpPost(){
+	reader := strings.NewReader(data);
+	response,err := http.Post("http://www.cninfo.com.cn/cninfo-new/data/download",
+		"multipart/form-data; boundary=----WebKitFormBoundarymVsj1pWgFHfrafqZ",
+		reader)
+	defer response.Body.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, _ := ioutil.ReadAll(response.Body)
+	fmt.Println("body:",string(body))
+	fmt.Println("header:",response.Header)
+
+	//http.NewRequest()
+}
+
