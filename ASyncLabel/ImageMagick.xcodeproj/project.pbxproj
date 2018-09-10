@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		743FF8322146B6DE00E383D1 /* GSTableLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 743FF8312146B6DE00E383D1 /* GSTableLayout.m */; };
 		B237BB1A20CF75770062F45D /* GSTestFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1920CF75770062F45D /* GSTestFlowLayout.m */; };
 		B237BB1D20D0CF070062F45D /* GSTestHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B237BB1C20D0CF070062F45D /* GSTestHeaderView.m */; };
 		B25702841F79EB710039AD23 /* GSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25702831F79EB710039AD23 /* GSViewController.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		743FF8302146B6DE00E383D1 /* GSTableLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTableLayout.h; sourceTree = "<group>"; };
+		743FF8312146B6DE00E383D1 /* GSTableLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTableLayout.m; sourceTree = "<group>"; };
 		B237BB1820CF75770062F45D /* GSTestFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTestFlowLayout.h; sourceTree = "<group>"; };
 		B237BB1920CF75770062F45D /* GSTestFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTestFlowLayout.m; sourceTree = "<group>"; };
 		B237BB1B20D0CF070062F45D /* GSTestHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTestHeaderView.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				B25702831F79EB710039AD23 /* GSViewController.m */,
 				B237BB1820CF75770062F45D /* GSTestFlowLayout.h */,
 				B237BB1920CF75770062F45D /* GSTestFlowLayout.m */,
+				743FF8302146B6DE00E383D1 /* GSTableLayout.h */,
+				743FF8312146B6DE00E383D1 /* GSTableLayout.m */,
 				B237BB1B20D0CF070062F45D /* GSTestHeaderView.h */,
 				B237BB1C20D0CF070062F45D /* GSTestHeaderView.m */,
 				B2BC65452089964C002DB5CA /* YYAsyncLayer.h */,
@@ -333,6 +338,7 @@
 				B2BC65472089964C002DB5CA /* YYAsyncLayer.m in Sources */,
 				B2C73E411F4B19070057B3E0 /* AppDelegate.m in Sources */,
 				B28C43D22062A30900CBFA67 /* GSTextAttribute.m in Sources */,
+				743FF8322146B6DE00E383D1 /* GSTableLayout.m in Sources */,
 				B237BB1D20D0CF070062F45D /* GSTestHeaderView.m in Sources */,
 				B237BB1A20CF75770062F45D /* GSTestFlowLayout.m in Sources */,
 				B2C73E3E1F4B19070057B3E0 /* main.m in Sources */,
