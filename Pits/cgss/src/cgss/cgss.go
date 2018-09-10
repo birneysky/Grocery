@@ -162,10 +162,12 @@ func main() {
 	//error := http.ListenAndServe(":8080",nil)
 	//fmt.Print(error)
 
-	go httpPost()
+	httpPost()
+	httpGet()
 
-	time.Sleep(1000*time.Second)
+	time.Sleep(10*time.Second)
 	fmt.Println(" ttt exit")
+
 }
 
 const data = `------WebKitFormBoundarymVsj1pWgFHfrafqZ
@@ -231,8 +233,7 @@ Content-Disposition: form-data; name=\"cw_k_code\"
 ------WebKitFormBoundarymVsj1pWgFHfrafqZ--
 `
 
-
-func httpPost(){
+func httpPost2(){
 	reader := strings.NewReader(data);
 	response,err := http.Post("http://www.cninfo.com.cn/cninfo-new/data/download",
 		"multipart/form-data; boundary=----WebKitFormBoundarymVsj1pWgFHfrafqZ",
@@ -248,3 +249,20 @@ func httpPost(){
 	//http.NewRequest()
 }
 
+
+func httpGet () {
+	response,_ := http.Get("http://www.cninfo.com.cn/cninfo-new/index")
+	body, _ := ioutil.ReadAll(response.Body)
+	fmt.Print("get body:",string(body))
+}
+
+func httpPost() {
+	response,_ := http.Post("http://www.cninfo.com.cn/cninfo-new/data/checkDownloadFileIsExit",
+		"application/x-www-form-urlencoded; charset=UTF-8",
+		strings.NewReader("code=000651&market=sz&orgid=gssz0000651&type=lrb&minYear=2016&maxYear=2018"))
+	defer response.Body.Close()
+	body, _ := ioutil.ReadAll(response.Body)
+	fmt.Println("body:",string(body))
+	fmt.Println("header:",response.Header)
+	fmt.Println("cookie:",response.Header["Set-Cookie"])
+}
