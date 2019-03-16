@@ -1,0 +1,712 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B23515A521E76FC200D0FFC1 /* GSNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B23515A421E76FC200D0FFC1 /* GSNavViewController.m */; };
+		B23515AC21E8699400D0FFC1 /* GSJoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B23515AB21E8699400D0FFC1 /* GSJoinViewController.m */; };
+		B23515AF21E88A8F00D0FFC1 /* GSSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B23515AE21E88A8F00D0FFC1 /* GSSettingTableViewController.m */; };
+		B23515B621E8966900D0FFC1 /* GSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B23515B521E8966900D0FFC1 /* GSTextField.m */; };
+		B23515B921E8C9EE00D0FFC1 /* GSPickerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B23515B821E8C9EE00D0FFC1 /* GSPickerContainer.m */; };
+		B262BE0621E5CD5C00C4B357 /* GSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B262BE0521E5CD5C00C4B357 /* GSAppDelegate.m */; };
+		B262BE0921E5CD5C00C4B357 /* GSAVChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B262BE0821E5CD5C00C4B357 /* GSAVChatViewController.m */; };
+		B262BE0C21E5CD5C00C4B357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B262BE0A21E5CD5C00C4B357 /* Main.storyboard */; };
+		B262BE0E21E5CD5F00C4B357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B262BE0D21E5CD5F00C4B357 /* Assets.xcassets */; };
+		B262BE1121E5CD5F00C4B357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B262BE0F21E5CD5F00C4B357 /* LaunchScreen.storyboard */; };
+		B262BE1421E5CD5F00C4B357 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B262BE1321E5CD5F00C4B357 /* main.m */; };
+		B262BE1E21E5CD5F00C4B357 /* RTCTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B262BE1D21E5CD5F00C4B357 /* RTCTesterTests.m */; };
+		B262BE2921E5CD5F00C4B357 /* RTCTesterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B262BE2821E5CD5F00C4B357 /* RTCTesterUITests.m */; };
+		B262BE4A21E5DCD400C4B357 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B262BE4921E5DCD400C4B357 /* VideoToolbox.framework */; };
+		B262BE4C21E5DCF100C4B357 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B262BE4B21E5DCF000C4B357 /* libc++.tbd */; };
+		B262BE5221E5DE0200C4B357 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B262BE5121E5DE0200C4B357 /* GLKit.framework */; };
+		B27CF75021F2CFD30014B6F5 /* GSRTCVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27CF74921F2CFD20014B6F5 /* GSRTCVideoPreviewView.m */; };
+		B27CF75121F2CFD30014B6F5 /* GSRTCLocalVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27CF74C21F2CFD20014B6F5 /* GSRTCLocalVideoView.m */; };
+		B27CF75221F2CFD30014B6F5 /* GSRTCRemoteVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27CF74E21F2CFD20014B6F5 /* GSRTCRemoteVideoView.m */; };
+		B27CF75A21F2D1010014B6F5 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B27CF75921F2D1010014B6F5 /* WebRTC.framework */; };
+		B27CF75B21F2D1010014B6F5 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B27CF75921F2D1010014B6F5 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B27CF75F21F2D2B70014B6F5 /* GSRTCCameraCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = B27CF75E21F2D2B70014B6F5 /* GSRTCCameraCapturer.m */; };
+		B2C123C221ECAECB00A1E399 /* GSSetingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C123C121ECAECB00A1E399 /* GSSetingItem.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B262BE1A21E5CD5F00C4B357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B262BDF921E5CD5C00C4B357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B262BE0021E5CD5C00C4B357;
+			remoteInfo = RTCTester;
+		};
+		B262BE2521E5CD5F00C4B357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B262BDF921E5CD5C00C4B357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B262BE0021E5CD5C00C4B357;
+			remoteInfo = RTCTester;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B27CF75C21F2D1010014B6F5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B27CF75B21F2D1010014B6F5 /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B23515A321E76FC200D0FFC1 /* GSNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSNavViewController.h; sourceTree = "<group>"; };
+		B23515A421E76FC200D0FFC1 /* GSNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSNavViewController.m; sourceTree = "<group>"; };
+		B23515AA21E8699400D0FFC1 /* GSJoinViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSJoinViewController.h; sourceTree = "<group>"; };
+		B23515AB21E8699400D0FFC1 /* GSJoinViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSJoinViewController.m; sourceTree = "<group>"; };
+		B23515AD21E88A8F00D0FFC1 /* GSSettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSettingTableViewController.h; sourceTree = "<group>"; };
+		B23515AE21E88A8F00D0FFC1 /* GSSettingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSettingTableViewController.m; sourceTree = "<group>"; };
+		B23515B421E8966900D0FFC1 /* GSTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSTextField.h; sourceTree = "<group>"; };
+		B23515B521E8966900D0FFC1 /* GSTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSTextField.m; sourceTree = "<group>"; };
+		B23515B721E8C9EE00D0FFC1 /* GSPickerContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSPickerContainer.h; sourceTree = "<group>"; };
+		B23515B821E8C9EE00D0FFC1 /* GSPickerContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSPickerContainer.m; sourceTree = "<group>"; };
+		B262BE0121E5CD5C00C4B357 /* RTCTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTCTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B262BE0421E5CD5C00C4B357 /* GSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAppDelegate.h; sourceTree = "<group>"; };
+		B262BE0521E5CD5C00C4B357 /* GSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAppDelegate.m; sourceTree = "<group>"; };
+		B262BE0721E5CD5C00C4B357 /* GSAVChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAVChatViewController.h; sourceTree = "<group>"; };
+		B262BE0821E5CD5C00C4B357 /* GSAVChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAVChatViewController.m; sourceTree = "<group>"; };
+		B262BE0B21E5CD5C00C4B357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B262BE0D21E5CD5F00C4B357 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B262BE1021E5CD5F00C4B357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B262BE1221E5CD5F00C4B357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B262BE1321E5CD5F00C4B357 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B262BE1921E5CD5F00C4B357 /* RTCTesterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RTCTesterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B262BE1D21E5CD5F00C4B357 /* RTCTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTCTesterTests.m; sourceTree = "<group>"; };
+		B262BE1F21E5CD5F00C4B357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B262BE2421E5CD5F00C4B357 /* RTCTesterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RTCTesterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B262BE2821E5CD5F00C4B357 /* RTCTesterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTCTesterUITests.m; sourceTree = "<group>"; };
+		B262BE2A21E5CD5F00C4B357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B262BE4721E5D4C700C4B357 /* RongRTCLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongRTCLib.framework; path = framework/RongRTCLib.framework; sourceTree = "<group>"; };
+		B262BE4921E5DCD400C4B357 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		B262BE4B21E5DCF000C4B357 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B262BE5121E5DE0200C4B357 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B27CF74921F2CFD20014B6F5 /* GSRTCVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCVideoPreviewView.m; sourceTree = "<group>"; };
+		B27CF74A21F2CFD20014B6F5 /* RongRTCRemoteVideoView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RongRTCRemoteVideoView+Private.h"; sourceTree = "<group>"; };
+		B27CF74B21F2CFD20014B6F5 /* GSRTCRemoteVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCRemoteVideoView.h; sourceTree = "<group>"; };
+		B27CF74C21F2CFD20014B6F5 /* GSRTCLocalVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCLocalVideoView.m; sourceTree = "<group>"; };
+		B27CF74D21F2CFD20014B6F5 /* GSRTCVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCVideoPreviewView.h; sourceTree = "<group>"; };
+		B27CF74E21F2CFD20014B6F5 /* GSRTCRemoteVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCRemoteVideoView.m; sourceTree = "<group>"; };
+		B27CF74F21F2CFD20014B6F5 /* GSRTCLocalVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCLocalVideoView.h; sourceTree = "<group>"; };
+		B27CF75921F2D1010014B6F5 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = ../WebRTC.framework; sourceTree = "<group>"; };
+		B27CF75D21F2D2B70014B6F5 /* GSRTCCameraCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCCameraCapturer.h; sourceTree = "<group>"; };
+		B27CF75E21F2D2B70014B6F5 /* GSRTCCameraCapturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCCameraCapturer.m; sourceTree = "<group>"; };
+		B2C123C021ECAECB00A1E399 /* GSSetingItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSSetingItem.h; sourceTree = "<group>"; };
+		B2C123C121ECAECB00A1E399 /* GSSetingItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSetingItem.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B262BDFE21E5CD5C00C4B357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B262BE5221E5DE0200C4B357 /* GLKit.framework in Frameworks */,
+				B262BE4C21E5DCF100C4B357 /* libc++.tbd in Frameworks */,
+				B262BE4A21E5DCD400C4B357 /* VideoToolbox.framework in Frameworks */,
+				B27CF75A21F2D1010014B6F5 /* WebRTC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE1621E5CD5F00C4B357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE2121E5CD5F00C4B357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B262BDF821E5CD5C00C4B357 = {
+			isa = PBXGroup;
+			children = (
+				B27CF75921F2D1010014B6F5 /* WebRTC.framework */,
+				B262BE0321E5CD5C00C4B357 /* RTCTester */,
+				B262BE1C21E5CD5F00C4B357 /* RTCTesterTests */,
+				B262BE2721E5CD5F00C4B357 /* RTCTesterUITests */,
+				B262BE0221E5CD5C00C4B357 /* Products */,
+				B262BE4621E5D4C600C4B357 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B262BE0221E5CD5C00C4B357 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B262BE0121E5CD5C00C4B357 /* RTCTester.app */,
+				B262BE1921E5CD5F00C4B357 /* RTCTesterTests.xctest */,
+				B262BE2421E5CD5F00C4B357 /* RTCTesterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B262BE0321E5CD5C00C4B357 /* RTCTester */ = {
+			isa = PBXGroup;
+			children = (
+				B27CF74821F2CFD20014B6F5 /* view */,
+				B262BE0421E5CD5C00C4B357 /* GSAppDelegate.h */,
+				B262BE0521E5CD5C00C4B357 /* GSAppDelegate.m */,
+				B262BE0721E5CD5C00C4B357 /* GSAVChatViewController.h */,
+				B262BE0821E5CD5C00C4B357 /* GSAVChatViewController.m */,
+				B27CF75D21F2D2B70014B6F5 /* GSRTCCameraCapturer.h */,
+				B27CF75E21F2D2B70014B6F5 /* GSRTCCameraCapturer.m */,
+				B23515A321E76FC200D0FFC1 /* GSNavViewController.h */,
+				B23515A421E76FC200D0FFC1 /* GSNavViewController.m */,
+				B23515AA21E8699400D0FFC1 /* GSJoinViewController.h */,
+				B23515AB21E8699400D0FFC1 /* GSJoinViewController.m */,
+				B23515B421E8966900D0FFC1 /* GSTextField.h */,
+				B23515B521E8966900D0FFC1 /* GSTextField.m */,
+				B2C123C021ECAECB00A1E399 /* GSSetingItem.h */,
+				B2C123C121ECAECB00A1E399 /* GSSetingItem.m */,
+				B23515AD21E88A8F00D0FFC1 /* GSSettingTableViewController.h */,
+				B23515AE21E88A8F00D0FFC1 /* GSSettingTableViewController.m */,
+				B23515B721E8C9EE00D0FFC1 /* GSPickerContainer.h */,
+				B23515B821E8C9EE00D0FFC1 /* GSPickerContainer.m */,
+				B262BE0A21E5CD5C00C4B357 /* Main.storyboard */,
+				B262BE0D21E5CD5F00C4B357 /* Assets.xcassets */,
+				B262BE0F21E5CD5F00C4B357 /* LaunchScreen.storyboard */,
+				B262BE1221E5CD5F00C4B357 /* Info.plist */,
+				B262BE1321E5CD5F00C4B357 /* main.m */,
+			);
+			path = RTCTester;
+			sourceTree = "<group>";
+		};
+		B262BE1C21E5CD5F00C4B357 /* RTCTesterTests */ = {
+			isa = PBXGroup;
+			children = (
+				B262BE1D21E5CD5F00C4B357 /* RTCTesterTests.m */,
+				B262BE1F21E5CD5F00C4B357 /* Info.plist */,
+			);
+			path = RTCTesterTests;
+			sourceTree = "<group>";
+		};
+		B262BE2721E5CD5F00C4B357 /* RTCTesterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B262BE2821E5CD5F00C4B357 /* RTCTesterUITests.m */,
+				B262BE2A21E5CD5F00C4B357 /* Info.plist */,
+			);
+			path = RTCTesterUITests;
+			sourceTree = "<group>";
+		};
+		B262BE4621E5D4C600C4B357 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B262BE5121E5DE0200C4B357 /* GLKit.framework */,
+				B262BE4B21E5DCF000C4B357 /* libc++.tbd */,
+				B262BE4921E5DCD400C4B357 /* VideoToolbox.framework */,
+				B262BE4721E5D4C700C4B357 /* RongRTCLib.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B27CF74821F2CFD20014B6F5 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B27CF74921F2CFD20014B6F5 /* GSRTCVideoPreviewView.m */,
+				B27CF74A21F2CFD20014B6F5 /* RongRTCRemoteVideoView+Private.h */,
+				B27CF74B21F2CFD20014B6F5 /* GSRTCRemoteVideoView.h */,
+				B27CF74C21F2CFD20014B6F5 /* GSRTCLocalVideoView.m */,
+				B27CF74D21F2CFD20014B6F5 /* GSRTCVideoPreviewView.h */,
+				B27CF74E21F2CFD20014B6F5 /* GSRTCRemoteVideoView.m */,
+				B27CF74F21F2CFD20014B6F5 /* GSRTCLocalVideoView.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B262BE0021E5CD5C00C4B357 /* RTCTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B262BE2D21E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTester" */;
+			buildPhases = (
+				B262BDFD21E5CD5C00C4B357 /* Sources */,
+				B262BDFE21E5CD5C00C4B357 /* Frameworks */,
+				B262BDFF21E5CD5C00C4B357 /* Resources */,
+				B27CF75C21F2D1010014B6F5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RTCTester;
+			productName = RTCTester;
+			productReference = B262BE0121E5CD5C00C4B357 /* RTCTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B262BE1821E5CD5F00C4B357 /* RTCTesterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B262BE3021E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTesterTests" */;
+			buildPhases = (
+				B262BE1521E5CD5F00C4B357 /* Sources */,
+				B262BE1621E5CD5F00C4B357 /* Frameworks */,
+				B262BE1721E5CD5F00C4B357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B262BE1B21E5CD5F00C4B357 /* PBXTargetDependency */,
+			);
+			name = RTCTesterTests;
+			productName = RTCTesterTests;
+			productReference = B262BE1921E5CD5F00C4B357 /* RTCTesterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B262BE2321E5CD5F00C4B357 /* RTCTesterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B262BE3321E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTesterUITests" */;
+			buildPhases = (
+				B262BE2021E5CD5F00C4B357 /* Sources */,
+				B262BE2121E5CD5F00C4B357 /* Frameworks */,
+				B262BE2221E5CD5F00C4B357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B262BE2621E5CD5F00C4B357 /* PBXTargetDependency */,
+			);
+			name = RTCTesterUITests;
+			productName = RTCTesterUITests;
+			productReference = B262BE2421E5CD5F00C4B357 /* RTCTesterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B262BDF921E5CD5C00C4B357 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = RongCloud;
+				TargetAttributes = {
+					B262BE0021E5CD5C00C4B357 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					B262BE1821E5CD5F00C4B357 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = B262BE0021E5CD5C00C4B357;
+					};
+					B262BE2321E5CD5F00C4B357 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = B262BE0021E5CD5C00C4B357;
+					};
+				};
+			};
+			buildConfigurationList = B262BDFC21E5CD5C00C4B357 /* Build configuration list for PBXProject "RTCTester" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B262BDF821E5CD5C00C4B357;
+			productRefGroup = B262BE0221E5CD5C00C4B357 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B262BE0021E5CD5C00C4B357 /* RTCTester */,
+				B262BE1821E5CD5F00C4B357 /* RTCTesterTests */,
+				B262BE2321E5CD5F00C4B357 /* RTCTesterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B262BDFF21E5CD5C00C4B357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B262BE1121E5CD5F00C4B357 /* LaunchScreen.storyboard in Resources */,
+				B262BE0E21E5CD5F00C4B357 /* Assets.xcassets in Resources */,
+				B262BE0C21E5CD5C00C4B357 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE1721E5CD5F00C4B357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE2221E5CD5F00C4B357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B262BDFD21E5CD5C00C4B357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B262BE0921E5CD5C00C4B357 /* GSAVChatViewController.m in Sources */,
+				B262BE1421E5CD5F00C4B357 /* main.m in Sources */,
+				B23515AC21E8699400D0FFC1 /* GSJoinViewController.m in Sources */,
+				B27CF75F21F2D2B70014B6F5 /* GSRTCCameraCapturer.m in Sources */,
+				B27CF75021F2CFD30014B6F5 /* GSRTCVideoPreviewView.m in Sources */,
+				B27CF75221F2CFD30014B6F5 /* GSRTCRemoteVideoView.m in Sources */,
+				B23515A521E76FC200D0FFC1 /* GSNavViewController.m in Sources */,
+				B23515B621E8966900D0FFC1 /* GSTextField.m in Sources */,
+				B27CF75121F2CFD30014B6F5 /* GSRTCLocalVideoView.m in Sources */,
+				B23515B921E8C9EE00D0FFC1 /* GSPickerContainer.m in Sources */,
+				B2C123C221ECAECB00A1E399 /* GSSetingItem.m in Sources */,
+				B23515AF21E88A8F00D0FFC1 /* GSSettingTableViewController.m in Sources */,
+				B262BE0621E5CD5C00C4B357 /* GSAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE1521E5CD5F00C4B357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B262BE1E21E5CD5F00C4B357 /* RTCTesterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B262BE2021E5CD5F00C4B357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B262BE2921E5CD5F00C4B357 /* RTCTesterUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B262BE1B21E5CD5F00C4B357 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B262BE0021E5CD5C00C4B357 /* RTCTester */;
+			targetProxy = B262BE1A21E5CD5F00C4B357 /* PBXContainerItemProxy */;
+		};
+		B262BE2621E5CD5F00C4B357 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B262BE0021E5CD5C00C4B357 /* RTCTester */;
+			targetProxy = B262BE2521E5CD5F00C4B357 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B262BE0A21E5CD5C00C4B357 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B262BE0B21E5CD5C00C4B357 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B262BE0F21E5CD5F00C4B357 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B262BE1021E5CD5F00C4B357 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B262BE2B21E5CD5F00C4B357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B262BE2C21E5CD5F00C4B357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B262BE2E21E5CD5F00C4B357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				INFOPLIST_FILE = RTCTester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.ronggcloud.RTCTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B262BE2F21E5CD5F00C4B357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				INFOPLIST_FILE = RTCTester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.ronggcloud.RTCTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B262BE3121E5CD5F00C4B357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				INFOPLIST_FILE = RTCTesterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.RTCTesterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTCTester.app/RTCTester";
+			};
+			name = Debug;
+		};
+		B262BE3221E5CD5F00C4B357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				INFOPLIST_FILE = RTCTesterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.RTCTesterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTCTester.app/RTCTester";
+			};
+			name = Release;
+		};
+		B262BE3421E5CD5F00C4B357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				INFOPLIST_FILE = RTCTesterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.RTCTesterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RTCTester;
+			};
+			name = Debug;
+		};
+		B262BE3521E5CD5F00C4B357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				INFOPLIST_FILE = RTCTesterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.RTCTesterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RTCTester;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B262BDFC21E5CD5C00C4B357 /* Build configuration list for PBXProject "RTCTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B262BE2B21E5CD5F00C4B357 /* Debug */,
+				B262BE2C21E5CD5F00C4B357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B262BE2D21E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B262BE2E21E5CD5F00C4B357 /* Debug */,
+				B262BE2F21E5CD5F00C4B357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B262BE3021E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTesterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B262BE3121E5CD5F00C4B357 /* Debug */,
+				B262BE3221E5CD5F00C4B357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B262BE3321E5CD5F00C4B357 /* Build configuration list for PBXNativeTarget "RTCTesterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B262BE3421E5CD5F00C4B357 /* Debug */,
+				B262BE3521E5CD5F00C4B357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B262BDF921E5CD5C00C4B357 /* Project object */;
+}
