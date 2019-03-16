@@ -11,7 +11,7 @@
 #import "GSRTCCameraCapturer.h"
 #import <WebRTC/WebRTC.h>
 #import "GSRTCRemoteVideoView.h"
-#import "RongRTCRemoteVideoView+Private.h"
+#import "GSRTCRemoteVideoView+Private.h"
 
 @interface GSAVChatViewController () <GSCameraCapturerDelegate,RTCPeerConnectionDelegate>
 @property (weak, nonatomic) IBOutlet RTCMTLVideoView *removeVideoView;

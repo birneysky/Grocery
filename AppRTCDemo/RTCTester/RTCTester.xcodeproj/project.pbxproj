@@ -95,7 +95,7 @@
 		B262BE4B21E5DCF000C4B357 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B262BE5121E5DE0200C4B357 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B27CF74921F2CFD20014B6F5 /* GSRTCVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCVideoPreviewView.m; sourceTree = "<group>"; };
-		B27CF74A21F2CFD20014B6F5 /* RongRTCRemoteVideoView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RongRTCRemoteVideoView+Private.h"; sourceTree = "<group>"; };
+		B27CF74A21F2CFD20014B6F5 /* GSRTCRemoteVideoView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GSRTCRemoteVideoView+Private.h"; sourceTree = "<group>"; };
 		B27CF74B21F2CFD20014B6F5 /* GSRTCRemoteVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCRemoteVideoView.h; sourceTree = "<group>"; };
 		B27CF74C21F2CFD20014B6F5 /* GSRTCLocalVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRTCLocalVideoView.m; sourceTree = "<group>"; };
 		B27CF74D21F2CFD20014B6F5 /* GSRTCVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRTCVideoPreviewView.h; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				B27CF74921F2CFD20014B6F5 /* GSRTCVideoPreviewView.m */,
-				B27CF74A21F2CFD20014B6F5 /* RongRTCRemoteVideoView+Private.h */,
+				B27CF74A21F2CFD20014B6F5 /* GSRTCRemoteVideoView+Private.h */,
 				B27CF74B21F2CFD20014B6F5 /* GSRTCRemoteVideoView.h */,
 				B27CF74C21F2CFD20014B6F5 /* GSRTCLocalVideoView.m */,
 				B27CF74D21F2CFD20014B6F5 /* GSRTCVideoPreviewView.h */,

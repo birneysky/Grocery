@@ -7,7 +7,7 @@
 //
 
 #import "GSRTCRemoteVideoView.h"
-#import "RongRTCRemoteVideoView+Private.h"
+#import "GSRTCRemoteVideoView+Private.h"
 
 @interface GSRTCRemoteVideoView ()
 
