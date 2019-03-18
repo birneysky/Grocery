@@ -142,9 +142,9 @@
         self.videoConnection.videoMirrored = YES;
     }
     
-    self.captureSession.sessionPreset = AVCaptureSessionPreset640x480;
+    self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720;
     
-    CMTime frameDuration = CMTimeMake(1, 10);
+    CMTime frameDuration = CMTimeMake(1, 25);
     
     NSError *error = nil;
     if ([device lockForConfiguration:&error]) {

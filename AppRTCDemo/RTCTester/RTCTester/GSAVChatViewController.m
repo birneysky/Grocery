@@ -52,6 +52,7 @@ static NSString * const kARDVideoTrackKind = @"video";
 //        [weakSelf pushStream];
 //    }];
     [self.cameraCapturer startRunning];
+    self.localView.frame = self.view.bounds;
 //    [self.mediaStream addAudioTrack:self.audioTrack];
 //    [self.mediaStream addVideoTrack:self.videoTrack];
     [self.peerConnection addTrack:self.audioTrack streamIds:@[ kARDMediaStreamId ]];
@@ -75,6 +76,10 @@ static NSString * const kARDVideoTrackKind = @"video";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
+    
+- (void)viewWillLayoutSubviews {
+    self.localView.center = self.view.center;
+}
 
 #pragma mark - Target Action
 - (IBAction)switchCamera:(id)sender {
@@ -86,8 +91,18 @@ static NSString * const kARDVideoTrackKind = @"video";
 }
 
 #pragma mark - Override
-- (BOOL)shouldAutorotate {
-    return NO;
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    CGAffineTransform targetTransform  = coordinator.targetTransform;
+    CGAffineTransform inverseTransform = CGAffineTransformInvert(targetTransform);
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        self.localView.transform = CGAffineTransformConcat(self.localView.transform, inverseTransform);
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+    }];
+//    [coordinator animateAlongsideTransitionInView:self.view animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+//    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+//        self.localView.frame = (CGRect){0,0,size.width,size.height};
+//    }];
 }
 
 #pragma makr - Helper
