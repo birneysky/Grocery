@@ -27,7 +27,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDs-UW-bFd" customClass="RTCMTLVideoView">
-                                <rect key="frame" x="8" y="88" width="144" height="192"/>
+                                <rect key="frame" x="20" y="200" width="144" height="192"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="192" id="Kmj-nQ-AoA"/>
@@ -37,8 +37,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CDs-UW-bFd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="WjU-zy-2Cz"/>
-                            <constraint firstItem="CDs-UW-bFd" firstAttribute="top" secondItem="H3W-9q-ceV" secondAttribute="bottom" constant="24" id="e6s-9h-hJt"/>
+                            <constraint firstItem="CDs-UW-bFd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="200" id="0YZ-ZB-mKx"/>
+                            <constraint firstItem="CDs-UW-bFd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="pey-FD-DnD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yol-b1-ea2">

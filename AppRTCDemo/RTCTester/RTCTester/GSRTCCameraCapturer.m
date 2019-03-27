@@ -11,12 +11,13 @@
 
 @interface GSRTCCameraCapturer() <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property(nonatomic, strong) AVCaptureSession *captureSession;
-@property(nonatomic, weak) AVCaptureDeviceInput *activeVideoInput;
-@property(nonatomic, strong) dispatch_queue_t sessionQueue;
-@property(nonatomic, strong) AVCaptureConnection *videoConnection;
-@property(nonatomic, assign) AVCaptureVideoOrientation videoBufferOrientation;
-@property(nonatomic, weak) AVCaptureVideoDataOutput* videoDataOutput;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, weak) AVCaptureDeviceInput *activeVideoInput;
+@property (nonatomic, strong) dispatch_queue_t sessionQueue;
+@property (nonatomic, strong) AVCaptureConnection *videoConnection;
+@property (nonatomic, assign) AVCaptureVideoOrientation videoBufferOrientation;
+@property (nonatomic, weak) AVCaptureVideoDataOutput* videoDataOutput;
+@property (nonatomic, assign) RTCVideoRotation remoteVideoRotation;
 @end
 
 @implementation GSRTCCameraCapturer
@@ -102,13 +103,15 @@
 
 #pragma mark - Helper
 - (void)setupCaptureSession {
-    
+    self.remoteVideoRotation = RTCVideoRotation_0;
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self
                       selector:@selector(sessionWasInterrupted:)
                           name:AVCaptureSessionWasInterruptedNotification
                         object:nil];
-    
+    [defaultCenter addObserver:self
+                      selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification
+                        object:nil];
 
     
     /*video*/
@@ -223,10 +226,31 @@
     int64_t timeStampNs =
     CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer)) * NSEC_PER_SEC;
     RTCVideoFrame *videoFrame = [[RTCVideoFrame alloc] initWithBuffer:rtcPixelBuffer
-                                                             rotation:RTCVideoRotation_0
+                                                             rotation:self.remoteVideoRotation
                                                           timeStampNs:timeStampNs];
     [self.delegate capturer:self didCaptureVideoFrame:videoFrame];
     
+}
+
+#pragma mark - Notification Selector
+- (void)deviceOrientationDidChange:(NSNotification*)notification {
+    UIInterfaceOrientation orientation =[UIApplication sharedApplication].statusBarOrientation;
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait:
+            self.remoteVideoRotation = RTCVideoRotation_0;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            self.remoteVideoRotation = RTCVideoRotation_90;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            self.remoteVideoRotation = RTCVideoRotation_270;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.remoteVideoRotation = RTCVideoRotation_180;
+        default:
+            self.remoteVideoRotation = RTCVideoRotation_0;
+            break;
+    }
 }
 
 #pragma mark - Getters
