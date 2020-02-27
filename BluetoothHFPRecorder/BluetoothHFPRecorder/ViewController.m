@@ -53,6 +53,58 @@ OSStatus OnDeliverRecordedData(void* in_ref_con,
 }
 
 
+enum CommonPCMFormat {
+    kPCMFormatOther        = 0,
+    kPCMFormatFloat32    = 1,
+    kPCMFormatInt16        = 2,
+    kPCMFormatFixed824    = 3,
+    kPCMFormatFloat64    = 4,
+    kPCMFormatInt32        = 5
+};
+
+AudioStreamBasicDescription formatDescription(double inSampleRate, UInt32 inNumChannels, enum CommonPCMFormat pcmf, bool inIsInterleaved) {
+    unsigned wordsize;
+    AudioStreamBasicDescription format;
+    format.mSampleRate = inSampleRate;
+    format.mFormatID = kAudioFormatLinearPCM;
+    format.mFormatFlags = kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked;
+    format.mFramesPerPacket = 1;
+    format.mChannelsPerFrame = inNumChannels;
+    format.mBytesPerFrame = format.mBytesPerPacket = 0;
+    format.mReserved = 0;
+
+    switch (pcmf) {
+    case kPCMFormatFloat32:
+        wordsize = 4;
+        format.mFormatFlags |= kAudioFormatFlagIsFloat;
+        break;
+    case kPCMFormatFloat64:
+        wordsize = 8;
+        format.mFormatFlags |= kAudioFormatFlagIsFloat;
+        break;
+    case kPCMFormatInt16:
+        wordsize = 2;
+        format.mFormatFlags |= kAudioFormatFlagIsSignedInteger;
+        break;
+    case kPCMFormatInt32:
+        wordsize = 4;
+        format.mFormatFlags |= kAudioFormatFlagIsSignedInteger;
+        break;
+    case kPCMFormatFixed824:
+        wordsize = 4;
+        format.mFormatFlags |= kAudioFormatFlagIsSignedInteger | (24 << kLinearPCMFormatFlagsSampleFractionShift);
+        break;
+    }
+    format.mBitsPerChannel = wordsize * 8;
+    if (inIsInterleaved)
+        format.mBytesPerFrame = format.mBytesPerPacket = wordsize * inNumChannels;
+    else {
+        format.mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
+        format.mBytesPerFrame = format.mBytesPerPacket = wordsize;
+    }
+    return format;
+}
+
 AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
   // Set the application formats for input and output:
   // - use same format in both directions
@@ -63,7 +115,7 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
   format.mSampleRate = sample_rate;
   format.mFormatID = kAudioFormatLinearPCM;
   format.mFormatFlags =
-      kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+      kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsNonInterleaved;
   format.mBytesPerPacket = kBytesPerSample;
   format.mFramesPerPacket = 1;  // uncompressed.
   format.mBytesPerFrame = kBytesPerSample;
@@ -87,9 +139,14 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleRouteChange:)
                                                  name:AVAudioSessionRouteChangeNotification object:nil];
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+    /// ios13 中 不设置 bufferDuration，应用在后台时，蓝牙耳机接入是，OnDeliverRecordedData 回调停止调用，这个问题很奇怪，并且在后台模式下，重启 audiounit 会失败
+    NSTimeInterval bufferDuration = .005;
+    [sessionInstance setPreferredIOBufferDuration:bufferDuration error:nil];
+    [sessionInstance setPreferredSampleRate:44100 error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    [self setup:41000];
+    [self setup:44100];
     
     
 }
@@ -106,8 +163,7 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
     vpio_unit_description.componentFlagsMask = 0;
 
     // Obtain an audio unit instance given the description.
-    AudioComponent found_vpio_unit_ref =
-        AudioComponentFindNext(nil, &vpio_unit_description);
+    AudioComponent found_vpio_unit_ref = AudioComponentFindNext(nil, &vpio_unit_description);
 
     // Create a Voice Processing IO audio unit.
     OSStatus result = noErr;
@@ -120,29 +176,93 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
 
     // Enable input on the input scope of the input element.
     UInt32 enable_input = 1;
-    result = AudioUnitSetProperty(vpio_unit_, kAudioOutputUnitProperty_EnableIO,
-                                  kAudioUnitScope_Input, kInputBus, &enable_input,
+    result = AudioUnitSetProperty(vpio_unit_,
+                                  kAudioOutputUnitProperty_EnableIO,
+                                  kAudioUnitScope_Input,
+                                  kInputBus,
+                                  &enable_input,
                                   sizeof(enable_input));
     if (result != noErr) {
       //DisposeAudioUnit();
       NSLog(@"Failed to enable input on input scope of input element. "
-                   "Error=%ld.",
-                  (long)result);
+            "Error=%ld.",
+            (long)result);
       return NO;
     }
 
     // Enable output on the output scope of the output element.
     UInt32 enable_output = 1;
-    result = AudioUnitSetProperty(vpio_unit_, kAudioOutputUnitProperty_EnableIO,
-                                  kAudioUnitScope_Output, kOutputBus,
-                                  &enable_output, sizeof(enable_output));
+    result = AudioUnitSetProperty(vpio_unit_,
+                                  kAudioOutputUnitProperty_EnableIO,
+                                  kAudioUnitScope_Output,
+                                  kOutputBus,
+                                  &enable_output,
+                                  sizeof(enable_output));
     if (result != noErr) {
       //DisposeAudioUnit();
       NSLog(@"Failed to enable output on output scope of output element. "
-                   "Error=%@.",
-                  @(result));
+            "Error=%@.",
+            @(result));
       return NO;
     }
+    
+    AudioStreamBasicDescription format = formatDescription(sample_rate, 1, kPCMFormatFloat32, false);
+    UInt32 size = sizeof(format);
+    result = AudioUnitSetProperty(vpio_unit_,
+                                  kAudioUnitProperty_StreamFormat,
+                                  kAudioUnitScope_Output,
+                                  kInputBus, &format, size);
+    if (result != noErr) {
+        NSLog(@"Failed to set format on output scope of input bus. "
+              "Error=%ld.",
+              (long)result);
+        return NO;
+    }
+
+    result = AudioUnitSetProperty(vpio_unit_,
+                                  kAudioUnitProperty_StreamFormat,
+                                  kAudioUnitScope_Input,
+                                  kOutputBus,
+                                  &format,
+                                  size);
+    if (result != noErr) {
+        NSLog(@"Failed to set format on input scope of output bus. "
+              "Error=%ld.",
+              (long)result);
+        return NO;
+    }
+    
+    UInt32 maximumFramesPerSlice = 4096;
+    result = AudioUnitSetProperty (vpio_unit_,
+                                   kAudioUnitProperty_MaximumFramesPerSlice,
+                                   kAudioUnitScope_Global,
+                                   0,
+                                   &maximumFramesPerSlice,
+                                   sizeof (maximumFramesPerSlice)
+                              );
+    if (result != noErr) {
+        NSLog(@"couldn't set max frames per slice on vocice processing IO");
+        return NO;
+    }
+    
+
+    
+    AURenderCallbackStruct input_callback;
+    input_callback.inputProc = OnDeliverRecordedData;
+    input_callback.inputProcRefCon = vpio_unit_;
+    result = AudioUnitSetProperty(vpio_unit_,
+                                  kAudioOutputUnitProperty_SetInputCallback,
+                                  kAudioUnitScope_Input, kInputBus,
+                                  &input_callback, sizeof(input_callback));
+    if (result != noErr) {
+      //DisposeAudioUnit();
+      NSLog(@"Failed to specify the input callback on the input bus. "
+                   "Error=%ld.",
+                  (long)result);
+      return NO;
+    }
+    
+
 
     // Specify the callback function that provides audio samples to the audio
     // unit.
@@ -162,51 +282,38 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
 
     // Disable AU buffer allocation for the recorder, we allocate our own.
     // TODO(henrika): not sure that it actually saves resource to make this call.
-    UInt32 flag = 0;
-    result = AudioUnitSetProperty(
-        vpio_unit_, kAudioUnitProperty_ShouldAllocateBuffer,
-        kAudioUnitScope_Output, kInputBus, &flag, sizeof(flag));
-    if (result != noErr) {
-      //DisposeAudioUnit();
-      NSLog(@"Failed to disable buffer allocation on the input bus. "
-                   "Error=%ld.",
-                  (long)result);
-      return NO;
-    }
+//    UInt32 flag = 0;
+//    result = AudioUnitSetProperty(
+//        vpio_unit_, kAudioUnitProperty_ShouldAllocateBuffer,
+//        kAudioUnitScope_Output, kInputBus, &flag, sizeof(flag));
+//    if (result != noErr) {
+//      //DisposeAudioUnit();
+//      NSLog(@"Failed to disable buffer allocation on the input bus. "
+//                   "Error=%ld.",
+//                  (long)result);
+//      return NO;
+//    }
 
     // Specify the callback to be called by the I/O thread to us when input audio
     // is available. The recorded samples can then be obtained by calling the
     // AudioUnitRender() method.
-    AURenderCallbackStruct input_callback;
-    input_callback.inputProc = OnDeliverRecordedData;
-    input_callback.inputProcRefCon = vpio_unit_;
-    result = AudioUnitSetProperty(vpio_unit_,
-                                  kAudioOutputUnitProperty_SetInputCallback,
-                                  kAudioUnitScope_Global, kInputBus,
-                                  &input_callback, sizeof(input_callback));
-    if (result != noErr) {
-      //DisposeAudioUnit();
-      NSLog(@"Failed to specify the input callback on the input bus. "
-                   "Error=%ld.",
-                  (long)result);
-      return NO;
-    }
+
     
     
     
-      AudioStreamBasicDescription format = audioFormatFor(sample_rate);
-      UInt32 size = sizeof(format);
-//
-      // Set the format on the output scope of the input element/bus.
-      result =
-          AudioUnitSetProperty(vpio_unit_, kAudioUnitProperty_StreamFormat,
-                               kAudioUnitScope_Output, kInputBus, &format, size);
-      if (result != noErr) {
-        NSLog(@"Failed to set format on output scope of input bus. "
-                     "Error=%ld.",
-                    (long)result);
-        return NO;
-      }
+//      AudioStreamBasicDescription format = audioFormatFor(sample_rate);
+//      UInt32 size = sizeof(format);
+////
+//      // Set the format on the output scope of the input element/bus.
+//      result =
+//          AudioUnitSetProperty(vpio_unit_, kAudioUnitProperty_StreamFormat,
+//                               kAudioUnitScope_Output, kInputBus, &format, size);
+//      if (result != noErr) {
+//        NSLog(@"Failed to set format on output scope of input bus. "
+//                     "Error=%ld.",
+//                    (long)result);
+//        return NO;
+//      }
 
       // Set the format on the input scope of the output element/bus.
 //      result =
@@ -218,6 +325,17 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
 //                    (long)result);
 //        return false;
 //      }
+    
+//    // 设置AudioUnitRender()函数在处理输入数据时，最大的输入吞吐量
+//    UInt32 maximumFramesPerSlice = 4096;
+//    AudioUnitSetProperty (
+//                          vpio_unit_,
+//                          kAudioUnitProperty_MaximumFramesPerSlice,
+//                          kAudioUnitScope_Global,
+//                          0,
+//                          &maximumFramesPerSlice,
+//                          sizeof (maximumFramesPerSlice)
+//                          );
 
       // Initialize the Voice Processing I/O unit instance.
       // Calls to AudioUnitInitialize() can fail if called back-to-back on
