@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */; };
 		B28A78452407B25E00785F53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78442407B25E00785F53 /* AppDelegate.m */; };
 		B28A78482407B25E00785F53 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78472407B25E00785F53 /* SceneDelegate.m */; };
 		B28A784B2407B25E00785F53 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A784A2407B25E00785F53 /* ViewController.m */; };
@@ -23,7 +24,7 @@
 		B28A788D2407D38700785F53 /* GSAudioIONode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A788C2407D38700785F53 /* GSAudioIONode.m */; };
 		B28A78902407D3EA00785F53 /* GSAudioInputNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A788F2407D3EA00785F53 /* GSAudioInputNode.m */; };
 		B28A78932407D40E00785F53 /* GSAudioOutputNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78922407D40E00785F53 /* GSAudioOutputNode.m */; };
-		B28A78962407D44E00785F53 /* GSAudioMixerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78952407D44E00785F53 /* GSAudioMixerNode.m */; };
+		B28A78962407D44E00785F53 /* GSAudioMixerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B28A78952407D44E00785F53 /* GSAudioMixerNode.mm */; };
 		B28A78992407D47A00785F53 /* GSAudioPlayerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78982407D47A00785F53 /* GSAudioPlayerNode.m */; };
 		B28A789C2407D90400785F53 /* GSAudioUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A789B2407D90400785F53 /* GSAudioUnit.m */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B26AE6C72408EAB900621829 /* AudioEngineTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioEngineTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEngineTests.swift; sourceTree = "<group>"; };
 		B28A78402407B25E00785F53 /* AudioEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28A78432407B25E00785F53 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B28A78442407B25E00785F53 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -77,11 +80,13 @@
 		B28A78912407D40E00785F53 /* GSAudioOutputNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioOutputNode.h; sourceTree = "<group>"; };
 		B28A78922407D40E00785F53 /* GSAudioOutputNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAudioOutputNode.m; sourceTree = "<group>"; };
 		B28A78942407D44E00785F53 /* GSAudioMixerNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioMixerNode.h; sourceTree = "<group>"; };
-		B28A78952407D44E00785F53 /* GSAudioMixerNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAudioMixerNode.m; sourceTree = "<group>"; };
+		B28A78952407D44E00785F53 /* GSAudioMixerNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GSAudioMixerNode.mm; sourceTree = "<group>"; };
 		B28A78972407D47A00785F53 /* GSAudioPlayerNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioPlayerNode.h; sourceTree = "<group>"; };
 		B28A78982407D47A00785F53 /* GSAudioPlayerNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAudioPlayerNode.m; sourceTree = "<group>"; };
 		B28A789A2407D90400785F53 /* GSAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioUnit.h; sourceTree = "<group>"; };
 		B28A789B2407D90400785F53 /* GSAudioUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAudioUnit.m; sourceTree = "<group>"; };
+		B28A78A42408BE0C00785F53 /* GSComponentDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSComponentDescription.h; sourceTree = "<group>"; };
+		B28A78A72408BFC600785F53 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +121,7 @@
 				B28A785E2407B26500785F53 /* AudioEngineTests */,
 				B28A78692407B26500785F53 /* AudioEngineUITests */,
 				B28A78412407B25E00785F53 /* Products */,
+				B28A78A62408BFC600785F53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,7 +152,8 @@
 				B28A78882407D33D00785F53 /* GSAudioNode.h */,
 				B28A78892407D33D00785F53 /* GSAudioNode.m */,
 				B28A78942407D44E00785F53 /* GSAudioMixerNode.h */,
-				B28A78952407D44E00785F53 /* GSAudioMixerNode.m */,
+				B28A78952407D44E00785F53 /* GSAudioMixerNode.mm */,
+				B28A78A42408BE0C00785F53 /* GSComponentDescription.h */,
 				B28A78972407D47A00785F53 /* GSAudioPlayerNode.h */,
 				B28A78982407D47A00785F53 /* GSAudioPlayerNode.m */,
 				B28A788B2407D38700785F53 /* GSAudioIONode.h */,
@@ -168,7 +175,9 @@
 			isa = PBXGroup;
 			children = (
 				B28A785F2407B26500785F53 /* AudioEngineTests.m */,
+				B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */,
 				B28A78612407B26500785F53 /* Info.plist */,
+				B26AE6C72408EAB900621829 /* AudioEngineTests-Bridging-Header.h */,
 			);
 			path = AudioEngineTests;
 			sourceTree = "<group>";
@@ -189,6 +198,14 @@
 				B28A787F2407B51400785F53 /* DrumsMonoSTP.aif */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		B28A78A62408BFC600785F53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B28A78A72408BFC600785F53 /* libc++.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +278,7 @@
 					};
 					B28A785A2407B26500785F53 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = B28A783F2407B25E00785F53;
 					};
 					B28A78652407B26500785F53 = {
@@ -327,7 +345,7 @@
 				B28A784B2407B25E00785F53 /* ViewController.m in Sources */,
 				B28A78452407B25E00785F53 /* AppDelegate.m in Sources */,
 				B28A788D2407D38700785F53 /* GSAudioIONode.m in Sources */,
-				B28A78962407D44E00785F53 /* GSAudioMixerNode.m in Sources */,
+				B28A78962407D44E00785F53 /* GSAudioMixerNode.mm in Sources */,
 				B28A78992407D47A00785F53 /* GSAudioPlayerNode.m in Sources */,
 				B28A78562407B26500785F53 /* main.m in Sources */,
 				B28A78902407D3EA00785F53 /* GSAudioInputNode.m in Sources */,
@@ -343,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28A78602407B26500785F53 /* AudioEngineTests.m in Sources */,
+				B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,8 +524,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = AudioEngine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,8 +543,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = AudioEngine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -539,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = AudioEngineTests/Info.plist;
@@ -550,6 +572,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.AudioEngineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioEngineTests/AudioEngineTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioEngine.app/AudioEngine";
 			};
@@ -559,6 +584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9CVMN4UZK4;
 				INFOPLIST_FILE = AudioEngineTests/Info.plist;
@@ -570,6 +596,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.AudioEngineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioEngineTests/AudioEngineTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioEngine.app/AudioEngine";
 			};

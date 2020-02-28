@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class GSAudioNode;
 
 @interface GSAudioEngine : NSObject
 
+@property (nonatomic, readonly) BOOL isRunning;
+- (void)prepare;
+- (void)start;
+- (void)stop;
+- (void)attach:(GSAudioNode*)node;
+- (void)detach:(GSAudioNode*)node;
 @end
 
 NS_ASSUME_NONNULL_END

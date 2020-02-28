@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class GSAudioUnit;
 
 @interface GSAudioNode : NSObject
+
+@property (nonatomic, readonly) GSAudioUnit* audioUnit;
 
 @end
 

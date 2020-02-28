@@ -6,11 +6,21 @@
 //  Copyright © 2020 rongcloud. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface GSAudioUnit : NSObject
+
+- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription;
+
+@property(nonatomic, readonly) AudioComponent component;
+@property(nonatomic, readonly) AudioUnit instance;
+@property(nonatomic, readonly) NSString *componentName;
+
+@property(nonatomic, getter=isInputEnabled) BOOL inputEnabled;
+@property(nonatomic, getter=isOutputEnabled) BOOL outputEnabled;
 
 @end
 

@@ -6,11 +6,11 @@
 //  Copyright © 2020 rongcloud. All rights reserved.
 //
 
-#import "GSAudioIONode.h"
+#import "GSAudioNode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GSAudioMixerNode : GSAudioIONode
+@interface GSAudioMixerNode : GSAudioNode
 
 @end
 
