@@ -6,7 +6,7 @@
 //  Copyright © 2020 rongcloud. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @class GSAudioUnit;
@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GSAudioNode : NSObject
 
 @property (nonatomic, readonly) GSAudioUnit* audioUnit;
+@property (nonatomic, readonly) AUNode node;
 
 @end
 

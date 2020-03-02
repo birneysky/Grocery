@@ -15,9 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription;
 
-@property(nonatomic, readonly) AudioComponent component;
+@property(nonatomic, readonly) AudioComponentDescription acdesc;
 @property(nonatomic, readonly) AudioUnit instance;
-@property(nonatomic, readonly) NSString *componentName;
 
 @property(nonatomic, getter=isInputEnabled) BOOL inputEnabled;
 @property(nonatomic, getter=isOutputEnabled) BOOL outputEnabled;

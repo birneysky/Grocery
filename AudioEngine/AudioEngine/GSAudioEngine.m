@@ -9,6 +9,10 @@
 #import <AudioUnit/AudioUnit.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "GSAudioEngine.h"
+#import "GSAudioNode.h"
+#import "GSAudioUnit.h"
+#import "GSAudioNode+Private.h"
+#import "GSAudioUnit+Private.h"
 
 @interface GSAudioEngine()
 
@@ -25,7 +29,9 @@
 - (instancetype) init {
     if (self = [super init]) {
         OSStatus result = NewAUGraph(&_graph);
-        NSAssert(noErr != result,@"NewAUGraph result %@",@(result));
+        NSAssert(noErr == result,@"NewAUGraph %@",@(result));
+        result = AUGraphOpen(_graph);
+        NSAssert(noErr == result,@"AUGraphOpen %@",@(result));
     }
     return self;
 }
@@ -38,9 +44,7 @@
 #pragma mark - Apis
 - (void)prepare {
     OSStatus result = AUGraphInitialize(_graph);
-    if (noErr != result) {
-        NSLog(@"AUGraphInitialize result %@", @(result));
-    }
+    NSAssert(noErr == result, @"AUGraphInitialize %@", @(result));
 }
 - (void)start {
     if (self.isRunning) {
@@ -48,18 +52,13 @@
     }
     
     OSStatus result = AUGraphStart(_graph);
-    if (noErr != result) {
-        NSLog(@"AUGraphStart result %@", @(result));
-    }
-    
+    NSAssert(noErr == result, @"AUGraphStart %@", @(result));
 }
 
 - (void)stop {
     if (self.isRunning) {
         OSStatus result = AUGraphStop(_graph);
-        if (noErr != result) {
-            NSLog(@"AUGraphStop result %@\n", @(result));
-        }
+        NSAssert(noErr == result, @"AUGraphStop %@", @(result));
     }
 }
 
@@ -68,11 +67,27 @@
 }
 
 - (void)attach:(GSAudioNode*)node {
+    AUNode outNode;
+    AudioComponentDescription desc = node.audioUnit.acdesc;
+    OSStatus result = AUGraphAddNode(_graph, &desc, &outNode);
+    NSAssert(noErr == result, @"AUGraphAddNode result %@",@(result));
     
+    AudioUnit outUnit;
+    result = AUGraphNodeInfo(_graph, outNode, NULL, &outUnit);
+    NSAssert(noErr == result, @"AUGraphNodeInfo result %@",@(result));
+    
+    [node setAUNode:outNode];
+    [node.audioUnit setAudioUnit:outUnit];
 }
 
 - (void)detach:(GSAudioNode*)node {
     
+}
+
+- (void)connect:(GSAudioNode*)nodeA to:(GSAudioNode*)nodeB {
+    // connect a nodeA's output to a nodeB's input
+    OSStatus result = AUGraphConnectNodeInput(_graph, nodeA.node, 0, nodeB.node, 0);
+    NSAssert(noErr == result, @"AUGraphConnectNodeInput %@", @(result));
 }
 
 

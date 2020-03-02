@@ -14,11 +14,12 @@
 @interface GSAudioMixerNode ()
 
 @property (nonatomic, strong) GSAudioUnit* audioUnit;
-
+@property (nonatomic, assign) AUNode node;
 @end
 
 @implementation GSAudioMixerNode
 @synthesize audioUnit = _audioUnit;
+@synthesize node = _node;
 
 - (instancetype)init {
     if (self = [super init]) {

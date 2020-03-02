@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stop;
 - (void)attach:(GSAudioNode*)node;
 - (void)detach:(GSAudioNode*)node;
+- (void)connect:(GSAudioNode*)nodeA to:(GSAudioNode*)nodeB;
 @end
 
 NS_ASSUME_NONNULL_END
