@@ -49,8 +49,8 @@
 
 
 - (void)play {
-//    AudioTimeStamp currentTime = [self currentPlayTime];
-//    [self playAtSampleTime: currentTime];
+    AudioTimeStamp currentTime = [self currentPlayTime];
+    [self playAtSampleTime: currentTime];
 }
 
 - (void)stop {
@@ -129,7 +129,7 @@
 }
 
 #pragma mark - GSAudioUnitDelegate
-- (void)didcreatedAudioUnitInstance {
+- (void)didCreatedAudioUnitInstance {
     AudioUnit unit = [self audioUnit].instance;
     NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
     OSStatus result = AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduledFileIDs, kAudioUnitScope_Global, 0, &_audioFileID, sizeof(AudioFileID));
@@ -145,9 +145,13 @@
         _sampleRateRatio = 1.;
     }
     
-     [self scheduleSegmentFrom:0 frameCount:self.numberOfFrames];
+     
      //[self scheduleSegmentFrom:0 frameCount:-1];
 
+}
+
+- (void)didFinishInitializing{
+    [self scheduleSegmentFrom:0 frameCount:self.numberOfFrames];
 }
 
 @end

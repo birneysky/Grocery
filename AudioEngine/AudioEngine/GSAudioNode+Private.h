@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCommponenetDESC:(AudioComponentDescription)desc NS_DESIGNATED_INITIALIZER;
 - (void)setAUNode:(AUNode)node;
-
+- (void)didFinishInitializing;
 @end
 
 NS_ASSUME_NONNULL_END

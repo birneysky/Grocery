@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol GSAudioUnitDelegate <NSObject>
 @optional
-- (void)didcreatedAudioUnitInstance;
+- (void)didCreatedAudioUnitInstance;
 @end
 
 

@@ -30,7 +30,7 @@
 
 
 #pragma mark - GSAudioUnitDelegate
-- (void)didcreatedAudioUnitInstance {
+- (void)didCreatedAudioUnitInstance {
     AudioUnit unit = [self audioUnit].instance;
     NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
     const UInt32 numbuses = 2;

@@ -37,6 +37,7 @@
     [self.engine attach:self.outputNode];
     
     
+    //[self.engine connect:self.player1 to:self.outputNode];
     [self.engine connect:self.player1 to:self.mixer];
     //[self.engine connect:self.player2 to:self.mixer];
     [self.engine connect:self.mixer to:self.outputNode];

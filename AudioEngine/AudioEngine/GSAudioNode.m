@@ -40,4 +40,8 @@
     return _node;
 }
 
+- (void)didFinishInitializing{
+   // do nothing
+}
+
 @end

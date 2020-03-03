@@ -17,6 +17,7 @@
 @interface GSAudioEngine()
 
 @property (nonatomic,assign) BOOL isRunning;
+@property (nonatomic, strong) NSMutableArray<GSAudioNode*>* nodes;
 @end
 
 @implementation GSAudioEngine {
@@ -45,6 +46,7 @@
 - (void)prepare {
     OSStatus result = AUGraphInitialize(_graph);
     NSAssert(noErr == result, @"AUGraphInitialize %@", @(result));
+    [self.nodes makeObjectsPerformSelector:@selector(didFinishInitializing)];
 }
 - (void)start {
     if (self.isRunning) {
@@ -78,6 +80,7 @@
     
     [node setAUNode:outNode];
     [node.audioUnit setAudioUnit:outUnit];
+    [self.nodes addObject:node];
 }
 
 - (void)detach:(GSAudioNode*)node {
@@ -90,5 +93,12 @@
     NSAssert(noErr == result, @"AUGraphConnectNodeInput %@", @(result));
 }
 
+#pragma mark - Getters
+- (NSMutableArray<GSAudioNode*>*)nodes {
+    if (!_nodes) {
+        _nodes = [[NSMutableArray alloc] initWithCapacity:10];
+    }
+    return _nodes;
+}
 
 @end

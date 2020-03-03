@@ -27,8 +27,8 @@
 
 - (void)setAudioUnit:(AudioUnit)unit {
     _unitInstance = unit;
-    if ([self.delegate respondsToSelector:@selector(didcreatedAudioUnitInstance)]) {
-        [self.delegate didcreatedAudioUnitInstance];
+    if ([self.delegate respondsToSelector:@selector(didCreatedAudioUnitInstance)]) {
+        [self.delegate didCreatedAudioUnitInstance];
     }
 }
 
@@ -39,5 +39,7 @@
 - (AudioComponent)component {
     return _component;
 }
+
+
 
 @end
