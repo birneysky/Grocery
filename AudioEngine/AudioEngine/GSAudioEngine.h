@@ -14,11 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GSAudioEngine : NSObject
 
 @property (nonatomic, readonly) BOOL isRunning;
+- (void)attach:(GSAudioNode*)node;
+- (void)detach:(GSAudioNode*)node;
 - (void)prepare;
 - (void)start;
 - (void)stop;
-- (void)attach:(GSAudioNode*)node;
-- (void)detach:(GSAudioNode*)node;
 - (void)connect:(GSAudioNode*)nodeA to:(GSAudioNode*)nodeB;
 @end
 

@@ -8,31 +8,34 @@
 
 #import <AudioUnit/AudioUnit.h>
 #import "GSAudioMixerNode.h"
-#import "GSComponentDescription.h"
+#import "GSAudioEngineStructures.h"
 #import "GSAudioUnit.h"
+#import "GSAudioNode+Private.h"
 
-@interface GSAudioMixerNode ()
+@interface GSAudioMixerNode () <GSAudioUnitDelegate>
 
-@property (nonatomic, strong) GSAudioUnit* audioUnit;
-@property (nonatomic, assign) AUNode node;
 @end
 
 @implementation GSAudioMixerNode
-@synthesize audioUnit = _audioUnit;
-@synthesize node = _node;
 
 - (instancetype)init {
-    if (self = [super init]) {
-        GSComponentDescription mixer_desc(kAudioUnitType_Mixer,
-                                          kAudioUnitSubType_MultiChannelMixer,
-                                          kAudioUnitManufacturer_Apple);
-        _audioUnit = [[GSAudioUnit alloc] initWithComponentDescription:mixer_desc];
+    GSComponentDesc mixer_desc(kAudioUnitType_Mixer,
+                                      kAudioUnitSubType_MultiChannelMixer,
+                                      kAudioUnitManufacturer_Apple);
+    if (self = [super initWithCommponenetDESC:mixer_desc]) {
+        self.audioUnit.delegate = self;
     }
     return self;
 }
 
-- (GSAudioUnit*)audioUnit  {
-    return _audioUnit;
+
+#pragma mark - GSAudioUnitDelegate
+- (void)didcreatedAudioUnitInstance {
+    AudioUnit unit = [self audioUnit].instance;
+    NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
+    const UInt32 numbuses = 2;
+    OSStatus result = AudioUnitSetProperty(unit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numbuses, sizeof(numbuses));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_ElementCount %@", @(result));
 }
 
 @end

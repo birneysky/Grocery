@@ -12,6 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GSAudioPlayerNode : GSAudioIONode
 
+- (instancetype)initWithFileURL:(NSURL*)fileURL;
+
+- (void)play;
+
+- (void)stop;
+
+- (void)pause;
+
+-(void)schedule;
+
+@property (nonatomic, readonly) BOOL isPlaying;
+
 @end
 
 NS_ASSUME_NONNULL_END

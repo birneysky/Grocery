@@ -7,26 +7,22 @@
 //
 
 #import "GSAudioOutputNode.h"
-#import "GSComponentDescription.h"
+#import "GSAudioEngineStructures.h"
 #import "GSAudioUnit.h"
+#import "GSAudioNode+Private.h"
 
-@interface GSAudioUnit()
+@interface GSAudioOutputNode()
 
-@property (nonatomic,strong) GSAudioUnit* audioUnit;
-@property (nonatomic, assign) AUNode node;
 @end
 
 
 @implementation GSAudioOutputNode
-@synthesize audioUnit = _audioUnit;
-@synthesize node = _node;
 
 - (instancetype)init {
-    if (self = [super init]) {
-        GSComponentDescription player_desc(kAudioUnitType_Generator,
-                                          kAudioUnitSubType_ScheduledSoundPlayer,
-                                          kAudioUnitManufacturer_Apple);
-        _audioUnit = [[GSAudioUnit alloc] initWithComponentDescription:player_desc];
+    GSComponentDesc output_desc(kAudioUnitType_Output,
+                                kAudioUnitSubType_RemoteIO,
+                                kAudioUnitManufacturer_Apple);
+    if (self = [super initWithCommponenetDESC:output_desc]) {
     }
     return self;
 }

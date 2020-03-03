@@ -63,7 +63,7 @@
 }
 
 - (BOOL)isRunning {
-    return YES;
+    return NO;
 }
 
 - (void)attach:(GSAudioNode*)node {

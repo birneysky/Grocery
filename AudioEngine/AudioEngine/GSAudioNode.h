@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GSAudioNode : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)new NS_UNAVAILABLE;
+
 @property (nonatomic, readonly) GSAudioUnit* audioUnit;
 @property (nonatomic, readonly) AUNode node;
 

@@ -7,7 +7,37 @@
 //
 
 #import "GSAudioNode.h"
+#import "GSAudioUnit.h"
 
-@implementation GSAudioNode
+@interface GSAudioNode () <GSAudioUnitDelegate>
+
+@property (nonatomic,strong) GSAudioUnit* audioUnit;
+@property (nonatomic, assign) AUNode node;
+
+@end
+
+@implementation GSAudioNode {
+    GSAudioUnit* _audioUnit;
+    AUNode _node;
+}
+
+- (instancetype)initWithCommponenetDESC:(AudioComponentDescription)desc {
+    if (self = [super init]) {
+        _audioUnit = [[GSAudioUnit alloc] initWithComponentDescription:desc];
+    }
+    return self;
+}
+
+- (void)setAUNode:(AUNode)node {
+    _node = node;
+}
+
+- (GSAudioUnit*)audioUnit  {
+    return _audioUnit;
+}
+
+- (AUNode)node {
+    return _node;
+}
 
 @end

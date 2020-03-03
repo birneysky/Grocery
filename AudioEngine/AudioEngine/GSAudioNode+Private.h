@@ -11,8 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GSAudioNode (Private)
+@interface GSAudioNode ()
 
+- (instancetype)initWithCommponenetDESC:(AudioComponentDescription)desc NS_DESIGNATED_INITIALIZER;
 - (void)setAUNode:(AUNode)node;
 
 @end

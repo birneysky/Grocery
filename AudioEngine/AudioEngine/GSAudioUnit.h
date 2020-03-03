@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol GSAudioUnitDelegate <NSObject>
+@optional
+- (void)didcreatedAudioUnitInstance;
+@end
+
 
 @interface GSAudioUnit : NSObject
 
@@ -17,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) AudioComponentDescription acdesc;
 @property(nonatomic, readonly) AudioUnit instance;
-
+@property(nonatomic, weak) id<GSAudioUnitDelegate> delegate;
 @property(nonatomic, getter=isInputEnabled) BOOL inputEnabled;
 @property(nonatomic, getter=isOutputEnabled) BOOL outputEnabled;
 

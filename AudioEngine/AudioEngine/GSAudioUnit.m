@@ -20,8 +20,6 @@
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription {
     if (self = [super init]) {
-        //_component = AudioComponentFindNext (NULL,&componentDescription);
-        //AudioComponentInstanceNew (_component,&_unitInstance);
         _acdesc = componentDescription;
     }
     return self;
@@ -29,6 +27,9 @@
 
 - (void)setAudioUnit:(AudioUnit)unit {
     _unitInstance = unit;
+    if ([self.delegate respondsToSelector:@selector(didcreatedAudioUnitInstance)]) {
+        [self.delegate didcreatedAudioUnitInstance];
+    }
 }
 
 - (AudioUnit)instance {

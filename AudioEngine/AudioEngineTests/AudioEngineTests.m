@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "GSAudioOutputNode.h"
 
 @interface AudioEngineTests : XCTestCase
 
@@ -25,6 +26,7 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    GSAudioOutputNode* node = [[GSAudioOutputNode alloc] init];
 }
 
 - (void)testPerformanceExample {
