@@ -57,6 +57,7 @@
 		B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEngineTests.swift; sourceTree = "<group>"; };
 		B27241A9240E443100F58A23 /* band.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.m4a; sourceTree = "<group>"; };
 		B27241AA240E443100F58A23 /* guitar.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = guitar.m4a; sourceTree = "<group>"; };
+		B27241AD240FB69000F58A23 /* GSAudioMixing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAudioMixing.h; sourceTree = "<group>"; };
 		B28A78402407B25E00785F53 /* AudioEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28A78432407B25E00785F53 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B28A78442407B25E00785F53 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -160,6 +161,7 @@
 				B28A78892407D33D00785F53 /* GSAudioNode.m */,
 				B2557E6E240D0C5B000F8DC3 /* GSAudioNode+Private.h */,
 				B28A78942407D44E00785F53 /* GSAudioMixerNode.h */,
+				B27241AD240FB69000F58A23 /* GSAudioMixing.h */,
 				B28A78952407D44E00785F53 /* GSAudioMixerNode.mm */,
 				B28A78A42408BE0C00785F53 /* GSAudioEngineStructures.h */,
 				B28A78972407D47A00785F53 /* GSAudioPlayerNode.h */,

@@ -48,8 +48,8 @@ struct GSAudioStreamBasicDesc : public AudioStreamBasicDescription {
     };
     
     GSAudioStreamBasicDesc(    double inSampleRate, UInt32 inNumChannels, CommonPCMFormat pcmf, bool isInterleaved) {
+        memset(this, 0, sizeof(AudioStreamBasicDescription));
         unsigned wordsize;
-
         mSampleRate = inSampleRate;
         mFormatID = kAudioFormatLinearPCM;
         mFormatFlags = kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked;
@@ -77,6 +77,14 @@ struct GSAudioStreamBasicDesc : public AudioStreamBasicDescription {
             mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
             mBytesPerFrame = mBytesPerPacket = wordsize;
         }
+    }
+};
+
+struct GSAudioTimeStamp: public AudioTimeStamp {
+    GSAudioTimeStamp() {
+        memset(this, 0, sizeof(AudioTimeStamp));
+        mFlags = kAudioTimeStampSampleTimeValid;
+        mSampleTime = -1;
     }
 };
 

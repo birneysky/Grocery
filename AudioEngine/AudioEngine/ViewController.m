@@ -29,17 +29,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self.engine attach:self.mixer];
     [self.engine attach:self.player1];
-//    [self.player1 schedule];
-    //[self.engine attach:self.player2];
+    [self.engine attach:self.player2];
     [self.engine attach:self.outputNode];
     
-    
-    //[self.engine connect:self.player1 to:self.outputNode];
     [self.engine connect:self.player1 to:self.mixer];
-    //[self.engine connect:self.player2 to:self.mixer];
+    [self.engine connect:self.player2 to:self.mixer];
+    
     [self.engine connect:self.mixer to:self.outputNode];
         
     [self.engine prepare];

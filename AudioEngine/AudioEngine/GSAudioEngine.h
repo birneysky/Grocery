@@ -15,11 +15,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL isRunning;
 - (void)attach:(GSAudioNode*)node;
+
 - (void)detach:(GSAudioNode*)node;
+
 - (void)prepare;
+
 - (void)start;
+
 - (void)stop;
-- (void)connect:(GSAudioNode*)nodeA to:(GSAudioNode*)nodeB;
+
+
+/// 连接源节点的输出到目的节点的输入
+/// @param src  源节点
+/// @param dst 目标节点
+- (void)connect:(GSAudioNode*)src to:(GSAudioNode*)dst;
 @end
 
 NS_ASSUME_NONNULL_END

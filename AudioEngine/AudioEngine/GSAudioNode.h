@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 @class GSAudioUnit;
 
+typedef NSUInteger GSAudioNodeBus;
+
+
 @interface GSAudioNode : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -18,7 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) GSAudioUnit* audioUnit;
 @property (nonatomic, readonly) AUNode node;
-
+@property (nonatomic, readonly) NSUInteger numberOfInputs;
+@property (nonatomic, readonly) NSUInteger numberOfOutputs;
+@property (nonatomic, readonly) GSAudioNodeBus availableInputBus; /// 如果不存在返回 NSUIntegerMax
+@property (nonatomic, readonly) GSAudioNodeBus availableOutputBus; /// 如果不存在返回 NSUIntegerMax
 @end
 
 NS_ASSUME_NONNULL_END

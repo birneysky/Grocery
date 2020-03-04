@@ -11,6 +11,8 @@
 #import "GSAudioUnit.h"
 #import "GSAudioNode+Private.h"
 
+const GSAudioTimeStamp ValidStartAudioTime;
+
 @interface GSAudioPlayerNode() <GSAudioUnitDelegate>
 
 @property (nonatomic, readonly) UInt64 numberOfFrames;
@@ -25,6 +27,7 @@
     Float64 _sampleRateRatio;
 }
 
+#pragma mark - Api
 - (instancetype)initWithFileURL:(NSURL*)fileURL {
     GSComponentDesc player_desc(kAudioUnitType_Generator,
                                        kAudioUnitSubType_AudioFilePlayer,
@@ -47,29 +50,23 @@
     return self;
 }
 
-
 - (void)play {
-    AudioTimeStamp currentTime = [self currentPlayTime];
-    [self playAtSampleTime: currentTime];
+    [self scheduleStartTime: ValidStartAudioTime];
 }
 
 - (void)stop {
-    
+    [self reset];
+    [self scheduleSegmentFrom:0 frameCount:self.numberOfFrames];
+    [self scheduleStartTime:ValidStartAudioTime];
 }
 
 - (void)pause {
-    
-}
-
--(void)schedule {
-   
-}
-
-
-- (void)playAtSampleTime:(AudioTimeStamp)sampleTime {
-    AudioUnit unit = [self audioUnit].instance;
-    NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
-    AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &sampleTime, sizeof(sampleTime));
+    AudioTimeStamp currentTime = [self currentPlayTime];
+    [self reset];
+    SInt64 start = (currentTime.mSampleTime) / _sampleRateRatio;
+    UInt64 frameCount = self.numberOfFrames - start;
+    [self scheduleSegmentFrom:start frameCount:frameCount];
+    NSLog(@"GSAudioPlayerNode scheduleSegmentFrom:%@ ,framecount:%@ total:%@",@(start),@(frameCount),@(self.numberOfFrames));
 }
 
 - (BOOL)isPlaying {
@@ -86,19 +83,11 @@
 
 #pragma mark - Helper
 - (AudioTimeStamp)currentPlayTime {
-//    if (self.isPlaying) {
-//        <#statements#>
-//    }
     AudioUnit unit = [self audioUnit].instance;
-    
-    
     AudioTimeStamp currentPlayTime = {0};
     UInt32 dataSize = sizeof(currentPlayTime);
     OSStatus result = AudioUnitGetProperty(unit, kAudioUnitProperty_CurrentPlayTime, kAudioUnitScope_Global, 0, &currentPlayTime, &dataSize);
-    //if (noErr == !result) {
-//        currentPlayTime.mFlags = kAudioTimeStampSampleTimeValid;
-//        currentPlayTime.mSampleTime = -1;
-    //}
+    NSAssert(noErr == result, @"AudioUnitGetProperty kAudioUnitProperty_CurrentPlayTime %@", @(result));
     return currentPlayTime;
 }
 
@@ -113,18 +102,19 @@
 }
 
 - (void)scheduleSegmentFrom:(SInt64)startFrame frameCount:(UInt64)numberFrames {
-    GSScheduledAudioFileRegion region(_audioFileID,0,(UInt32)numberFrames);
-    _region = region;
+    GSScheduledAudioFileRegion region(_audioFileID,startFrame,(UInt32)numberFrames);
+    //_region = region;
     NSAssert(sizeof(GSScheduledAudioFileRegion) == sizeof(ScheduledAudioFileRegion), @"");
     AudioUnit unit = [self audioUnit].instance;
     NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
-    OSStatus result = AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduledFileRegion, kAudioUnitScope_Global, 0, &_region, sizeof(_region));
+    OSStatus result = AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduledFileRegion, kAudioUnitScope_Global, 0, &region, sizeof(region));
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_ScheduledFileRegion %@", @(result));
-    
-    AudioTimeStamp startTime = {0};
-    startTime.mFlags = kAudioTimeStampSampleTimeValid;
-    startTime.mSampleTime = -1;
-    result = AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &startTime, sizeof(startTime));
+}
+
+- (void)scheduleStartTime:(AudioTimeStamp)time {
+    AudioUnit unit = [self audioUnit].instance;
+    NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
+    OSStatus result = AudioUnitSetProperty(unit, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &time, sizeof(time));
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_ScheduleStartTimeStamp %@", @(result));
 }
 
@@ -144,14 +134,12 @@
     } else {
         _sampleRateRatio = 1.;
     }
-    
-     
-     //[self scheduleSegmentFrom:0 frameCount:-1];
-
 }
 
+#pragma mark - override
 - (void)didFinishInitializing{
     [self scheduleSegmentFrom:0 frameCount:self.numberOfFrames];
+    [self scheduleStartTime:ValidStartAudioTime];
 }
 
 @end

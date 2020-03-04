@@ -87,9 +87,20 @@
     
 }
 
-- (void)connect:(GSAudioNode*)nodeA to:(GSAudioNode*)nodeB {
-    // connect a nodeA's output to a nodeB's input
-    OSStatus result = AUGraphConnectNodeInput(_graph, nodeA.node, 0, nodeB.node, 0);
+- (void)connect:(GSAudioNode*)src to:(GSAudioNode*)dst {
+    GSAudioNodeBus dstInputBus = dst.availableInputBus;
+    GSAudioNodeBus srcOutputBus = src.availableOutputBus;
+    NSAssert(NSUIntegerMax != srcOutputBus, @" %@ no ouput bus available",src);
+    NSAssert(NSUIntegerMax != dstInputBus, @" %@ no input bus available",dst);
+    
+    OSStatus result = AUGraphConnectNodeInput(_graph,
+                                              src.node,
+                                              (AUNode)srcOutputBus,
+                                              dst.node,
+                                              (AUNode)dstInputBus);
+    
+    [src didConnectedNodeOutputBus:srcOutputBus];
+    [dst didConnectedNodeInputBus:dstInputBus];
     NSAssert(noErr == result, @"AUGraphConnectNodeInput %@", @(result));
 }
 

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCommponenetDESC:(AudioComponentDescription)desc NS_DESIGNATED_INITIALIZER;
 - (void)setAUNode:(AUNode)node;
 - (void)didFinishInitializing;
+- (void)didConnectedNodeInputBus:(GSAudioNodeBus)bus;
+- (void)didConnectedNodeOutputBus:(GSAudioNodeBus)bus;
 @end
 
 NS_ASSUME_NONNULL_END

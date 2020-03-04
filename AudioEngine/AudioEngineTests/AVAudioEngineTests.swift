@@ -98,6 +98,16 @@ class AVAudioEngineTests: XCTestCase {
         XCTAssertEqual(playerNode.auAudioUnit.componentDescription.componentManufacturer, kAudioUnitManufacturer_Apple)
     }
     
+    func testAVAudioMixerNode() {
+        let mixer = AVAudioMixerNode()
+        print("playerNode unit desc:\(mixer.auAudioUnit.componentDescription)")
+        print("playerNode unit componentName:\(mixer.auAudioUnit.componentName ?? "unknow")")
+        print("playerNode unit audioUnitName:\(mixer.auAudioUnit.audioUnitName ?? "unknow")")
+        print("playerNode unit component:\(mixer.auAudioUnit.component)")
+        print("playerNode unit auaudio_unit:\(String(describing: mixer.auAudioUnit))")
+               
+    }
+    
     func testAVAudioType() {
         print("UnitType_Ouput:\(kAudioUnitType_Output)")
         
