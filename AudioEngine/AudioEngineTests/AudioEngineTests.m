@@ -31,7 +31,26 @@
     GSAudioOutputNode* node = [[GSAudioOutputNode alloc] init];
 }
 
-- (void)testAudioUnitFile {
+- (void)testAudioFileID {
+    AudioFileID inputFile1;
+    AudioFileID inputFile2;
+    NSBundle* currentBuldle = [NSBundle bundleForClass:AudioEngineTests.class];
+    NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
+    NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
+    OSStatus result =  AudioFileOpenURL((__bridge CFURLRef)fileURL,
+                                        kAudioFileReadPermission,
+                                        kAudioFileAIFFType,
+                                        &inputFile1);
+    NSAssert(noErr == result, @"AudioFileOpenURL %@", @(result));
+    result =  AudioFileOpenURL((__bridge CFURLRef)fileURL,
+                                kAudioFileReadPermission,
+                                kAudioFileAIFFType,
+                                &inputFile2);
+    NSAssert(noErr == result, @"AudioFileOpenURL %@", @(result));
+    XCTAssertNotEqual(inputFile1, inputFile2);
+}
+
+- (void)testAudioUnitFilePlayer {
     AudioStreamBasicDescription inputFormat;
     AudioFileID inputFile;
     AUGraph graph;
