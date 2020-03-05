@@ -25,10 +25,65 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-    GSAudioOutputNode* node = [[GSAudioOutputNode alloc] init];
+- (void)testVoiceProcessIOUnit {
+    AudioComponentDescription ioUnitDescription;
+     
+    ioUnitDescription.componentType          = kAudioUnitType_Output;
+    ioUnitDescription.componentSubType       = kAudioUnitSubType_VoiceProcessingIO;
+    ioUnitDescription.componentManufacturer  = kAudioUnitManufacturer_Apple;
+    ioUnitDescription.componentFlags         = 0;
+    ioUnitDescription.componentFlagsMask     = 0;
+    
+    AudioComponent foundIoUnitReference = AudioComponentFindNext (
+                                              NULL,
+                                              &ioUnitDescription
+                                          );
+    AudioUnit ioUnitInstance;
+    AudioComponentInstanceNew (
+        foundIoUnitReference,
+        &ioUnitInstance
+    );
+    
+    UInt32 enable = 0;
+    UInt32 size = sizeof(enable);
+    OSStatus result = AudioUnitGetProperty(ioUnitInstance,
+                                          kAudioOutputUnitProperty_EnableIO,
+                                          kAudioUnitScope_Input,
+                                          0,
+                                          &enable,
+                                          &size);
+   NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+   result = AudioUnitInitialize(ioUnitInstance);
+   NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
+    
+    
+//    AudioComponent componenet = AudioComponentFindNext(nullptr, &voice_desc);
+//           OSStatus result = AudioComponentInstanceNew(componenet, &self.audioUnit.audioUnitRef);
+//            NSAssert(noErr == result, @"AudioComponentInstanceNew %@", @(result));
+    
+}
+
+- (void)testAddTwoIONodeToGraph {
+    // 无法添加两个 IO Unit 到 AUGraph 中
+    AUGraph graph;
+    OSStatus result = NewAUGraph(&graph);
+    NSAssert(noErr == result,@"NewAUGraph %@",@(result));
+    
+    AudioComponentDescription inputcd = {0};
+    inputcd.componentType = kAudioUnitType_Output;
+    inputcd.componentSubType = kAudioUnitSubType_VoiceProcessingIO;
+    inputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    AUNode inputNode;
+    result = AUGraphAddNode(graph, &inputcd, &inputNode);
+    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
+    
+    AudioComponentDescription outputcd = {0};
+    outputcd.componentType = kAudioUnitType_Output;
+    outputcd.componentSubType = kAudioUnitSubType_RemoteIO;
+    outputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    AUNode outputNode;
+    result = AUGraphAddNode(graph, &outputcd, &outputNode);
+    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
 }
 
 - (void)testAudioFileID {

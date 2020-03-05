@@ -11,6 +11,7 @@
 #import "GSAudioMixerNode.h"
 #import "GSAudioOutputNode.h"
 #import "GSAudioPlayerNode.h"
+#import "GSAudioInputNode.h"
 
 @interface ViewController ()
 
@@ -34,9 +35,10 @@
     [self.engine attach:self.player2];
     [self.engine attach:self.outputNode];
     
+    self.engine.inputNode;
     [self.engine connect:self.player1 to:self.mixer];
     [self.engine connect:self.player2 to:self.mixer];
-    
+    //[self.engine connect:self.inputNode to:self.mixer];
     [self.engine connect:self.mixer to:self.outputNode];
         
     [self.engine prepare];
@@ -52,6 +54,21 @@
     } else {
         [self.player1 pause];
     }
+}
+- (IBAction)player2SwitchPress:(UISwitch *)sender {
+    if (sender.on) {
+        [self.player2 play];
+    } else {
+        [self.player2 pause];
+    }
+}
+
+- (IBAction)alterPlayer1Volume:(UISlider *)sender {
+    self.player1.inputVolume = sender.value;
+}
+
+- (IBAction)alterPlayer2Volume:(UISlider*)sender {
+    self.player2.inputVolume = sender.value;
 }
 
 #pragma mark - Getters
@@ -94,5 +111,7 @@
     }
     return _outputNode;
 }
+
+
 
 @end
