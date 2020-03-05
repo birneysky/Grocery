@@ -10,6 +10,7 @@
 #import "GSAudioOutputNode.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface AudioEngineTests : XCTestCase
 
@@ -24,6 +25,15 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
+
+- (void)testAudiofile {
+    NSBundle* currentBuldle = [NSBundle bundleForClass:AudioEngineTests.class];
+    NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
+    NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
+    AVAudioFile* file = [[AVAudioFile alloc] initForReading:fileURL error:nil];
+    file.fileFormat.formatDescription
+}
+
 
 - (void)testVoiceProcessIOUnit {
     AudioComponentDescription ioUnitDescription;
@@ -44,17 +54,20 @@
         &ioUnitInstance
     );
     
-    UInt32 enable = 0;
-    UInt32 size = sizeof(enable);
-    OSStatus result = AudioUnitGetProperty(ioUnitInstance,
-                                          kAudioOutputUnitProperty_EnableIO,
-                                          kAudioUnitScope_Input,
-                                          0,
-                                          &enable,
-                                          &size);
-   NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
-   result = AudioUnitInitialize(ioUnitInstance);
+    UInt32 enable = 1;
+       UInt32 size = sizeof(enable);
+     OSStatus  result = AudioUnitSetProperty(ioUnitInstance,
+                                             kAudioOutputUnitProperty_EnableIO,
+                                             kAudioUnitScope_Output,
+                                             0,
+                                             &enable,
+                                             4);
+    
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+     result = AudioUnitInitialize(ioUnitInstance);
    NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
+    
+
     
     
 //    AudioComponent componenet = AudioComponentFindNext(nullptr, &voice_desc);

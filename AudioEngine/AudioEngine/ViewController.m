@@ -6,6 +6,7 @@
 //  Copyright © 2020 rongcloud. All rights reserved.
 //
 
+@import AVFoundation;
 #import "ViewController.h"
 #import "GSAudioEngine.h"
 #import "GSAudioMixerNode.h"
@@ -30,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configureAudioSession];
     [self.engine attach:self.mixer];
     [self.engine attach:self.player1];
     [self.engine attach:self.player2];
@@ -42,12 +44,35 @@
     [self.engine connect:self.mixer to:self.outputNode];
         
     [self.engine prepare];
-    [self.engine start];
+    
 
+}
+
+#pragma mark - Helper
+- (void)configureAudioSession {
+      AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+      NSError *error = nil;
+      [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+      
+      NSTimeInterval bufferDuration = .005;
+      [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
+
+      [sessionInstance setPreferredSampleRate:44100 error:&error];
+      
+      [[AVAudioSession sharedInstance] setActive:YES error:&error];
 }
 
 #pragma mark - tareget actions
 
+- (IBAction)startAction:(UIButton *)sender {
+    if (!sender.isSelected) {
+        [self.engine start];
+        sender.selected = YES;
+    } else {
+        [self.engine stop];
+        sender.selected = NO;
+    }
+}
 - (IBAction)player1SwithPress:(UISwitch *)sender {
     if (sender.on) {
         [self.player1 play];

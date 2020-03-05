@@ -26,16 +26,16 @@
 
 - (void)setup {
     AudioUnit vpio_unit = self.audioUnit.instance;
-    UInt32 disable = 0;
-    const AudioUnitElement outputBus = 0;
-    OSStatus result = noErr;
-//    OSStatus result = AudioUnitSetProperty(vpio_unit,
-//                                           kAudioOutputUnitProperty_EnableIO,
-//                                           kAudioUnitScope_Output,
-//                                           outputBus,
-//                                           &disable,
-//                                           sizeof(disable));
-//    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+    const UInt32 enable = 1;
+    const AudioUnitElement inputBus = 1;
+    OSStatus result = AudioUnitSetProperty(vpio_unit,
+                                           kAudioOutputUnitProperty_EnableIO,
+                                           kAudioUnitScope_Input,
+                                           inputBus,
+                                           &enable,
+                                           sizeof(enable));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+    
     result = AudioUnitInitialize(vpio_unit);
     NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
 }

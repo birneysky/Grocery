@@ -15,12 +15,14 @@
 #import "GSMixingVolumeControllable.h"
 
 const GSAudioTimeStamp ValidStartAudioTime;
+const UInt32 Indefinite = -1;
 
 @interface GSAudioPlayerNode() <GSAudioUnitDelegate>
 
 @property (nonatomic, readonly) UInt64 numberOfFrames;
-
 @end
+
+
 
 @implementation GSAudioPlayerNode {
     AudioFileID _audioFileID;
@@ -29,6 +31,7 @@ const GSAudioTimeStamp ValidStartAudioTime;
     AudioStreamBasicDescription _fileASBD;
     UInt64 _audioPacketsCount;
     Float64 _sampleRateRatio;
+    UInt32 _loopCount;
 }
 
 @synthesize inputVolume = _inputVolume;
@@ -60,6 +63,7 @@ const GSAudioTimeStamp ValidStartAudioTime;
                                       kAudioFilePropertyDataFormat,
                                       &propsize, &_fileASBD);
         NSAssert(noErr == result, @"AudioFileGetProperty  kAudioFilePropertyDataFormat %@", @(result));
+        _loopCount = 1;
     }
     return self;
 }
@@ -102,6 +106,10 @@ const GSAudioTimeStamp ValidStartAudioTime;
     return currentPlayTime.mSampleTime != -1.;
 }
 
+- (void)scheduleLoopCount:(NSUInteger)count {
+    _loopCount = (UInt32)count;
+}
+
 #pragma mark - Helper
 - (AudioTimeStamp)currentPlayTime {
     AudioUnit unit = [self audioUnit].instance;
@@ -131,7 +139,7 @@ const GSAudioTimeStamp ValidStartAudioTime;
 }
 
 - (void)scheduleSegmentFrom:(SInt64)startFrame frameCount:(UInt64)numberFrames {
-    GSScheduledAudioFileRegion region(_audioFileID,startFrame,(UInt32)numberFrames);
+    GSScheduledAudioFileRegion region(_audioFileID, startFrame, (UInt32)numberFrames, _loopCount);
     //_region = region;
     NSAssert(sizeof(GSScheduledAudioFileRegion) == sizeof(ScheduledAudioFileRegion), @"");
     AudioUnit unit = [self audioUnit].instance;

@@ -62,18 +62,20 @@
     NSAssert(noErr == result, @"AUGraphStart %@", @(result));
     /// 注意这里不要使用 self.inputNode,  当外部没有明确访问 inputNode时， 不创建该实例
     [_inputNode start];
+    _isRunning = YES;
 }
 
 - (void)stop {
     if (self.isRunning) {
         OSStatus result = AUGraphStop(_graph);
         NSAssert(noErr == result, @"AUGraphStop %@", @(result));
+        _isRunning = NO;
     }
 }
 
-- (BOOL)isRunning {
-    return NO;
-}
+//- (BOOL)isRunning {
+//    return NO;
+//}
 
 - (void)attach:(GSAudioNode*)node {
     AUNode outNode;

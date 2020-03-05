@@ -29,12 +29,12 @@ struct GSScheduledAudioFileRegion: public ScheduledAudioFileRegion {
         memset(this, 0, sizeof(ScheduledAudioFileRegion));
     }
     
-    GSScheduledAudioFileRegion(AudioFileID fileId, SInt64 startFrame, UInt32 frames) {
+    GSScheduledAudioFileRegion(AudioFileID fileId, SInt64 startFrame, UInt32 frames, UInt32 loopCount) {
         memset(this, 0, sizeof(ScheduledAudioFileRegion));
         mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;
         mTimeStamp.mSampleTime = 0;
         mAudioFile = fileId;
-        mLoopCount = -1;
+        mLoopCount = loopCount;
         mStartFrame = startFrame;
         mFramesToPlay = frames;
     }
