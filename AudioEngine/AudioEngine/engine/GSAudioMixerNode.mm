@@ -17,7 +17,9 @@
 
 @end
 
-@implementation GSAudioMixerNode
+@implementation GSAudioMixerNode {
+
+}
 
 - (instancetype)init {
     GSComponentDesc mixer_desc(kAudioUnitType_Mixer,
@@ -29,6 +31,13 @@
     return self;
 }
 
+- (NSUInteger)numberOfOutputs {
+    return 1;
+}
+
+- (NSUInteger)numberOfInputs {
+    return 2;
+}
 
 #pragma mark - GSAudioUnitDelegate
 - (void)didCreatedAudioUnitInstance {

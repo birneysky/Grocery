@@ -32,15 +32,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureAudioSession];
+
+    GSAudioOutputNode* outputNode = self.engine.outputNode;
     [self.engine attach:self.player1];
-    [self.engine attach:self.mixer];
     [self.engine attach:self.player2];
-    [self.engine attach:self.outputNode];
+    [self.engine attach:self.mixer];
+    //[self.engine attach:self.outputNode];
+    //[self.engine attach:outputNode];
+    
     //self.engine.inputNode;
     [self.engine connect:self.player1 to:self.mixer];
     [self.engine connect:self.player2 to:self.mixer];
     //[self.engine connect:self.inputNode to:self.mixer];
-    [self.engine connect:self.mixer to:self.outputNode];
+    [self.engine connect:self.mixer to:outputNode];
         
     [self.engine prepare];
     
@@ -138,11 +142,5 @@
     return _player2;
 }
 
-- (GSAudioOutputNode*)outputNode {
-    if (!_outputNode) {
-        _outputNode = [[GSAudioOutputNode alloc] init];
-    }
-    return _outputNode;
-}
 
 @end

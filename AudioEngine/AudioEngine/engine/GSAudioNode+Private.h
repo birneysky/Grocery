@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addConnectedOutputBus:(GSAudioNodeBus)bus;
 
 @property (nonatomic, weak) id<GSAudioNodeDelegate> delegate;
+@property (nonatomic, assign) GSAudioNodeBus availableOutputBus;
+@property (nonatomic, assign) GSAudioNodeBus availableInputBus;
 @end
 
 NS_ASSUME_NONNULL_END

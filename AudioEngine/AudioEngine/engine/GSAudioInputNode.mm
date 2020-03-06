@@ -11,51 +11,85 @@
 #import "GSAudioNode+Private.h"
 #import "GSAudioUnit+Private.h"
 
-@implementation GSAudioInputNode 
+@implementation GSAudioInputNode {
+    
+}
 
 - (instancetype)initWithCommponenetDESC:(AudioComponentDescription)desc {
     if (self = [super initWithCommponenetDESC:desc]) {
-        AudioComponentDescription voice_desc = self.audioUnit.acdesc;
-        AudioComponent componenet = AudioComponentFindNext(nullptr, &voice_desc);
-        OSStatus result = AudioComponentInstanceNew(componenet, &self.audioUnit.audioUnitRef);
-         NSAssert(noErr == result, @"AudioComponentInstanceNew %@", @(result));
+//        AudioComponentDescription voice_desc = self.audioUnit.acdesc;
+//        AudioComponent componenet = AudioComponentFindNext(nullptr, &voice_desc);
+//        OSStatus result = AudioComponentInstanceNew(componenet, &self.audioUnit.audioUnitRef);
+//         NSAssert(noErr == result, @"AudioComponentInstanceNew %@", @(result));
+        [self setAvailableOutputBus:1];
         [self setup];
     }
     return self;
 }
 
+
+
+- (NSUInteger)numberOfInputs {
+    return 1;
+}
+
+- (NSUInteger)numberOfOutputs {
+    return 0;
+}
+
+- (GSAudioNodeBus)availableInputBus {
+    return InvalidAudioBus;
+}
+
+- (GSAudioNodeBus)availableOutputBus {
+    return [super availableOutputBus];
+}
+
+- (void)addConnectedOutputBus:(GSAudioNodeBus)bus {
+    self.availableOutputBus = InvalidAudioBus;
+}
+
 - (void)setup {
-    AudioUnit vpio_unit = self.audioUnit.instance;
-    const UInt32 enable = 1;
-    const AudioUnitElement inputBus = 1;
-    OSStatus result = AudioUnitSetProperty(vpio_unit,
-                                           kAudioOutputUnitProperty_EnableIO,
-                                           kAudioUnitScope_Input,
-                                           inputBus,
-                                           &enable,
-                                           sizeof(enable));
-    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
-    
-    result = AudioUnitInitialize(vpio_unit);
-    NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
+//    AudioUnit vpio_unit = self.audioUnit.instance;
+//    const UInt32 enable = 1;
+//    const AudioUnitElement inputBus = 1;
+//    OSStatus result = AudioUnitSetProperty(vpio_unit,
+//                                           kAudioOutputUnitProperty_EnableIO,
+//                                           kAudioUnitScope_Input,
+//                                           inputBus,
+//                                           &enable,
+//                                           sizeof(enable));
+//    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+//    
+//    OSStatus result = AudioUnitInitialize(vpio_unit);
+//    NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
 }
 
 - (void)start {
-    AudioUnit vpio_unit = self.audioUnit.instance;
-    OSStatus result = AudioOutputUnitStart(vpio_unit);
-    NSAssert(noErr == result, @"AudioOutputUnitStart %@", @(result));
+//    AudioUnit vpio_unit = self.audioUnit.instance;
+//    OSStatus result = AudioOutputUnitStart(vpio_unit);
+//    NSAssert(noErr == result, @"AudioOutputUnitStart %@", @(result));
 }
 
 - (void)stop {
-    AudioUnit vpio_unit = self.audioUnit.instance;
-    OSStatus result = AudioOutputUnitStop(vpio_unit);
-    NSAssert(noErr == result, @"AudioOutputUnitStart %@", @(result));
+//    AudioUnit vpio_unit = self.audioUnit.instance;
+//    OSStatus result = AudioOutputUnitStop(vpio_unit);
+//    NSAssert(noErr == result, @"AudioOutputUnitStart %@", @(result));
 }
 
 - (void)dealloc {
-    AudioUnit vpio_unit = self.audioUnit.instance;
-    OSStatus result = AudioComponentInstanceDispose(vpio_unit);
-    NSAssert(noErr == result, @"AudioComponentInstanceDispose %@", @(result));
+//    AudioUnit vpio_unit = self.audioUnit.instance;
+//    OSStatus result = AudioComponentInstanceDispose(vpio_unit);
+//    NSAssert(noErr == result, @"AudioComponentInstanceDispose %@", @(result));
 }
+
+
+//- (GSAudioNodeBus)availableInputBus {
+//    return _availableInputBus;
+//}
+//
+//- (GSAudioNodeBus)availableOutputBus {
+//    return _availableOutputBus;
+//}
 
 @end

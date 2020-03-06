@@ -87,22 +87,32 @@ const GSAudioNodeBus InvalidAudioBus = UINT32_MAX;
     return _availableOutputBus;
 }
 
+- (void)setAvailableInputBus:(GSAudioNodeBus)availableInputBus {
+    _availableInputBus = availableInputBus;
+}
+
+- (void)setAvailableOutputBus:(GSAudioNodeBus)availableOutputBus {
+    _availableOutputBus = availableOutputBus;
+}
+
 #pragma mark - notification
 - (void)didFinishInitializing{
    // do nothing
 }
 
 - (void)addConnectedInputBus:(GSAudioNodeBus)bus {
-    if (bus == self.numberOfInputs - 1) {
-        _availableInputBus = UINT32_MAX;
+    const NSUInteger numberOfInputs = self.numberOfInputs;
+    if (bus == numberOfInputs - 1) {
+        _availableInputBus = InvalidAudioBus;
         return;
     }
     _availableInputBus += 1;
 }
 
 - (void)addConnectedOutputBus:(GSAudioNodeBus)bus {
-    if (bus == self.numberOfOutputs - 1) {
-        _availableOutputBus = UINT32_MAX;
+    const NSUInteger numberOfInputs = self.numberOfOutputs;
+    if (bus == numberOfInputs - 1) {
+        _availableOutputBus = InvalidAudioBus;
         return;
     }
     _availableOutputBus += 1;
