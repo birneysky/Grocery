@@ -31,7 +31,7 @@
     NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
     NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
     AVAudioFile* file = [[AVAudioFile alloc] initForReading:fileURL error:nil];
-    file.fileFormat.formatDescription
+    //file.fileFormat.formatDescription
 }
 
 
@@ -116,6 +116,159 @@
                                 &inputFile2);
     NSAssert(noErr == result, @"AudioFileOpenURL %@", @(result));
     XCTAssertNotEqual(inputFile1, inputFile2);
+}
+
+- (void)testMultiChandelAudioMixer {
+    /// 1 创建 graph 对象
+    /// 2 向 graph 对象中添加节点
+    /// 3  对 graph 对象做 open 操作
+    /// 4 获取 节点对应的 audio unit 的引用
+    /// 5 连接节点，构造节点间的边
+    /// 6 初始化 graph 对象
+    /// 7 启动 graph 对象
+    AudioStreamBasicDescription inputFormat;
+    AudioFileID inputFile;
+    AUGraph graph;
+    AudioUnit fileAU;
+    AudioUnit mixerAU;
+    AudioUnit outputAU;
+
+    OSStatus result = NewAUGraph(&graph);
+    NSAssert(noErr == result,@"NewAUGraph %@",@(result));
+    NSLog(@"NewAUGraph");
+
+    result = AUGraphOpen(graph);
+    NSLog(@"open graph");
+    NSAssert(noErr == result,@"AUGraphOpen %@",@(result));
+    
+    AudioComponentDescription outputcd = {0};
+    outputcd.componentType = kAudioUnitType_Output;
+    outputcd.componentSubType = kAudioUnitSubType_RemoteIO;
+    outputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    AUNode outputNode;
+    result = AUGraphAddNode(graph, &outputcd, &outputNode);
+    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
+    NSLog(@"kAudioUnitSubType_RemoteIO addNode:%@",@(outputNode));
+
+    AudioComponentDescription fileplayercd = {0};
+    fileplayercd.componentType = kAudioUnitType_Generator;
+    fileplayercd.componentSubType = kAudioUnitSubType_AudioFilePlayer;
+    fileplayercd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    AUNode fileNode;
+    result = AUGraphAddNode(graph, &fileplayercd, &fileNode);
+    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
+    NSLog(@"kAudioUnitSubType_AudioFilePlayer addNode:%@",@(fileNode));
+    
+    AudioComponentDescription mixercd = {0};
+    mixercd.componentType = kAudioUnitType_Mixer;
+    mixercd.componentSubType = kAudioUnitSubType_MultiChannelMixer;
+    mixercd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    AUNode mixerNode;
+    result = AUGraphAddNode(graph, &mixercd, &mixerNode);
+    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
+    NSLog(@"kAudioUnitSubType_MultiChannelMixer addNode:%@",@(mixerNode));
+
+
+
+    result = AUGraphNodeInfo(graph,fileNode, NULL, &fileAU);
+    NSAssert(noErr == result,@"AUGraphNodeInfo %@",@(result));
+    NSLog(@"initialize %p",fileAU);
+    
+    result = AUGraphNodeInfo(graph,mixerNode, NULL, &mixerAU);
+    NSAssert(noErr == result,@"AUGraphNodeInfo %@",@(result));
+    NSLog(@"initialize %p",mixerAU);
+    
+    result = AUGraphNodeInfo(graph,outputNode, NULL, &outputAU);
+    NSAssert(noErr == result,@"AUGraphNodeInfo %@",@(result));
+    NSLog(@"initialize %p",outputAU);
+    
+    
+    result = AUGraphConnectNodeInput(graph, fileNode, 0, mixerNode, 0);
+    NSAssert(noErr == result,@"AUGraphConnectNodeInput %@",@(result));
+    NSLog(@"connect:%@ to:%@",@(fileNode), @(mixerNode));
+
+    result = AUGraphConnectNodeInput(graph, mixerNode, 0, outputNode, 0);
+    NSAssert(noErr == result,@"AUGraphConnectNodeInput %@",@(result));
+    NSLog(@"connect:%@ to:%@",@(mixerNode), @(outputNode));
+    
+
+    result = AUGraphInitialize(graph);
+    NSAssert(noErr == result,@"AUGraphInitialize %@",@(result));
+    NSLog(@"AUGraphInitialize");
+
+    NSBundle* currentBuldle = [NSBundle bundleForClass:AudioEngineTests.class];
+    NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
+    NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
+    result =  AudioFileOpenURL((__bridge CFURLRef)fileURL,
+                                  kAudioFileReadPermission,
+                                  kAudioFileAIFFType,
+                                  &inputFile);
+     NSAssert(noErr == result, @"AudioFileOpenURL %@", @(result));
+
+     UInt32 propSize = sizeof(inputFormat);
+     result = AudioFileGetProperty(inputFile,
+                            kAudioFilePropertyDataFormat,
+                            &propSize,
+                            &inputFormat);
+     NSAssert(noErr == result, @"AudioFileGetProperty kAudioFilePropertyDataFormat %@", @(result));
+    
+    result = AudioUnitSetProperty(fileAU,
+                           kAudioUnitProperty_ScheduledFileIDs,
+                           kAudioUnitScope_Global,
+                           0,
+                           &inputFile,
+                           sizeof(inputFile));
+    NSAssert(noErr == result,@"AudioUnitSetProperty kAudioUnitProperty_ScheduledFileIDs %@",@(result));
+
+
+    UInt64 nPackets;
+    UInt32 propsize = sizeof(nPackets);
+    result = AudioFileGetProperty(inputFile,
+                           kAudioFilePropertyAudioDataPacketCount, &propsize,
+                           &nPackets);
+    NSAssert(noErr == result,@"AudioFileGetProperty kAudioFilePropertyAudioDataPacketCount %@",@(result));
+
+    ScheduledAudioFileRegion rgn;
+    memset (&rgn.mTimeStamp, 0, sizeof(rgn.mTimeStamp));
+    rgn.mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;
+    rgn.mTimeStamp.mSampleTime = 0;
+    rgn.mCompletionProc = NULL;
+    rgn.mCompletionProcUserData = NULL;
+    rgn.mAudioFile = inputFile;
+
+    rgn.mLoopCount = 2;
+    rgn.mStartFrame = 0;
+    rgn.mFramesToPlay = (UInt32)nPackets * inputFormat.mFramesPerPacket;
+
+    result = AudioUnitSetProperty(fileAU, kAudioUnitProperty_ScheduledFileRegion,
+                           kAudioUnitScope_Global, 0,
+                           &rgn,
+                           sizeof(rgn));
+    NSAssert(noErr == result,@"AudioUnitSetProperty kAudioUnitProperty_ScheduledFileRegion %@",@(result));
+
+    AudioTimeStamp startTime;
+    memset (&startTime, 0, sizeof(startTime));
+    startTime.mFlags = kAudioTimeStampSampleTimeValid; startTime.mSampleTime = -1;
+
+    result = AudioUnitSetProperty(fileAU, kAudioUnitProperty_ScheduleStartTimeStamp,
+                           kAudioUnitScope_Global, 0,
+                           &startTime,
+                           sizeof(startTime));
+    NSAssert(noErr == result,@"AudioUnitSetProperty kAudioUnitProperty_ScheduleStartTimeStamp %@",@(result));
+
+    // Calculating File Playback Time in Seconds
+    NSInteger duration =  nPackets * inputFormat.mFramesPerPacket / inputFormat.mSampleRate;
+
+    result = AUGraphStart(graph);
+    NSAssert(noErr == result,@"AUGraphStart %@",@(result));
+    NSLog(@"AUGraphStart");
+    NSLog(@"start playing duration %@ s", @(duration));
+    usleep ((int)(duration * 1000.0 * 1000.0) * rgn.mLoopCount);
+    NSLog(@"stop play");
+    AUGraphStop(graph);
+    AUGraphUninitialize(graph);
+    AUGraphClose(graph);
+    AudioFileClose(inputFile);
 }
 
 - (void)testAudioUnitFilePlayer {

@@ -32,12 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureAudioSession];
-    [self.engine attach:self.mixer];
     [self.engine attach:self.player1];
+    [self.engine attach:self.mixer];
     [self.engine attach:self.player2];
     [self.engine attach:self.outputNode];
-    
-    self.engine.inputNode;
+    //self.engine.inputNode;
     [self.engine connect:self.player1 to:self.mixer];
     [self.engine connect:self.player2 to:self.mixer];
     //[self.engine connect:self.inputNode to:self.mixer];
@@ -45,25 +44,34 @@
         
     [self.engine prepare];
     
-
 }
 
 #pragma mark - Helper
 - (void)configureAudioSession {
-      AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
-      NSError *error = nil;
-      [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-      
-      NSTimeInterval bufferDuration = .005;
-      [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
 
-      [sessionInstance setPreferredSampleRate:44100 error:&error];
-      
-      [[AVAudioSession sharedInstance] setActive:YES error:&error];
+    NSTimeInterval bufferDuration = .005;
+    [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
+
+    [sessionInstance setPreferredSampleRate:44100 error:&error];
+    [sessionInstance setActive:YES error:&error];
+
+    
 }
 
 #pragma mark - tareget actions
 
+- (IBAction)switchSpeaker:(UIButton *)sender {
+    if (!sender.isSelected) {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+        sender.selected = YES;
+    } else {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+        sender.selected = NO;
+    }
+}
 - (IBAction)startAction:(UIButton *)sender {
     if (!sender.isSelected) {
         [self.engine start];
@@ -136,7 +144,5 @@
     }
     return _outputNode;
 }
-
-
 
 @end
