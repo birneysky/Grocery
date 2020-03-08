@@ -3,13 +3,13 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import <AudioUnit/AudioUnit.h>
 #import "GSAudioMixerNode.h"
 #import "GSAudioEngineStructures.h"
-#import "GSAudioUnit.h"
+#import "GSAudioUnit+Private.h"
 #import "GSAudioNode+Private.h"
 #import "GSMixingVolumeControllable.h"
 
@@ -31,23 +31,23 @@
     return self;
 }
 
-- (NSUInteger)numberOfOutputs {
-    return 1;
-}
-
-- (NSUInteger)numberOfInputs {
-    return 2;
-}
+//- (NSUInteger)numberOfOutputs {
+//    return 1;
+//}
+//
+//- (NSUInteger)numberOfInputs {
+//    return 2;
+//}
 
 #pragma mark - GSAudioUnitDelegate
 - (void)didCreatedAudioUnitInstance {
-    AudioUnit unit = [self audioUnit].instance;
-    NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
-    const UInt32 numbuses = 2;
-    OSStatus result = AudioUnitSetProperty(unit,
-                                           kAudioUnitProperty_ElementCount,
-                                           kAudioUnitScope_Input, 0, &numbuses, sizeof(numbuses));
-    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_ElementCount %@", @(result));
+//    AudioUnit unit = [self audioUnit].instance;
+//    NSAssert(nil != unit, @"%@ %@ audio unit is nil",NSStringFromClass(self),NSStringFromSelector(_cmd));
+//    const UInt32 numbuses = 2;
+//    OSStatus result = AudioUnitSetProperty(unit,
+//                                           kAudioUnitProperty_ElementCount,
+//                                           kAudioUnitScope_Input, 0, &numbuses, sizeof(numbuses));
+//    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_ElementCount %@", @(result));
 }
 
 

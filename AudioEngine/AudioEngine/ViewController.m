@@ -3,7 +3,7 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 @import AVFoundation;
@@ -21,7 +21,6 @@
 @property (nonatomic, strong) GSAudioMixerNode* mixer;
 @property (nonatomic, strong) GSAudioPlayerNode* player1;
 @property (nonatomic, strong) GSAudioPlayerNode* player2;
-@property (nonatomic, strong) GSAudioOutputNode* outputNode;
 
 @end
 
@@ -34,17 +33,20 @@
     [self configureAudioSession];
 
     GSAudioOutputNode* outputNode = self.engine.outputNode;
-    [self.engine attach:self.player1];
-    [self.engine attach:self.player2];
-    [self.engine attach:self.mixer];
+    GSAudioInputNode* inputNode = self.engine.inputNode;
+//    [self.engine attach:self.player1];
+    //[self.engine attach:self.player2];
+//    [self.engine attach:self.mixer];
     //[self.engine attach:self.outputNode];
     //[self.engine attach:outputNode];
     
-    //self.engine.inputNode;
-    [self.engine connect:self.player1 to:self.mixer];
-    [self.engine connect:self.player2 to:self.mixer];
+    [self.engine connect:inputNode to:outputNode];
+//    [self.engine connect:inputNode to:self.mixer];
+//    [self.engine connect:self.player1 to:self.mixer];
+//    [self.engine connect:self.player2 to:self.mixer];
+//    [self.engine connect:inputNode to:self.mixer];
     //[self.engine connect:self.inputNode to:self.mixer];
-    [self.engine connect:self.mixer to:outputNode];
+//    [self.engine connect:self.mixer to:outputNode];
         
     [self.engine prepare];
     
@@ -59,7 +61,7 @@
     NSTimeInterval bufferDuration = .005;
     [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
 
-    [sessionInstance setPreferredSampleRate:44100 error:&error];
+    [sessionInstance setPreferredSampleRate:48000 error:&error];
     [sessionInstance setActive:YES error:&error];
 
     

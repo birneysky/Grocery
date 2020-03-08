@@ -3,12 +3,12 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import "GSAudioPlayerNode.h"
 #import "GSAudioEngineStructures.h"
-#import "GSAudioUnit.h"
+#import "GSAudioUnit+Private.h"
 #import "GSAudioNode+Private.h"
 #import "GSAudioMixing.h"
 #import "GSMixingDestination.h"

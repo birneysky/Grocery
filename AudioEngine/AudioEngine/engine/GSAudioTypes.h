@@ -3,7 +3,7 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/3/5.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #ifndef GSAudioTypes_h

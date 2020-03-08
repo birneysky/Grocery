@@ -3,11 +3,12 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import "GSAudioNode.h"
 #import "GSAudioUnit.h"
+#import <AVFoundation/AVFoundation.h>
 
 @protocol GSAudioNodeDelegate;
 
@@ -22,7 +23,6 @@ const GSAudioNodeBus InvalidAudioBus = UINT32_MAX;
 
 @implementation GSAudioNode {
     GSAudioUnit* _audioUnit;
-    AUNode _node;
     GSAudioNodeBus _availableInputBus; /// 当前可用 input bus 的索引
     GSAudioNodeBus _availableOutputBus; /// 当前可用 input bus 的索引
 }
@@ -34,16 +34,15 @@ const GSAudioNodeBus InvalidAudioBus = UINT32_MAX;
     return self;
 }
 
-- (void)setAUNode:(AUNode)node {
-    _node = node;
+- (instancetype)initWithAudioUnit:(GSAudioUnit*)node {
+    if (self = [super init]) {
+        _audioUnit = node;
+    }
+    return self;
 }
 
 - (GSAudioUnit*)audioUnit  {
     return _audioUnit;
-}
-
-- (AUNode)node {
-    return _node;
 }
 
 - (NSUInteger)numberOfInputs {
@@ -55,7 +54,7 @@ const GSAudioNodeBus InvalidAudioBus = UINT32_MAX;
     OSStatus  result = AudioUnitGetProperty(_audioUnit.instance,
                                             kAudioUnitProperty_ElementCount,
                                             kAudioUnitScope_Input,
-                                            0,
+                                            1,
                                             &numbuses,
                                             &propSize);
     NSAssert(noErr == result, @"AudioUnitGetProperty kAudioUnitProperty_ElementCount kAudioUnitScope_Input %@",@(result));
@@ -76,6 +75,38 @@ const GSAudioNodeBus InvalidAudioBus = UINT32_MAX;
                                             &propSize);
     NSAssert(noErr == result, @"AudioUnitGetProperty kAudioUnitProperty_ElementCount kAudioUnitScope_Input %@",@(result));
     return numbuses;
+}
+
+- (AVAudioFormat *)inputFormatForBus:(GSAudioNodeBus)bus {
+    if (!_audioUnit.instance) {
+         return 0;
+     }
+    AudioStreamBasicDescription asbd = {0};
+     UInt32 propSize = sizeof(AudioStreamBasicDescription);
+     OSStatus  result = AudioUnitGetProperty(_audioUnit.instance,
+                                             kAudioUnitProperty_StreamFormat,
+                                             kAudioUnitScope_Input,
+                                             bus,
+                                             &asbd,
+                                             &propSize);
+     NSAssert(noErr == result, @"AudioUnitGetProperty kAudioUnitProperty_StreamFormat kAudioUnitScope_Input %@",@(result));
+     return [[AVAudioFormat alloc] initWithStreamDescription:&asbd];
+}
+
+- (AVAudioFormat *)outputFormatForBus:(GSAudioNodeBus)bus {
+    if (!_audioUnit.instance) {
+         return 0;
+     }
+      AudioStreamBasicDescription asbd = {0};
+     UInt32 propSize = sizeof(AudioStreamBasicDescription);
+     OSStatus  result = AudioUnitGetProperty(_audioUnit.instance,
+                                             kAudioUnitProperty_StreamFormat,
+                                             kAudioUnitScope_Output,
+                                             bus,
+                                             &asbd,
+                                             &propSize);
+     NSAssert(noErr == result, @"AudioUnitGetProperty kAudioUnitProperty_StreamFormat kAudioUnitScope_Input %@",@(result));
+     return [[AVAudioFormat alloc] initWithStreamDescription:&asbd];
 }
 
 

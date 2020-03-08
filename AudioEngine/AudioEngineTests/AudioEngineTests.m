@@ -3,27 +3,95 @@
 //  AudioEngineTests
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
-#import "GSAudioOutputNode.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "GSAudioOutputNode.h"
+#import "GSAudioEngine.h"
+#import "GSAudioInputNode.h"
+#import "GSAudioMixerNode.h"
+
+
+void printASBD(const struct AudioStreamBasicDescription asbd) {
+ 
+    char formatIDString[5];
+    UInt32 formatID = CFSwapInt32HostToBig (asbd.mFormatID);
+    bcopy (&formatID, formatIDString, 4);
+    formatIDString[4] = '\0';
+ 
+    NSLog (@"  Sample Rate:         %10.0f",  asbd.mSampleRate);
+    NSLog (@"  Format ID:           %10s",    formatIDString);
+    NSLog (@"  Format Flags:        %10X",    asbd.mFormatFlags);
+    NSLog (@"  Bytes per Packet:    %10d",    asbd.mBytesPerPacket);
+    NSLog (@"  Frames per Packet:   %10d",    asbd.mFramesPerPacket);
+    NSLog (@"  Bytes per Frame:     %10d",    asbd.mBytesPerFrame);
+    NSLog (@"  Channels per Frame:  %10d",    asbd.mChannelsPerFrame);
+    NSLog (@"  Bits per Channel:    %10d",    asbd.mBitsPerChannel);
+}
 
 @interface AudioEngineTests : XCTestCase
 
 @end
 
-@implementation AudioEngineTests
+static GSAudioEngine* _engine = nil;
+
+@implementation AudioEngineTests {
+    
+}
+
++(void)setUp {
+    _engine = [[GSAudioEngine alloc] init];
+}
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+
+    NSTimeInterval bufferDuration = .005;
+    [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
+
+    [sessionInstance setPreferredSampleRate:48000 error:&error];
+    [sessionInstance setActive:YES error:&error];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testInputNodeFormat {
+    GSAudioInputNode* input = _engine.inputNode;
+    AVAudioFormat* inputFormat =  [input inputFormatForBus:1];
+    AVAudioFormat* outputFormat = [input outputFormatForBus:1];
+    
+    printASBD(*inputFormat.streamDescription);
+    printASBD(*outputFormat.streamDescription);
+}
+
+- (void)testInpuNode {
+    GSAudioInputNode* input = _engine.inputNode;
+    XCTAssertEqual(input.numberOfInputs, 1);
+    XCTAssertEqual(input.numberOfOutputs, 1);
+    
+    GSAudioOutputNode* output = _engine.outputNode;
+    XCTAssertEqual(output.numberOfInputs, 1);
+    XCTAssertEqual(output.numberOfOutputs, 1);
+    
+    GSAudioMixerNode* mixer = [[GSAudioMixerNode alloc] init];
+    
+    XCTAssertEqual(mixer.numberOfInputs, 0);
+    XCTAssertEqual(mixer.numberOfOutputs, 0);
+    
+    [_engine attach:mixer];
+    
+    XCTAssertEqual(mixer.numberOfInputs, 8);
+    XCTAssertEqual(mixer.numberOfOutputs, 1);
+    
 }
 
 - (void)testAudiofile {

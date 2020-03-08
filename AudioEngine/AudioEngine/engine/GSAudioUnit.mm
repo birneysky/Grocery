@@ -3,7 +3,7 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import "GSAudioUnit.h"
@@ -15,6 +15,7 @@
 @implementation GSAudioUnit {
     AudioComponent _component;
     AudioUnit _unitInstance;
+    AUNode _auNode;
     AudioComponentDescription _acdesc;
 }
 
@@ -30,6 +31,14 @@
     if ([self.delegate respondsToSelector:@selector(didCreatedAudioUnitInstance)]) {
         [self.delegate didCreatedAudioUnitInstance];
     }
+}
+
+- (void)setAuNode:(AUNode)node {
+    _auNode = node;
+}
+
+- (AUNode)auNode {
+    return _auNode;
 }
 
 - (AudioUnit&)audioUnitRef {

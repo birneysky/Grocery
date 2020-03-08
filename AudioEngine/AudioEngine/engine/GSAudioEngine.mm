@@ -3,7 +3,7 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/27.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #import <AudioUnit/AudioUnit.h>
@@ -30,11 +30,12 @@ typedef NS_ENUM(NSUInteger, State) {
 
 @interface GSAudioEngine() <GSAudioNodeDelegate>
 
-@property (nonatomic,assign) BOOL isRunning;
+@property (nonatomic, assign) BOOL isRunning;
 @property (nonatomic, strong) NSMutableArray<GSAudioNode*>* nodes;
 @property (nonatomic, strong) NSMutableDictionary<id,GSMixingDestination*>* pathes;
 @property (nonatomic, strong) GSAudioInputNode* inputNode;
 @property (nonatomic, strong) GSAudioOutputNode* outputNode;
+@property (nonatomic, strong) GSAudioUnit* vpioUnit;
 @end
 
 @implementation GSAudioEngine {
@@ -50,6 +51,7 @@ typedef NS_ENUM(NSUInteger, State) {
         NSAssert(noErr == result,@"NewAUGraph %@",@(result));
         result = AUGraphOpen(_graph);
         NSAssert(noErr == result,@"AUGraphOpen %@",@(result));
+        [self attachAudioUnit:self.vpioUnit];
     }
     return self;
 }
@@ -60,14 +62,10 @@ typedef NS_ENUM(NSUInteger, State) {
 
 #pragma mark - Apis
 - (void)prepare {
-    if (!_inputNode) {
-        [self attach:self.inputNode];
-    }
     OSStatus result = AUGraphInitialize(_graph);
     NSAssert(noErr == result, @"AUGraphInitialize %@", @(result));
     [self.nodes makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
     [self.nodes makeObjectsPerformSelector:@selector(didFinishInitializing)];
-    //[_outputNode initialize];
 }
 - (void)start {
     if (self.isRunning) {
@@ -75,10 +73,7 @@ typedef NS_ENUM(NSUInteger, State) {
     }
     OSStatus result = AUGraphStart(_graph);
     NSLog(@"AUGraphStart %@",@(result));
-//    NSAssert(noErr == result, @"AUGraphStart %@", @(result));
-//    /// 注意这里不要使用 self.inputNode,  当外部没有明确访问 inputNode时， 不创建该实例
-//    [_inputNode start];
-    [_outputNode start];
+    NSAssert(noErr == result, @"AUGraphStart %@", @(result));
     _isRunning = YES;
 }
 
@@ -94,9 +89,9 @@ typedef NS_ENUM(NSUInteger, State) {
 //    return NO;
 //}
 
-- (void)attach:(GSAudioNode*)node {
+- (void)attachAudioUnit:(GSAudioUnit *)unit; {
     AUNode outNode;
-    AudioComponentDescription desc = node.audioUnit.acdesc;
+    AudioComponentDescription desc = unit.acdesc;
     OSStatus result = AUGraphAddNode(_graph, &desc, &outNode);
     NSAssert(noErr == result, @"AUGraphAddNode result %@",@(result));
     
@@ -104,10 +99,14 @@ typedef NS_ENUM(NSUInteger, State) {
     result = AUGraphNodeInfo(_graph, outNode, NULL, &outUnit);
     NSAssert(noErr == result, @"AUGraphNodeInfo result %@",@(result));
     
-    [node setAUNode:outNode];
-    [node.audioUnit setAudioUnit:outUnit];
+    [unit setAuNode:outNode];
+    [unit setAudioUnit:outUnit];
+    NSLog(@"attach %@ --> node:%@", unit, @(outNode));
+}
+
+- (void)attach:(GSAudioNode*)node {
+    [self attachAudioUnit:node.audioUnit];
     [self.nodes addObject:node];
-    NSLog(@"attach %@ --> node:%@",node,@(outNode));
 }
 
 - (void)detach:(GSAudioNode*)node {
@@ -115,24 +114,21 @@ typedef NS_ENUM(NSUInteger, State) {
 }
 
 - (void)connect:(GSAudioNode*)src to:(GSAudioNode*)dst {
-    GSAudioNodeBus srcOutputBus = src.availableOutputBus;
-    GSAudioNodeBus dstInputBus = dst.availableInputBus;
+    const GSAudioNodeBus srcOutputBus = src.availableOutputBus;
+    const GSAudioNodeBus dstInputBus = dst.availableInputBus;
     NSAssert(InvalidAudioBus != srcOutputBus, @" %@ no ouput bus available",src);
     NSAssert(InvalidAudioBus != dstInputBus, @" %@ no input bus available",dst);
     
+    const AUNode srcNode = src.audioUnit.auNode;
+    const AUNode dstNode = dst.audioUnit.auNode;
+    NSLog(@"connect srcNode:%@ bus:%@ --> dstNode:%@ bus:%@",src,@(srcOutputBus),dst,@(dstInputBus));
 
-    NSLog(@"connect src:%@ node:%@ --> dst:%@ node:%@",src,@(src.node),dst,@(dst.node));
-    if (dst == self.outputNode) {
-        [self.outputNode associate:src];
-    } else {
-        OSStatus result = AUGraphConnectNodeInput(_graph,
-                                                  src.node,
-                                                  (AUNode)srcOutputBus,
-                                                  dst.node,
-                                                  (AUNode)dstInputBus);
-        NSAssert(noErr == result, @"AUGraphConnectNodeInput %@", @(result));
-    }
-
+    OSStatus result = AUGraphConnectNodeInput(_graph,
+                                              srcNode,
+                                              (UInt32)srcOutputBus,
+                                              dstNode,
+                                              (UInt32)dstInputBus);
+    NSAssert(noErr == result, @"AUGraphConnectNodeInput %@", @(result));
     
     [src addConnectedOutputBus:srcOutputBus];
     [dst addConnectedInputBus:dstInputBus];
@@ -165,24 +161,26 @@ typedef NS_ENUM(NSUInteger, State) {
     return _pathes;
 }
 
+- (GSAudioUnit*)vpioUnit {
+    if (!_vpioUnit) {
+        GSComponentDesc vpio_desc(kAudioUnitType_Output,
+                                  kAudioUnitSubType_VoiceProcessingIO,
+                                  kAudioUnitManufacturer_Apple);
+        _vpioUnit = [[GSAudioUnit alloc] initWithComponentDescription:vpio_desc];
+    }
+    return _vpioUnit;
+}
+
 - (GSAudioInputNode*)inputNode {
     if (!_inputNode) {
-        GSComponentDesc input_desc(kAudioUnitType_Output,
-                                    kAudioUnitSubType_VoiceProcessingIO,
-                                    kAudioUnitManufacturer_Apple);
-        _inputNode = [[GSAudioInputNode alloc] initWithCommponenetDESC:input_desc];
-//        [self attach:_inputNode];
+        _inputNode = [[GSAudioInputNode alloc] initWithAudioUnit:self.vpioUnit];
     }
     return _inputNode;
 }
 
 - (GSAudioOutputNode*)outputNode {
     if (!_outputNode) {
-        GSComponentDesc output_desc(kAudioUnitType_Output,
-                                    kAudioUnitSubType_RemoteIO,
-                                    kAudioUnitManufacturer_Apple);
-        _outputNode = [[GSAudioOutputNode alloc] initWithCommponenetDESC:output_desc];
-        //[self attach:_outputNode];
+        _outputNode = [[GSAudioOutputNode alloc] initWithAudioUnit:self.vpioUnit];
     }
     return _outputNode;
 }

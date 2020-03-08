@@ -3,7 +3,7 @@
 //  AudioEngine
 //
 //  Created by birney on 2020/2/28.
-//  Copyright © 2020 rongcloud. All rights reserved.
+//  Copyright © 2020 Pea. All rights reserved.
 //
 
 #ifndef GSAudioEngineStructures_hpp
@@ -47,7 +47,7 @@ struct GSAudioStreamBasicDesc : public AudioStreamBasicDescription {
         kPCMFormatInt16        = 2,
     };
     
-    GSAudioStreamBasicDesc(    double inSampleRate, UInt32 inNumChannels, CommonPCMFormat pcmf, bool isInterleaved) {
+    GSAudioStreamBasicDesc(double inSampleRate, UInt32 inNumChannels, CommonPCMFormat pcmf, bool isInterleaved) {
         memset(this, 0, sizeof(AudioStreamBasicDescription));
         unsigned wordsize;
         mSampleRate = inSampleRate;
