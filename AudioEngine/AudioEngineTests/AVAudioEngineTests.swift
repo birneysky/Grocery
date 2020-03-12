@@ -11,23 +11,28 @@ import AVFoundation
 
 func printASBD(asbd: UnsafePointer<AudioStreamBasicDescription>)  {
  
-    //char formatIDString[5];
     let aasbd = asbd.pointee;
     var formatID = CFSwapInt32HostToBig (aasbd.mFormatID);
-    let formatIDRaw = UnsafeMutableRawPointer.allocate(byteCount: 5, alignment: 0);
-    //formatIDString.initializeMemory(as: Int8, from: nil, count: 5)
+    let formatIDRaw = UnsafeMutableRawPointer.allocate(byteCount: 5,
+                                                       alignment: 0);
+    formatIDRaw.initializeMemory(as: Int8.self,
+                                 repeating: 0,
+                                 count: 5)
     bcopy (&formatID, formatIDRaw, 4);
-    //formatIDString[4] = '\0';
-    //let formatIDString = String(cString: formatIDRaw)
+    let formatIDString = String(bytesNoCopy: formatIDRaw,
+                                length: 5,
+                                encoding: .ascii,
+                                freeWhenDone: false)
+    formatIDRaw.deallocate()
  
-    NSLog ("  Sample Rate:         %10.0f",  aasbd.mSampleRate)
-    //NSLog ("  Format ID:           %@",    formatIDString);
-    NSLog ("  Format Flags:        %10X",    aasbd.mFormatFlags);
-    NSLog ("  Bytes per Packet:    %10d",    aasbd.mBytesPerPacket);
-    NSLog ("  Frames per Packet:   %10d",    aasbd.mFramesPerPacket);
-    NSLog ("  Bytes per Frame:     %10d",    aasbd.mBytesPerFrame);
-    NSLog ("  Channels per Frame:  %10d",    aasbd.mChannelsPerFrame);
-    NSLog ("  Bits per Channel:    %10d",    aasbd.mBitsPerChannel);
+    print ("  Sample Rate:         \(aasbd.mSampleRate)" )
+    print ("  Format ID:           \(formatIDString ?? "unkown")")
+    print ("  Format Flags:        \(aasbd.mFormatFlags)")
+    print ("  Bytes per Packet:    \(aasbd.mBytesPerPacket)")
+    print ("  Frames per Packet:   \(aasbd.mFramesPerPacket)")
+    print ("  Bytes per Frame:     \(aasbd.mBytesPerFrame)")
+    print ("  Channels per Frame:  \(aasbd.mChannelsPerFrame)")
+    print ("  Bits per Channel:    \(aasbd.mBitsPerChannel)")
 }
 
 class AVAudioEngineTests: XCTestCase {
@@ -62,8 +67,8 @@ class AVAudioEngineTests: XCTestCase {
                                                  sampleRate: AVAudioSession.sharedInstance().sampleRate,
                                                  channels: AVAudioChannelCount(1),
                                           interleaved: false) else {fatalError() }
-        
-         printASBD(asbd: tempFormat.streamDescription)
+        print("tempFormat: \(tempFormat)")
+        printASBD(asbd: tempFormat.streamDescription)
     }
     
     func testEngineVoiceProcessingIONodes() {
