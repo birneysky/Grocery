@@ -52,6 +52,18 @@ class AVAudioEngineTests: XCTestCase {
         XCTAssertEqual(output.numberOfInputs, 1);
         XCTAssertEqual(output.numberOfOutputs, 1)
     }
+    
+    func testEngineOutputNodeFormat() {
+        let output = engine.outputNode
+        var format = output.inputFormat(forBus: 0)
+        print("outputNode format:\(format)")
+        printASBD(asbd: format.streamDescription)
+    
+        format = output.outputFormat(forBus: 0)
+        print("outputNode format:\(format)")
+        printASBD(asbd: format.streamDescription)
+    }
+    
     func testEngineInputNodeFormat() {
         let input = engine.inputNode
         let format = input.inputFormat(forBus: 1)

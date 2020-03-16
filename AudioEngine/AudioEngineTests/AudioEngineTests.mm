@@ -14,7 +14,8 @@
 #import "GSAudioEngine.h"
 #import "GSAudioInputNode.h"
 #import "GSAudioMixerNode.h"
-
+#import "AudioData.h"
+#import "GSAudioEngineStructures.h"
 
 void printASBD(const struct AudioStreamBasicDescription asbd) {
  
@@ -33,6 +34,21 @@ void printASBD(const struct AudioStreamBasicDescription asbd) {
     NSLog (@"  Bits per Channel:    %10d",    asbd.mBitsPerChannel);
 }
 
+OSStatus inputDataProc (  AudioConverterRef               inAudioConverter,
+                                        UInt32 *                        ioNumberDataPackets,
+                                        AudioBufferList *               ioData,
+                                        AudioStreamPacketDescription * __nullable * __nullable outDataPacketDescription,
+                                             void * __nullable               inUserData) {
+    
+    AudioBufferList* inputList = (AudioBufferList*)inUserData;
+    ioData->mNumberBuffers = 1;
+    ioData->mBuffers[0].mData = inputList->mBuffers[0].mData;
+    ioData->mBuffers[0].mNumberChannels = 1;
+    ioData->mBuffers[0].mDataByteSize = inputList->mBuffers[0].mDataByteSize;
+    //*ioNumberDataPackets = 0;
+    return noErr;
+}
+
 @interface AudioEngineTests : XCTestCase
 
 @end
@@ -44,11 +60,6 @@ static GSAudioEngine* _engine = nil;
 }
 
 +(void)setUp {
-    _engine = [[GSAudioEngine alloc] init];
-}
-
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
     AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
     NSError *error = nil;
     [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
@@ -58,10 +69,103 @@ static GSAudioEngine* _engine = nil;
 
     [sessionInstance setPreferredSampleRate:48000 error:&error];
     [sessionInstance setActive:YES error:&error];
+    _engine = [[GSAudioEngine alloc] init];
+}
+
+- (void)setUp {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testAudioConverter2 {
+    AudioConverterRef convert;
+    AVAudioFormat* inputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
+                                              sampleRate:48000
+                                              channels:1
+                                              interleaved:NO];
+    AVAudioFormat* outputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16
+                                              sampleRate:48000
+                                              channels:1
+                                              interleaved:NO];
+    
+    OSStatus result = AudioConverterNew(inputFormat.streamDescription, outputFormat.streamDescription, &convert);
+    NSAssert(noErr == result, @"AudioConverterNew %@", @(result));
+    
+    AudioBufferList inputList = {};
+    inputList.mNumberBuffers = 1;
+    inputList.mBuffers[0].mData = buf6;
+    inputList.mBuffers[0].mDataByteSize = sizeof(buf6);
+    inputList.mBuffers[0].mNumberChannels = 1;
+    
+    
+    Byte outBuffer[512] = {0};
+    AudioBufferList outputList;
+    outputList.mNumberBuffers = 1;
+    outputList.mBuffers[0].mData = outBuffer;
+    outputList.mBuffers[0].mDataByteSize = sizeof(outBuffer);
+    outputList.mBuffers[0].mNumberChannels = 1;
+    AudioStreamPacketDescription aspdes = {0};
+    aspdes.mDataByteSize = 512;
+    aspdes.mStartOffset = 0;
+    aspdes.mVariableFramesInPacket = 1;
+    UInt32 outputDataPacketSize = 256;
+    result = AudioConverterFillComplexBuffer(convert, inputDataProc, &inputList, &outputDataPacketSize,&outputList, &aspdes);
+    NSAssert(noErr == result, @"AudioConverterFillComplexBuffer %@", @(result));
+}
+
+- (void)testAudioConverter {
+    
+    AudioConverterRef convert;
+    AVAudioFormat* inputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
+                                           sampleRate:48000
+                                           channels:1
+                                           interleaved:NO];
+   AVAudioFormat* outputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16
+                                           sampleRate:48000
+                                           channels:1
+                                           interleaved:NO];
+ 
+    OSStatus result = AudioConverterNew(inputFormat.streamDescription, outputFormat.streamDescription, &convert);
+    NSAssert(noErr == result, @"AudioConverterNew %@", @(result));
+    UInt32 outSize = 512;
+    Byte outBuffer[512] = {0};
+    result = AudioConverterConvertBuffer(convert,sizeof(buf6), buf6, &outSize, outBuffer);
+    NSAssert(noErr == result, @"AudioConverterConvertBuffer %@", @(result));
+}
+
+
+- (void)testMixeNodeFormat {
+    GSAudioMixerNode* mixerNode = [[GSAudioMixerNode alloc] init];
+    [_engine attach:mixerNode];
+    AVAudioFormat* format = [mixerNode outputFormatForBus:0];
+    printASBD(*format.streamDescription);
+}
+
+- (void)testOutputNodeFormat {
+    GSAudioOutputNode* output = _engine.outputNode;
+    AVAudioFormat* inputFormat =  [output inputFormatForBus:0];
+    AVAudioFormat* outputFormat = [output outputFormatForBus:0];
+    NSLog(@"input:%@",inputFormat);
+    printASBD(*inputFormat.streamDescription);
+    NSLog(@"output:%@",outputFormat);
+    printASBD(*outputFormat.streamDescription);
+    
+    AVAudioFormat* audioFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32
+                                              sampleRate:48000
+                                              channels:1
+                                              interleaved:NO];
+    printASBD(*audioFormat.streamDescription);
+    
+    GSAudioStreamBasicDesc asbd(48000, 1, GSAudioStreamBasicDesc::kPCMFormatFloat32, false);
+    
+     printASBD(asbd);
+//    AVAudioFormat* outputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16
+//                                              sampleRate:48000
+//                                              channels:1
+//                                              interleaved:NO];
 }
 
 - (void)testInputNodeFormat {

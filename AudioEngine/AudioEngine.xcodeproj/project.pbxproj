@@ -20,7 +20,7 @@
 		B28A78502407B26500785F53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B28A784F2407B26500785F53 /* Assets.xcassets */; };
 		B28A78532407B26500785F53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B28A78512407B26500785F53 /* LaunchScreen.storyboard */; };
 		B28A78562407B26500785F53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78552407B26500785F53 /* main.m */; };
-		B28A78602407B26500785F53 /* AudioEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A785F2407B26500785F53 /* AudioEngineTests.m */; };
+		B28A78602407B26500785F53 /* AudioEngineTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B28A785F2407B26500785F53 /* AudioEngineTests.mm */; };
 		B28A786B2407B26500785F53 /* AudioEngineUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A786A2407B26500785F53 /* AudioEngineUITests.m */; };
 		B2E1221B2411069600A3930F /* GSAudioMixerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B2E122022411069600A3930F /* GSAudioMixerNode.mm */; };
 		B2E1221C2411069600A3930F /* GSAudioIONode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B2E122062411069600A3930F /* GSAudioIONode.mm */; };
@@ -70,12 +70,13 @@
 		B28A78542407B26500785F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28A78552407B26500785F53 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B28A785B2407B26500785F53 /* AudioEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B28A785F2407B26500785F53 /* AudioEngineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioEngineTests.m; sourceTree = "<group>"; };
+		B28A785F2407B26500785F53 /* AudioEngineTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioEngineTests.mm; sourceTree = "<group>"; };
 		B28A78612407B26500785F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28A78662407B26500785F53 /* AudioEngineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioEngineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28A786A2407B26500785F53 /* AudioEngineUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioEngineUITests.m; sourceTree = "<group>"; };
 		B28A786C2407B26500785F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28A78A72408BFC600785F53 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B2AE4CA724172F700000A08A /* AudioData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioData.h; sourceTree = "<group>"; };
 		B2E122012411069600A3930F /* GSAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAudioUnit.h; sourceTree = "<group>"; };
 		B2E122022411069600A3930F /* GSAudioMixerNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GSAudioMixerNode.mm; sourceTree = "<group>"; };
 		B2E122032411069600A3930F /* GSAudioNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAudioNode.h; sourceTree = "<group>"; };
@@ -173,10 +174,11 @@
 		B28A785E2407B26500785F53 /* AudioEngineTests */ = {
 			isa = PBXGroup;
 			children = (
-				B28A785F2407B26500785F53 /* AudioEngineTests.m */,
+				B28A785F2407B26500785F53 /* AudioEngineTests.mm */,
 				B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */,
 				B28A78612407B26500785F53 /* Info.plist */,
 				B26AE6C72408EAB900621829 /* AudioEngineTests-Bridging-Header.h */,
+				B2AE4CA724172F700000A08A /* AudioData.h */,
 			);
 			path = AudioEngineTests;
 			sourceTree = "<group>";
@@ -398,7 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B28A78602407B26500785F53 /* AudioEngineTests.m in Sources */,
+				B28A78602407B26500785F53 /* AudioEngineTests.mm in Sources */,
 				B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
