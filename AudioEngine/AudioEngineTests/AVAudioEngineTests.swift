@@ -38,6 +38,7 @@ func printASBD(asbd: UnsafePointer<AudioStreamBasicDescription>)  {
 class AVAudioEngineTests: XCTestCase {
 
     let engine = AVAudioEngine()
+    let engine1 = AVAudioEngine()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -46,6 +47,13 @@ class AVAudioEngineTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+    func testInputAndOutputNode() {
+        let input0 = engine.inputNode;
+        let input1 = engine1.inputNode;
+        
+        XCTAssertNotEqual(input0.audioUnit, input1.audioUnit);
+        //XCTAssertEqual(input.auAudioUnit, output.auAudioUnit)
+    }
 
 
     func testEnineNumberOfBus() {

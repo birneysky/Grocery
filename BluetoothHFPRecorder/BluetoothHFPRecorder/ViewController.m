@@ -47,7 +47,25 @@ OSStatus OnDeliverRecordedData(void* in_ref_con,
                                UInt32 bus_number,
                                UInt32 num_frames,
                                AudioBufferList* io_data) {
-    NSLog(@"num_frames:%@", @(num_frames));
+    //NSLog(@"num_frames:%@", @(num_frames));
+    Byte buffer[4096] = {};
+    AudioBufferList outList;
+    outList.mNumberBuffers = 1;
+    outList.mBuffers[0].mData = buffer;
+    outList.mBuffers[0].mDataByteSize = num_frames * 2;
+    outList.mBuffers[0].mNumberChannels = 1;
+    AudioUnit unit = in_ref_con;
+    AudioUnitRender(unit, flags, time_stamp, bus_number, num_frames, &outList);
+    
+    /***************************** for debug***************************/
+    int bytesCount = outList.mBuffers[0].mDataByteSize;
+    printf("\n====================== \n");
+    for (int i = 0; i < bytesCount; i++) {
+        Byte* pBytes = (Byte*)buffer;
+        printf("%0.2x,", *pBytes);
+    }
+    printf("\n======================= \n");
+
     return noErr;
                                                
 }
@@ -206,44 +224,44 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
       return NO;
     }
     
-    AudioStreamBasicDescription format = formatDescription(sample_rate, 1, kPCMFormatFloat32, false);
-    UInt32 size = sizeof(format);
-    result = AudioUnitSetProperty(vpio_unit_,
-                                  kAudioUnitProperty_StreamFormat,
-                                  kAudioUnitScope_Output,
-                                  kInputBus, &format, size);
-    if (result != noErr) {
-        NSLog(@"Failed to set format on output scope of input bus. "
-              "Error=%ld.",
-              (long)result);
-        return NO;
-    }
-
-    result = AudioUnitSetProperty(vpio_unit_,
-                                  kAudioUnitProperty_StreamFormat,
-                                  kAudioUnitScope_Input,
-                                  kOutputBus,
-                                  &format,
-                                  size);
-    if (result != noErr) {
-        NSLog(@"Failed to set format on input scope of output bus. "
-              "Error=%ld.",
-              (long)result);
-        return NO;
-    }
+//    AudioStreamBasicDescription format = formatDescription(sample_rate, 1, kPCMFormatFloat32, false);
+//    UInt32 size = sizeof(format);
+//    result = AudioUnitSetProperty(vpio_unit_,
+//                                  kAudioUnitProperty_StreamFormat,
+//                                  kAudioUnitScope_Output,
+//                                  kInputBus, &format, size);
+//    if (result != noErr) {
+//        NSLog(@"Failed to set format on output scope of input bus. "
+//              "Error=%ld.",
+//              (long)result);
+//        return NO;
+//    }
+//
+//    result = AudioUnitSetProperty(vpio_unit_,
+//                                  kAudioUnitProperty_StreamFormat,
+//                                  kAudioUnitScope_Input,
+//                                  kOutputBus,
+//                                  &format,
+//                                  size);
+//    if (result != noErr) {
+//        NSLog(@"Failed to set format on input scope of output bus. "
+//              "Error=%ld.",
+//              (long)result);
+//        return NO;
+//    }
     
-    UInt32 maximumFramesPerSlice = 4096;
-    result = AudioUnitSetProperty (vpio_unit_,
-                                   kAudioUnitProperty_MaximumFramesPerSlice,
-                                   kAudioUnitScope_Global,
-                                   0,
-                                   &maximumFramesPerSlice,
-                                   sizeof (maximumFramesPerSlice)
-                              );
-    if (result != noErr) {
-        NSLog(@"couldn't set max frames per slice on vocice processing IO");
-        return NO;
-    }
+//    UInt32 maximumFramesPerSlice = 4096;
+//    result = AudioUnitSetProperty (vpio_unit_,
+//                                   kAudioUnitProperty_MaximumFramesPerSlice,
+//                                   kAudioUnitScope_Global,
+//                                   0,
+//                                   &maximumFramesPerSlice,
+//                                   sizeof (maximumFramesPerSlice)
+//                              );
+//    if (result != noErr) {
+//        NSLog(@"couldn't set max frames per slice on vocice processing IO");
+//        return NO;
+//    }
     
 
     
@@ -252,7 +270,7 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
     input_callback.inputProcRefCon = vpio_unit_;
     result = AudioUnitSetProperty(vpio_unit_,
                                   kAudioOutputUnitProperty_SetInputCallback,
-                                  kAudioUnitScope_Input, kInputBus,
+                                  kAudioUnitScope_Global, kInputBus,
                                   &input_callback, sizeof(input_callback));
     if (result != noErr) {
       //DisposeAudioUnit();
@@ -301,19 +319,19 @@ AudioStreamBasicDescription audioFormatFor(Float64 sample_rate)  {
     
     
     
-//      AudioStreamBasicDescription format = audioFormatFor(sample_rate);
-//      UInt32 size = sizeof(format);
-////
-//      // Set the format on the output scope of the input element/bus.
-//      result =
-//          AudioUnitSetProperty(vpio_unit_, kAudioUnitProperty_StreamFormat,
-//                               kAudioUnitScope_Output, kInputBus, &format, size);
-//      if (result != noErr) {
-//        NSLog(@"Failed to set format on output scope of input bus. "
-//                     "Error=%ld.",
-//                    (long)result);
-//        return NO;
-//      }
+      AudioStreamBasicDescription format = audioFormatFor(sample_rate);
+      UInt32 size = sizeof(format);
+
+       //Set the format on the output scope of the input element/bus.
+      result =
+          AudioUnitSetProperty(vpio_unit_, kAudioUnitProperty_StreamFormat,
+                               kAudioUnitScope_Output, kInputBus, &format, size);
+      if (result != noErr) {
+        NSLog(@"Failed to set format on output scope of input bus. "
+                     "Error=%ld.",
+                    (long)result);
+        return NO;
+      }
 
       // Set the format on the input scope of the output element/bus.
 //      result =
