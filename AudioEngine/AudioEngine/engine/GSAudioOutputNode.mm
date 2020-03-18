@@ -22,8 +22,8 @@ static OSStatus renderInput(void *inRefCon,
 //    OSStatus result = AudioUnitRender(unit, ioActionFlags, inTimeStamp, 0, inNumberFrames, ioData);
 //    NSLog(@"AudioUnitRender %@",@(result));
     //NSLog(@"renderInput inBusNumber:%@ inNumberFrames:%@",@(inBusNumber),@(inNumberFrames));
-//    for (UInt32 i=0; i<ioData->mNumberBuffers; ++i)
-//        memset(ioData->mBuffers[i].mData, 0, ioData->mBuffers[i].mDataByteSize);
+    for (UInt32 i=0; i<ioData->mNumberBuffers; ++i)
+        memset(ioData->mBuffers[i].mData, 0, ioData->mBuffers[i].mDataByteSize);
     return noErr;
 }
 
@@ -77,6 +77,21 @@ static OSStatus renderInput(void *inRefCon,
                                            &enable_output,
                                            sizeof(enable_output));
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+    
+    AURenderCallbackStruct render_callback;
+    render_callback.inputProc = renderInput;
+    render_callback.inputProcRefCon = (__bridge void*)_srcNode;
+    
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
+    
+    result = AudioUnitSetProperty(unit,
+                                  kAudioUnitProperty_SetRenderCallback,
+                                  kAudioUnitScope_Input,
+                                  0,
+                                  &render_callback,
+                                  sizeof(render_callback));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_SetRenderCallback %@", @(result));
+    
 }
 
 #pragma mark - Private
@@ -84,27 +99,15 @@ static OSStatus renderInput(void *inRefCon,
     _srcNode = node;
     [self setAvailableInputBus:InvalidAudioBus];
     
-     AudioUnit unit = [self audioUnit].instance;
-        UInt32 enable_input = 1;
-        OSStatus result = AudioUnitSetProperty(unit,
-                                      kAudioOutputUnitProperty_EnableIO,
-                                      kAudioUnitScope_Output,
-                                      0,
-                                      &enable_input,
-                                      sizeof(enable_input));
-    AURenderCallbackStruct render_callback;
-      render_callback.inputProc = renderInput;
-      render_callback.inputProcRefCon = (__bridge void*)_srcNode;
-    
-        NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
-    
-        result = AudioUnitSetProperty(unit,
-                                               kAudioUnitProperty_SetRenderCallback,
-                                               kAudioUnitScope_Input,
-                                               0,
-                                               &render_callback,
-                                               sizeof(render_callback));
-        NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_SetRenderCallback %@", @(result));
+    AudioUnit unit = [self audioUnit].instance;
+    UInt32 enable_input = 1;
+    OSStatus result = AudioUnitSetProperty(unit,
+                                           kAudioOutputUnitProperty_EnableIO,
+                                           kAudioUnitScope_Output,
+                                           0,
+                                           &enable_input,
+                                           sizeof(enable_input));
+
 }
 
 #pragma mark - GSAudioUnitDelegate
