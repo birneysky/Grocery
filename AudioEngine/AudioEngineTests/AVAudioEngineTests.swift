@@ -270,6 +270,54 @@ class AVAudioEngineTests: XCTestCase {
         print("UnitType_MIDIProcessor:\(kAudioUnitType_MIDIProcessor)")
 
     }
+    
+    func testOpenAudioFileErrorCode() {
+        print("kAudioFileUnspecifiedError:               \(kAudioFileUnspecifiedError)")
+        print("kAudioFileUnsupportedFileTypeError:       \(kAudioFileUnsupportedFileTypeError)")
+        print("kAudioFileUnsupportedDataFormatError:     \(kAudioFileUnsupportedDataFormatError)")
+        print("kAudioFileUnsupportedPropertyError:       \(kAudioFileUnsupportedPropertyError)")
+        print("kAudioFileBadPropertySizeError:           \(kAudioFileBadPropertySizeError)")
+        print("kAudioFileNotOptimizedError:              \(kAudioFileNotOptimizedError)")
+        print("kAudioFileInvalidChunkError:              \(kAudioFileInvalidChunkError)")
+        print("kAudioFileDoesNotAllow64BitDataSizeError: \(kAudioFileDoesNotAllow64BitDataSizeError)")
+        print("kAudioFileInvalidPacketOffsetError:       \(kAudioFileInvalidPacketOffsetError)")
+        print("kAudioFileInvalidFileError:               \(kAudioFileInvalidFileError)")
+        print("kAudioFileOperationNotSupportedError:     \(kAudioFileOperationNotSupportedError)")
+        print("kAudioFileNotOpenError:                   \(kAudioFileNotOpenError)")
+        print("kAudioFileEndOfFileError:                 \(kAudioFileEndOfFileError)")
+        print("kAudioFilePositionError:                  \(kAudioFilePositionError)")
+        print("kAudioFileFileNotFoundError:              \(kAudioFileFileNotFoundError)")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

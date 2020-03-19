@@ -22,8 +22,8 @@ static OSStatus renderInput(void *inRefCon,
 //    OSStatus result = AudioUnitRender(unit, ioActionFlags, inTimeStamp, 0, inNumberFrames, ioData);
 //    NSLog(@"AudioUnitRender %@",@(result));
     //NSLog(@"renderInput inBusNumber:%@ inNumberFrames:%@",@(inBusNumber),@(inNumberFrames));
-    for (UInt32 i=0; i<ioData->mNumberBuffers; ++i)
-        memset(ioData->mBuffers[i].mData, 0, ioData->mBuffers[i].mDataByteSize);
+//    for (UInt32 i=0; i<ioData->mNumberBuffers; ++i)
+//        memset(ioData->mBuffers[i].mData, 0, ioData->mBuffers[i].mDataByteSize);
     return noErr;
 }
 
@@ -119,9 +119,9 @@ static OSStatus renderInput(void *inRefCon,
     
   
     
-    OSStatus result = AudioUnitAddRenderNotify(unit, &renderInput, unit);
-
-    NSAssert(noErr == result, @"AudioUnitAddRenderNotify %@", @(result));
+//    OSStatus result = AudioUnitAddRenderNotify(unit, &renderInput, unit);
+//
+//    NSAssert(noErr == result, @"AudioUnitAddRenderNotify %@", @(result));
 
 }
 
