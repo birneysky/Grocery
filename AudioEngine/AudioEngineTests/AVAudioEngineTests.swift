@@ -295,6 +295,7 @@ class AVAudioEngineTests: XCTestCase {
 
     }
     
+<<<<<<< HEAD
     func testAudioUnitRecord() {
         
         let session = AVAudioSession.sharedInstance()
@@ -351,6 +352,55 @@ class AVAudioEngineTests: XCTestCase {
         mData.deinitialize(count: 4096)
         mData.deallocate()
     }
+=======
+    func testOpenAudioFileErrorCode() {
+        print("kAudioFileUnspecifiedError:               \(kAudioFileUnspecifiedError)")
+        print("kAudioFileUnsupportedFileTypeError:       \(kAudioFileUnsupportedFileTypeError)")
+        print("kAudioFileUnsupportedDataFormatError:     \(kAudioFileUnsupportedDataFormatError)")
+        print("kAudioFileUnsupportedPropertyError:       \(kAudioFileUnsupportedPropertyError)")
+        print("kAudioFileBadPropertySizeError:           \(kAudioFileBadPropertySizeError)")
+        print("kAudioFileNotOptimizedError:              \(kAudioFileNotOptimizedError)")
+        print("kAudioFileInvalidChunkError:              \(kAudioFileInvalidChunkError)")
+        print("kAudioFileDoesNotAllow64BitDataSizeError: \(kAudioFileDoesNotAllow64BitDataSizeError)")
+        print("kAudioFileInvalidPacketOffsetError:       \(kAudioFileInvalidPacketOffsetError)")
+        print("kAudioFileInvalidFileError:               \(kAudioFileInvalidFileError)")
+        print("kAudioFileOperationNotSupportedError:     \(kAudioFileOperationNotSupportedError)")
+        print("kAudioFileNotOpenError:                   \(kAudioFileNotOpenError)")
+        print("kAudioFileEndOfFileError:                 \(kAudioFileEndOfFileError)")
+        print("kAudioFilePositionError:                  \(kAudioFilePositionError)")
+        print("kAudioFileFileNotFoundError:              \(kAudioFileFileNotFoundError)")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+>>>>>>> a4fd1a566ce2354875c33798aab3fdbe83941031
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -15,53 +15,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6181A970-63B7-4A3A-A7A0-0879F9DB013E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../AudioEngine/engine/GSAudioPlayerNode.mm"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-initWithFileURL:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6181A970-63B7-4A3A-A7A0-0879F9DB013E - 76e09db627a6bf2d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[GSAudioPlayerNode initWithFileURL:]"
-                  moduleName = "AudioEngine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/birney/source/source_git/Grocery/AudioEngine/AudioEngine/engine/GSAudioPlayerNode.mm"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "1766">
-               </Location>
-               <Location
-                  uuid = "6181A970-63B7-4A3A-A7A0-0879F9DB013E - 76e09db627a6bf2d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[GSAudioPlayerNode initWithFileURL:]"
-                  moduleName = "AudioEngine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/birney/source/source_git/Grocery/AudioEngine/AudioEngine/engine/GSAudioPlayerNode.mm"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "1789">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
