@@ -35,6 +35,30 @@ func printASBD(asbd: UnsafePointer<AudioStreamBasicDescription>)  {
     print ("  Bits per Channel:    \(aasbd.mBitsPerChannel)")
 }
 
+func inputCallback(inRefCon: UnsafeMutableRawPointer,
+                   flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                   timestamp: UnsafePointer<AudioTimeStamp>,
+                   busNumber:UInt32,
+                   numFrames:UInt32,
+                   ioData:UnsafeMutablePointer<AudioBufferList>?) -> OSStatus {
+    
+    let unit: AudioUnit = unsafeBitCast(inRefCon, to: AudioUnit.self)
+    let data = UnsafeMutablePointer<Int8>.allocate(capacity: 4096);
+    data.initialize(repeating: 0, count: 4096)
+    let array = Array(repeating: 0, count: 4096)
+    var bufferList = AudioBufferList()
+    bufferList.mNumberBuffers = 1
+    let buffers = UnsafeMutableBufferPointer<AudioBuffer>(start: &bufferList.mBuffers,
+                                                          count: Int(bufferList.mNumberBuffers))
+    buffers[0].mNumberChannels = 1
+    buffers[0].mDataByteSize = numFrames * 4
+    buffers[0].mData = UnsafeMutableRawPointer(mutating: array)
+    assert(AudioUnitRender(unit, flags, timestamp, busNumber, numFrames, &bufferList) == noErr)
+    //mData.deallocate()
+    return noErr
+}
+
+
 class AVAudioEngineTests: XCTestCase {
 
     let engine = AVAudioEngine()
@@ -269,6 +293,63 @@ class AVAudioEngineTests: XCTestCase {
         print("UnitType_OfflineEffect:\(kAudioUnitType_OfflineEffect)")
         print("UnitType_MIDIProcessor:\(kAudioUnitType_MIDIProcessor)")
 
+    }
+    
+    func testAudioUnitRecord() {
+        
+        let session = AVAudioSession.sharedInstance()
+
+        do {
+            try session.setCategory(.playAndRecord)
+            try session.setPreferredSampleRate(44100)
+            try session.setActive(true)
+        } catch {
+            print("desc:\(error.localizedDescription)")
+        }
+
+        
+        var acdesc = AudioComponentDescription()
+        acdesc.componentType =         kAudioUnitType_Output
+        acdesc.componentSubType =      kAudioUnitSubType_RemoteIO
+        acdesc.componentManufacturer = kAudioUnitManufacturer_Apple
+        acdesc.componentFlags =        0
+        acdesc.componentFlagsMask =    0
+        
+        if let component =  AudioComponentFindNext(nil, &acdesc) {
+            var audioUnit: AudioComponentInstance? = nil
+            AudioComponentInstanceNew(component, &audioUnit)
+            guard let aUnit = audioUnit else {
+                fatalError()
+            }
+            var enable: UInt32 = 1
+            assert(AudioUnitSetProperty(aUnit, kAudioOutputUnitProperty_EnableIO,
+                                        kAudioUnitScope_Input, 1, &enable,
+                                        UInt32(MemoryLayout<UInt32>.size)) == noErr)
+            let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 44100, channels: 1, interleaved: false);
+            assert(AudioUnitSetProperty(aUnit, kAudioUnitProperty_StreamFormat,
+                                        kAudioUnitScope_Output, 1, format?.streamDescription,
+                                        UInt32(MemoryLayout<AudioStreamBasicDescription>.size)) == noErr)
+            let iProc:AURenderCallback = inputCallback;
+            var inputCallback = AURenderCallbackStruct(inputProc: iProc, inputProcRefCon: UnsafeMutableRawPointer(audioUnit))
+            assert(AudioUnitSetProperty(aUnit, kAudioOutputUnitProperty_SetInputCallback,
+                                 kAudioUnitScope_Global, 1, &inputCallback,
+                                 UInt32(MemoryLayout<AURenderCallbackStruct>.size)) == noErr)
+            assert(AudioUnitInitialize(aUnit) == noErr)
+            
+            assert(AudioOutputUnitStart(aUnit) == noErr)
+        } else {
+            fatalError()
+        }
+        
+        sleep(100000)
+        
+    }
+    
+    func testUnsafeMutablePointer() {
+        let mData = UnsafeMutablePointer<Int8>.allocate(capacity: 4096);
+        mData.initialize(repeating: 0, count: 4096)
+        mData.deinitialize(count: 4096)
+        mData.deallocate()
     }
 
     func testPerformanceExample() {
