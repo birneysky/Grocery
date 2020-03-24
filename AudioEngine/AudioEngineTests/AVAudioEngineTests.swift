@@ -256,6 +256,24 @@ class AVAudioEngineTests: XCTestCase {
         XCTAssertEqual(input.auAudioUnit.audioUnitName, output.auAudioUnit.audioUnitName)
         
     }
+    
+    func testEngine() {
+        let e = AVAudioEngine()
+        let input = e.inputNode
+        XCTAssertEqual(input.auAudioUnit.componentDescription.componentType, kAudioUnitType_Output)
+        XCTAssertEqual(input.auAudioUnit.componentDescription.componentSubType, kAudioUnitSubType_RemoteIO)
+        XCTAssertEqual(input.auAudioUnit.componentDescription.componentManufacturer, kAudioUnitManufacturer_Apple)
+
+        let output = e.outputNode
+        XCTAssertEqual(output.auAudioUnit.componentDescription.componentType, kAudioUnitType_Output)
+        XCTAssertEqual(output.auAudioUnit.componentDescription.componentSubType, kAudioUnitSubType_RemoteIO)
+        XCTAssertEqual(output.auAudioUnit.componentDescription.componentManufacturer, kAudioUnitManufacturer_Apple)
+        
+        XCTAssertNotEqual(input, output)
+        XCTAssertEqual(input.audioUnit, output.audioUnit);
+        XCTAssertEqual(input.auAudioUnit, output.auAudioUnit)
+        XCTAssertEqual(input.auAudioUnit.audioUnitName, output.auAudioUnit.audioUnitName)
+    }
 
     func testAVAudioInputNode() {
         print("Subtype_RemoteIO: \(kAudioUnitSubType_RemoteIO)")
