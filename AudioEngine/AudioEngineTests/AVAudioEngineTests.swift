@@ -8,6 +8,8 @@
 
 import XCTest
 import AVFoundation
+import AudioToolbox
+import AudioUnit
 
 func printASBD(asbd: UnsafePointer<AudioStreamBasicDescription>)  {
  
@@ -131,6 +133,37 @@ class AVAudioEngineTests: XCTestCase {
         } else {
             fatalError()
         }
+        
+        sleep(100000)
+        
+    }
+    
+    func testGraph() {
+        var acdesc = AudioComponentDescription()
+        acdesc.componentType         = kAudioUnitType_Output
+        acdesc.componentSubType      = kAudioUnitSubType_VoiceProcessingIO
+        acdesc.componentManufacturer = kAudioUnitManufacturer_Apple
+        acdesc.componentFlags        = 0
+        acdesc.componentFlagsMask    = 0
+        
+        var graph: AUGraph? = nil
+        assert(NewAUGraph(&graph) == noErr)
+        guard let g = graph else {
+            fatalError()
+        }
+        
+        assert(AUGraphOpen(g) == noErr)
+        var node:AUNode = 0
+        assert(AUGraphAddNode(g, &acdesc, &node) == noErr)
+        
+        var unit: AudioUnit? = nil
+        assert(AUGraphNodeInfo(g, node, &acdesc, &unit) == noErr)
+        
+        assert(AUGraphConnectNodeInput(g, node, 1, node, 0) == noErr)
+        
+        assert(AUGraphInitialize(g) == noErr)
+        
+        assert(AUGraphStart(g) == noErr)
         
         sleep(100000)
         
