@@ -33,7 +33,7 @@
     [self configureAudioSession];
 
     GSAudioOutputNode* outputNode = self.engine.outputNode;
-//    GSAudioInputNode* inputNode = self.engine.inputNode;
+    GSAudioInputNode* inputNode = self.engine.inputNode;
     [self.engine attach:self.player1];
     //[self.engine attach:self.player2];
     [self.engine attach:self.mixer];
@@ -41,12 +41,12 @@
     //[self.engine attach:outputNode];
     
 //    [self.engine connect:inputNode to:outputNode];
-//    [self.engine connect:inputNode to:self.mixer];
+    [self.engine connect:inputNode to:self.mixer];
     [self.engine connect:self.player1 to:self.mixer];
 //    [self.engine connect:self.player2 to:self.mixer];
 //    [self.engine connect:inputNode to:self.mixer];
     //[self.engine connect:self.inputNode to:self.mixer];
-    [self.engine connect:self.mixer to:outputNode];
+ //   [self.engine connect:self.mixer to:outputNode];
         
     [self.engine prepare];
     

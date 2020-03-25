@@ -153,11 +153,20 @@ class AVAudioEngineTests: XCTestCase {
         }
         
         assert(AUGraphOpen(g) == noErr)
-        var node:AUNode = 0
+        var node: AUNode = 0
         assert(AUGraphAddNode(g, &acdesc, &node) == noErr)
         
         var unit: AudioUnit? = nil
         assert(AUGraphNodeInfo(g, node, &acdesc, &unit) == noErr)
+        
+        var enable: UInt32 = 1
+        assert(AudioUnitSetProperty(unit!, kAudioOutputUnitProperty_EnableIO,
+                                    kAudioUnitScope_Input, 1, &enable,
+                                    UInt32(MemoryLayout<UInt32>.size)) == noErr)
+        
+        assert(AudioUnitSetProperty(unit!, kAudioOutputUnitProperty_EnableIO,
+                                    kAudioUnitScope_Output, 0, &enable,
+                                    UInt32(MemoryLayout<UInt32>.size)) == noErr)
         
         assert(AUGraphConnectNodeInput(g, node, 1, node, 0) == noErr)
         
@@ -167,6 +176,77 @@ class AVAudioEngineTests: XCTestCase {
         
         sleep(100000)
         
+    }
+    
+    func testAddTwoIOUnitToGraph() {
+        var apioDesc = AudioComponentDescription()
+        apioDesc.componentType         = kAudioUnitType_Output
+        apioDesc.componentSubType      = kAudioUnitSubType_VoiceProcessingIO
+        apioDesc.componentManufacturer = kAudioUnitManufacturer_Apple
+        apioDesc.componentFlags        = 0
+        apioDesc.componentFlagsMask    = 0
+        
+        var rioDesc = AudioComponentDescription()
+        rioDesc.componentType         = kAudioUnitType_Output
+        rioDesc.componentSubType      = kAudioUnitSubType_RemoteIO
+        rioDesc.componentManufacturer = kAudioUnitManufacturer_Apple
+        rioDesc.componentFlags        = 0
+        rioDesc.componentFlagsMask    = 0
+        
+        var graph: AUGraph? = nil
+        assert(NewAUGraph(&graph) == noErr)
+        guard let g = graph else {
+            fatalError()
+        }
+        
+        var vpioNode: AUNode = 0
+        assert(AUGraphAddNode(g, &apioDesc, &vpioNode) == noErr)
+        
+    
+        var rioNode: AUNode = 0
+        assert(AUGraphAddNode(g, &rioDesc, &rioNode) == noErr)
+    }
+    
+    func testAVAudioEngineMixingAudio() {
+//        NSBundle* currentBuldle = [NSBundle bundleForClass:AudioEngineTests.class];
+//        NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
+//        NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
+        guard let path = Bundle(for: Self.self) .path(forResource: "Synth", ofType: "aif") else { fatalError() }
+        let speechURL = URL.init(fileURLWithPath: path)
+        //guard let speechURL = Bundle.main.url(forResource: "sample", withExtension: "wav") else { fatalError() }
+        let file: AVAudioFile!
+        do {
+            let e = AVAudioEngine()
+            let input = e.inputNode
+            let mainMixer = e.mainMixerNode
+            let output = e.outputNode
+            let playerNode = AVAudioPlayerNode()
+            e.attach(playerNode)
+            
+            try input.setVoiceProcessingEnabled(true)
+            try file = AVAudioFile(forReading: speechURL)
+            let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                          frameCapacity: AVAudioFrameCount(file.length))
+            guard let speechBuffer = buffer else {
+                fatalError()
+            }
+            file.framePosition = 0
+            try file.read(into: speechBuffer)
+            file.framePosition = 0
+            
+            e.connect(playerNode, to: mainMixer, format: speechBuffer.format)
+            e.connect(mainMixer, to: output, format: mainMixer.outputFormat(forBus: 0))
+            e.prepare()
+            try e.start()
+            playerNode.scheduleBuffer(speechBuffer, at: nil, options: .loops)
+            playerNode.play()
+            sleep(1000000)
+        } catch {
+            print()
+            fatalError("Could not load file: \(error)")
+        }
+        
+
     }
     
     func testInputAndOutputNode() {
