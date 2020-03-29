@@ -206,7 +206,16 @@ static GSAudioEngine* _engine = nil;
     //file.fileFormat.formatDescription
 }
 
-
+OSStatus (inputCallback)(void *                            inRefCon,
+                         AudioUnitRenderActionFlags *    ioActionFlags,
+                         const AudioTimeStamp *            inTimeStamp,
+                         UInt32                            inBusNumber,
+                         UInt32                            inNumberFrames,
+                         AudioBufferList * __nullable    ioData) {
+    AudioEngineTests* test = (__bridge AudioEngineTests*) inRefCon;
+    NSLog(@"%@, frames:%@", test, @(inNumberFrames));
+    return noErr;
+}
 - (void)testVoiceProcessIOUnit {
     AudioComponentDescription ioUnitDescription;
      
@@ -230,16 +239,25 @@ static GSAudioEngine* _engine = nil;
        UInt32 size = sizeof(enable);
      OSStatus  result = AudioUnitSetProperty(ioUnitInstance,
                                              kAudioOutputUnitProperty_EnableIO,
-                                             kAudioUnitScope_Output,
-                                             0,
+                                             kAudioUnitScope_Input,
+                                             1,
                                              &enable,
                                              4);
     
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_EnableIO %@", @(result));
-     result = AudioUnitInitialize(ioUnitInstance);
-   NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
     
-
+    AURenderCallbackStruct callback = {0};
+    callback.inputProc = inputCallback;
+    callback.inputProcRefCon = (__bridge void*)self;
+    result = AudioUnitSetProperty(ioUnitInstance, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &callback, sizeof(callback));
+    NSAssert(noErr == result, @"AudioUnitInitialize kAudioOutputUnitProperty_SetInputCallback%@", @(result));
+    
+    result = AudioUnitInitialize(ioUnitInstance);
+    NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
+    
+    result = AudioOutputUnitStart(ioUnitInstance);
+    NSAssert(noErr == result, @"AudioUnitInitialize %@", @(result));
+    sleep(10);
     
     
 //    AudioComponent componenet = AudioComponentFindNext(nullptr, &voice_desc);
