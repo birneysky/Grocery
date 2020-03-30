@@ -43,7 +43,7 @@ func inputCallback(inRefCon: UnsafeMutableRawPointer,
                    busNumber:UInt32,
                    numFrames:UInt32,
                    ioData:UnsafeMutablePointer<AudioBufferList>?) -> OSStatus {
-    
+    NSLog("busNumber \(busNumber) numberFrames \(numFrames)")
     let unit: AudioUnit = unsafeBitCast(inRefCon, to: AudioUnit.self)
     var format = AudioStreamBasicDescription()
     var size:UInt32 = UInt32(MemoryLayout<AudioStreamBasicDescription>.size)
@@ -77,6 +77,16 @@ class AVAudioEngineTests: XCTestCase {
     let engine1 = AVAudioEngine()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        let session = AVAudioSession.sharedInstance()
+
+         do {
+             try session.setCategory(.playAndRecord)
+             try session.setPreferredSampleRate(44100)
+            try session.setPreferredIOBufferDuration(0.005)
+             try session.setActive(true)
+         } catch {
+             print("desc:\(error.localizedDescription)")
+         }
     }
 
     override func tearDown() {
@@ -84,18 +94,7 @@ class AVAudioEngineTests: XCTestCase {
     }
     
     func testAudioUnitRecord() {
-        
-        let session = AVAudioSession.sharedInstance()
-
-        do {
-            try session.setCategory(.playAndRecord)
-            try session.setPreferredSampleRate(44100)
-            try session.setActive(true)
-        } catch {
-            print("desc:\(error.localizedDescription)")
-        }
-
-        
+    
         var acdesc = AudioComponentDescription()
         acdesc.componentType =         kAudioUnitType_Output
         acdesc.componentSubType =      kAudioUnitSubType_RemoteIO
@@ -138,7 +137,7 @@ class AVAudioEngineTests: XCTestCase {
         
     }
     
-    func testGraph() {
+    func testGraphForEarReturn() {
         var acdesc = AudioComponentDescription()
         acdesc.componentType         = kAudioUnitType_Output
         acdesc.componentSubType      = kAudioUnitSubType_VoiceProcessingIO
@@ -174,8 +173,55 @@ class AVAudioEngineTests: XCTestCase {
         
         assert(AUGraphStart(g) == noErr)
         
-        sleep(100000)
+        sleep(10)
         
+    }
+    
+    func testGraphForCallbacks() {
+        var acdesc = AudioComponentDescription()
+        acdesc.componentType         = kAudioUnitType_Output
+        acdesc.componentSubType      = kAudioUnitSubType_VoiceProcessingIO
+        acdesc.componentManufacturer = kAudioUnitManufacturer_Apple
+        acdesc.componentFlags        = 0
+        acdesc.componentFlagsMask    = 0
+        
+        var graph: AUGraph? = nil
+        assert(NewAUGraph(&graph) == noErr)
+        guard let g = graph else {
+            fatalError()
+        }
+        
+        assert(AUGraphOpen(g) == noErr)
+        var node: AUNode = 0
+        assert(AUGraphAddNode(g, &acdesc, &node) == noErr)
+        
+        var unit: AudioUnit! = nil
+        assert(AUGraphNodeInfo(g, node, &acdesc, &unit) == noErr)
+        
+        var enable: UInt32 = 1
+        assert(AudioUnitSetProperty(unit, kAudioOutputUnitProperty_EnableIO,
+                                    kAudioUnitScope_Input, 1, &enable,
+                                    UInt32(MemoryLayout<UInt32>.size)) == noErr)
+        
+        assert(AudioUnitSetProperty(unit, kAudioOutputUnitProperty_EnableIO,
+                                    kAudioUnitScope_Output, 0, &enable,
+                                    UInt32(MemoryLayout<UInt32>.size)) == noErr)
+        
+        let iProc:AURenderCallback = inputCallback;
+        var inputCallback = AURenderCallbackStruct(inputProc: iProc,
+                                                   inputProcRefCon: UnsafeMutableRawPointer(unit))
+        
+        assert(AudioUnitSetProperty(unit, kAudioOutputUnitProperty_SetInputCallback,
+                             kAudioUnitScope_Global, 1, &inputCallback,
+                             UInt32(MemoryLayout<AURenderCallbackStruct>.size)) == noErr)
+        
+        assert(AUGraphConnectNodeInput(g, node, 1, node, 0) == noErr)
+        
+        assert(AUGraphInitialize(g) == noErr)
+        
+        assert(AUGraphStart(g) == noErr)
+        
+        sleep(10)
     }
     
     func testAddTwoIOUnitToGraph() {
@@ -208,9 +254,6 @@ class AVAudioEngineTests: XCTestCase {
     }
     
     func testAVAudioEngineMixingAudio() {
-//        NSBundle* currentBuldle = [NSBundle bundleForClass:AudioEngineTests.class];
-//        NSString* audioFilePath = [currentBuldle pathForResource:@"Synth" ofType:@"aif"];
-//        NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
         guard let path = Bundle(for: Self.self) .path(forResource: "Synth", ofType: "aif") else { fatalError() }
         let speechURL = URL.init(fileURLWithPath: path)
         //guard let speechURL = Bundle.main.url(forResource: "sample", withExtension: "wav") else { fatalError() }
@@ -234,13 +277,14 @@ class AVAudioEngineTests: XCTestCase {
             try file.read(into: speechBuffer)
             file.framePosition = 0
             
+            e.connect(input, to: mainMixer, format: input.outputFormat(forBus: 1))
             e.connect(playerNode, to: mainMixer, format: speechBuffer.format)
             e.connect(mainMixer, to: output, format: mainMixer.outputFormat(forBus: 0))
             e.prepare()
             try e.start()
             playerNode.scheduleBuffer(speechBuffer, at: nil, options: .loops)
             playerNode.play()
-            sleep(1000000)
+            sleep(20)
         } catch {
             print()
             fatalError("Could not load file: \(error)")
