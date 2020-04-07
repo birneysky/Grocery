@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7421596B243CC696008EB7F3 /* test.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 7421596A243CC695008EB7F3 /* test.MP4 */; };
 		74860B97240E8E46006FF93B /* guitar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241AA240E443100F58A23 /* guitar.m4a */; };
 		74860B99240E9B1D006FF93B /* Synth.aif in Resources */ = {isa = PBXBuildFile; fileRef = 74860B98240E9B1D006FF93B /* Synth.aif */; };
 		74860B9A240E9B25006FF93B /* Synth.aif in Resources */ = {isa = PBXBuildFile; fileRef = 74860B98240E9B1D006FF93B /* Synth.aif */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7421596A243CC695008EB7F3 /* test.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = test.MP4; path = AudioEngine/resources/test.MP4; sourceTree = SOURCE_ROOT; };
 		74460F2E2423C1A000DDA7E3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		74860B98240E9B1D006FF93B /* Synth.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Synth.aif; sourceTree = "<group>"; };
 		B2106ED12411F4A10002044D /* GSAudioOutputNode+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GSAudioOutputNode+Private.h"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		B28A785E2407B26500785F53 /* AudioEngineTests */ = {
 			isa = PBXGroup;
 			children = (
+				7421596A243CC695008EB7F3 /* test.MP4 */,
 				B28A785F2407B26500785F53 /* AudioEngineTests.mm */,
 				B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */,
 				B28A78612407B26500785F53 /* Info.plist */,
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74860B9A240E9B25006FF93B /* Synth.aif in Resources */,
+				7421596B243CC696008EB7F3 /* test.MP4 in Resources */,
 				74860B97240E8E46006FF93B /* guitar.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

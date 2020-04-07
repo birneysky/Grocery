@@ -222,6 +222,7 @@ class AVAudioEngineTests: XCTestCase {
         assert(AUGraphStart(g) == noErr)
         
         sleep(10)
+        
     }
     
     func testAddTwoIOUnitToGraph() {
@@ -558,6 +559,70 @@ class AVAudioEngineTests: XCTestCase {
         print("kAudioFileEndOfFileError:                 \(kAudioFileEndOfFileError)")
         print("kAudioFilePositionError:                  \(kAudioFilePositionError)")
         print("kAudioFileFileNotFoundError:              \(kAudioFileFileNotFoundError)")
+    }
+    
+    func testAVAssetReaderOutput() {
+        guard let path = Bundle(for: Self.self) .path(forResource: "test", ofType: "MP4") else { fatalError() }
+        let videoURL = URL.init(fileURLWithPath: path)
+        let asset = AVAsset(url: videoURL)
+        guard let audioTrack  = asset.tracks(withMediaType: .audio).first else {
+            fatalError()
+        }
+        let audioTrackOutput = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: [AVFormatIDKey: kAudioFormatLinearPCM])
+        
+        guard let videoTrack = asset.tracks(withMediaType: .video).first else {
+            fatalError()
+        }
+        let videoTrackOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatContainsYCbCr])
+        var assetReader: AVAssetReader!
+        do {
+            assetReader = try AVAssetReader(asset: asset)
+        } catch {
+            
+        }
+        
+        if assetReader.canAdd(audioTrackOutput) {
+            assetReader.add(audioTrackOutput)
+        }
+        if assetReader.canAdd(videoTrackOutput) {
+            assetReader.add(videoTrackOutput)
+        }
+        assetReader.startReading()
+        
+        var done = false
+        while !done {
+            let audioSample = audioTrackOutput.copyNextSampleBuffer()
+            let videoSample = videoTrackOutput.copyNextSampleBuffer()
+            if  let audioBuffer = audioSample {
+                let duration = audioBuffer.duration
+                let pts = audioBuffer.presentationTimeStamp
+                print("audio pts:", terminator: " ")
+                CMTimeShow(pts)
+                print("audio duration:", terminator: " ")
+                CMTimeShow(duration)
+            }
+            
+            if let videoBuffer = videoSample {
+                let duration = CMSampleBufferGetDuration(videoBuffer)
+                let pts = CMSampleBufferGetPresentationTimeStamp(videoBuffer)
+                print("video pts:", terminator: " ")
+                CMTimeShow(pts)
+                print("video duration:", terminator: " ")
+                CMTimeShow(duration)
+            }
+            
+            if assetReader.status == .completed {
+                done = true
+                print("assert reader status is completed")
+            } else if assetReader.status != .reading {
+                print("assert reader status is \(assetReader.status.rawValue)")
+                break;
+            }
+            
+        }
+        
+        
+        
     }
 
     func testPerformanceExample() {
