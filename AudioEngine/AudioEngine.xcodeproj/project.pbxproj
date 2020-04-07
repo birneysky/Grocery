@@ -13,6 +13,7 @@
 		B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */; };
 		B27241AB240E443100F58A23 /* band.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241A9240E443100F58A23 /* band.m4a */; };
 		B27241AC240E443100F58A23 /* guitar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241AA240E443100F58A23 /* guitar.m4a */; };
+		B272DD52243C325F007C4281 /* CARingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B272DD51243C325E007C4281 /* CARingBuffer.cpp */; };
 		B28A78452407B25E00785F53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78442407B25E00785F53 /* AppDelegate.m */; };
 		B28A78482407B25E00785F53 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A78472407B25E00785F53 /* SceneDelegate.m */; };
 		B28A784B2407B25E00785F53 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B28A784A2407B25E00785F53 /* ViewController.m */; };
@@ -58,6 +59,8 @@
 		B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEngineTests.swift; sourceTree = "<group>"; };
 		B27241A9240E443100F58A23 /* band.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.m4a; sourceTree = "<group>"; };
 		B27241AA240E443100F58A23 /* guitar.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = guitar.m4a; sourceTree = "<group>"; };
+		B272DD50243C325E007C4281 /* CARingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CARingBuffer.h; sourceTree = "<group>"; };
+		B272DD51243C325E007C4281 /* CARingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CARingBuffer.cpp; sourceTree = "<group>"; };
 		B28A78402407B25E00785F53 /* AudioEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28A78432407B25E00785F53 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B28A78442407B25E00785F53 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -131,6 +134,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B272DD4F243C325E007C4281 /* PublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				B272DD50243C325E007C4281 /* CARingBuffer.h */,
+				B272DD51243C325E007C4281 /* CARingBuffer.cpp */,
+			);
+			path = PublicUtility;
+			sourceTree = "<group>";
+		};
 		B28A78372407B25E00785F53 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +167,7 @@
 		B28A78422407B25E00785F53 /* AudioEngine */ = {
 			isa = PBXGroup;
 			children = (
+				B272DD4F243C325E007C4281 /* PublicUtility */,
 				B2E122002411069600A3930F /* engine */,
 				B28A787D2407B51400785F53 /* resources */,
 				B28A78432407B25E00785F53 /* AppDelegate.h */,
@@ -385,6 +398,7 @@
 				B2E1221E2411069600A3930F /* GSMixingDestination.m in Sources */,
 				B28A784B2407B25E00785F53 /* ViewController.m in Sources */,
 				B2E1221F2411069600A3930F /* GSAudioNode.m in Sources */,
+				B272DD52243C325F007C4281 /* CARingBuffer.cpp in Sources */,
 				B28A78452407B25E00785F53 /* AppDelegate.m in Sources */,
 				B2E122232411069600A3930F /* GSAudioInputNode.mm in Sources */,
 				B2E1221C2411069600A3930F /* GSAudioIONode.mm in Sources */,
