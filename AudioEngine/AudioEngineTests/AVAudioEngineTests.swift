@@ -133,7 +133,8 @@ class AVAudioEngineTests: XCTestCase {
             fatalError()
         }
         
-        sleep(100000)
+        sleep(10
+        )
         
     }
     
@@ -251,7 +252,7 @@ class AVAudioEngineTests: XCTestCase {
         
     
         var rioNode: AUNode = 0
-        assert(AUGraphAddNode(g, &rioDesc, &rioNode) == noErr)
+        assert(AUGraphAddNode(g, &rioDesc, &rioNode) == kAUGraphErr_OutputNodeErr)
     }
     
     func testAVAudioEngineMixingAudio() {
@@ -285,7 +286,7 @@ class AVAudioEngineTests: XCTestCase {
             try e.start()
             playerNode.scheduleBuffer(speechBuffer, at: nil, options: .loops)
             playerNode.play()
-            sleep(20)
+            sleep(10)
         } catch {
             print()
             fatalError("Could not load file: \(error)")

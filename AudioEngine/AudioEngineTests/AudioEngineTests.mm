@@ -315,8 +315,7 @@ OSStatus (inputCallback)(void *                            inRefCon,
     outputcd.componentSubType = kAudioUnitSubType_RemoteIO;
     outputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
     AUNode outputNode;
-    result = AUGraphAddNode(graph, &outputcd, &outputNode);
-    NSAssert(noErr == result,@"AUGraphAddNode %@",@(result));
+    XCTAssertEqual(AUGraphAddNode(graph, &outputcd, &outputNode), kAUGraphErr_OutputNodeErr);
 }
 
 - (void)testAudioFileID {
@@ -671,7 +670,7 @@ OSStatus (inputCallback)(void *                            inRefCon,
     rgn.mCompletionProcUserData = NULL;
     rgn.mAudioFile = inputFile;
 
-    rgn.mLoopCount = 2;
+    rgn.mLoopCount = 1;
     rgn.mStartFrame = 0;
     rgn.mFramesToPlay = (UInt32)nPackets * inputFormat.mFramesPerPacket;
 
@@ -786,7 +785,7 @@ OSStatus (inputCallback)(void *                            inRefCon,
     rgn.mCompletionProcUserData = NULL;
     rgn.mAudioFile = inputFile;
     
-    rgn.mLoopCount = 2;
+    rgn.mLoopCount = 1;
     rgn.mStartFrame = 0;
     rgn.mFramesToPlay = (UInt32)nPackets * inputFormat.mFramesPerPacket;
     
@@ -818,6 +817,37 @@ OSStatus (inputCallback)(void *                            inRefCon,
     AUGraphClose(graph);
     AudioFileClose(inputFile);
 
+}
+
+/// 求一个 数，二进制表示中，前面有几位值为0
+- (void)test__builtin_clz {
+    XCTAssertEqual(__builtin_clz(0B000), 32);
+    XCTAssertEqual(__builtin_clz(0B001), 31);
+    XCTAssertEqual(__builtin_clz(0B011), 30);
+    XCTAssertEqual(__builtin_clz(0B010), 30);
+    XCTAssertEqual(__builtin_clz(0B1000000000000000000000000), 7); /// 25
+    XCTAssertEqual(__builtin_clz(256), 23); /// 0B 1 0000 0000
+    XCTAssertEqual(__builtin_clz(512), 22); ///  0B 10 0000 0000
+    XCTAssertEqual(__builtin_clz(1024), 21); ///  0B 100 0000 0000
+}
+
+- (void)test__builtin_clz1 {
+    XCTAssertEqual(__builtin_clz(0B000) - 1, 31);
+    XCTAssertEqual(__builtin_clz(256 - 1), 24); /// 0B 1111 1111
+    XCTAssertEqual(__builtin_clz(512 - 1), 23); ///  0B  1 1111 1111
+    XCTAssertEqual(__builtin_clz(1024 - 1) , 22); /// 0B  11 1111 1111
+}
+
+- (void)test__builtin_clz2 {
+    XCTAssertEqual(32 - __builtin_clz(256 - 1), 8);
+    XCTAssertEqual(32 - __builtin_clz(512 -1), 9);
+    XCTAssertEqual(32 - __builtin_clz(1024- 1), 10);
+}
+
+- (void)test_builtin_clz3 {
+    XCTAssertEqual(1 << (32 - __builtin_clz(256 - 1)), 256);
+    XCTAssertEqual(1 << (32 - __builtin_clz(512) - 1), 512);
+    XCTAssertEqual(1 << (32 - __builtin_clz(1024 - 1)), 1024);
 }
 
 - (void)testPerformanceExample {
