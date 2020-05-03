@@ -84,15 +84,15 @@ static OSStatus renderInput(void *inRefCon,
                                   1, &asbd, size);
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_StreamFormat %@", @(result));
     
-    const Float64 sampleRate = 48000;
-    result = AudioUnitSetProperty(vpio_unit,
-                                  kAudioUnitProperty_SampleRate,
-                                  kAudioUnitScope_Output,
-                                  1,
-                                  &sampleRate,
-                                  sizeof(Float64));
+//    const Float64 sampleRate = 48000;
+//    result = AudioUnitSetProperty(vpio_unit,
+//                                  kAudioUnitProperty_SampleRate,
+//                                  kAudioUnitScope_Output,
+//                                  1,
+//                                  &sampleRate,
+//                                  sizeof(Float64));
     NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_SampleRate %@", @(result));
-//    
+    
     AURenderCallbackStruct render_callback;
     render_callback.inputProc = renderInput;
     render_callback.inputProcRefCon = vpio_unit;

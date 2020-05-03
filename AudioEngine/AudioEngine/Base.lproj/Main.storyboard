@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="b0K-OM-2Pa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="b0K-OM-2Pa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,10 +66,10 @@
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="WiV-sW-IiK">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A8J-hE-bxP">
-                                <rect key="frame" x="20" y="11" width="19" height="22"/>
+                                <rect key="frame" x="20" y="11" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="speaker" catalog="system"/>
-                                <state key="selected" image="speaker.slash" catalog="system"/>
+                                <state key="normal" image="speaker.slash" catalog="system"/>
+                                <state key="selected" image="speaker" catalog="system"/>
                                 <connections>
                                     <action selector="switchSpeaker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X3D-hw-vaA"/>
                                 </connections>
@@ -112,9 +112,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="play" catalog="system" width="60" height="64"/>
-        <image name="speaker" catalog="system" width="64" height="60"/>
-        <image name="speaker.slash" catalog="system" width="64" height="62"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="play" catalog="system" width="120" height="128"/>
+        <image name="speaker" catalog="system" width="128" height="121"/>
+        <image name="speaker.slash" catalog="system" width="128" height="124"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

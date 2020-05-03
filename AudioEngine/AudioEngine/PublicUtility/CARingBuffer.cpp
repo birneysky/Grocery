@@ -120,7 +120,7 @@ void CARingBuffer::Allocate(int nChannels, UInt32 bytesPerFrame, UInt32 capacity
 	p += nChannels * sizeof(Byte *);
 	for (int i = 0; i < nChannels; ++i) {
 		mBuffers[i] = p;
-		p += mCapacityBytes;
+		p += mCapacityBytes;    
 	}
 	
 	for (UInt32 i = 0; i<kGeneralRingTimeBoundsQueueSize; ++i) {

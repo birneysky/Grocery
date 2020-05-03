@@ -850,6 +850,14 @@ OSStatus (inputCallback)(void *                            inRefCon,
     XCTAssertEqual(1 << (32 - __builtin_clz(1024 - 1)), 1024);
 }
 
+- (void)testPointer {
+    Byte* p = (Byte*)malloc(256*4);
+    memset(p, 0, 256*4);
+    Byte** buffer = (Byte**)p;
+    p += sizeof(Byte*);
+    buffer[0] = p;
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

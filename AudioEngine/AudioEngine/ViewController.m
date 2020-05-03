@@ -34,7 +34,7 @@
 
     GSAudioOutputNode* outputNode = self.engine.outputNode;
     GSAudioInputNode* inputNode = self.engine.inputNode;
-    [self.engine attach:self.player1];
+    //[self.engine attach:self.player1];
     //[self.engine attach:self.player2];
     [self.engine attach:self.mixer];
     //[self.engine attach:self.outputNode];
@@ -42,11 +42,11 @@
     
 //    [self.engine connect:inputNode to:outputNode];
     [self.engine connect:inputNode to:self.mixer];
-    [self.engine connect:self.player1 to:self.mixer];
+ //   [self.engine connect:self.player1 to:self.mixer];
 //    [self.engine connect:self.player2 to:self.mixer];
 //    [self.engine connect:inputNode to:self.mixer];
     //[self.engine connect:self.inputNode to:self.mixer];
- //   [self.engine connect:self.mixer to:outputNode];
+    [self.engine connect:self.mixer to:outputNode];
         
     [self.engine prepare];
     
@@ -56,11 +56,11 @@
 - (void)configureAudioSession {
     AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
     NSError *error = nil;
-    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-
+    //[sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord   error:nil];
     NSTimeInterval bufferDuration = .005;
     [sessionInstance setPreferredIOBufferDuration:bufferDuration error:&error];
-
+//    [sessionInstance setMode:AVAudioSessionModeDefault error:nil];
     [sessionInstance setPreferredSampleRate:48000 error:&error];
     [sessionInstance setActive:YES error:&error];
 
@@ -70,13 +70,35 @@
 #pragma mark - tareget actions
 
 - (IBAction)switchSpeaker:(UIButton *)sender {
+   // [self.engine stop];
     if (!sender.isSelected) {
-        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+        AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+        //[sessionInstance setActive:NO error:nil];
+//        [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord  error:nil];
+//        NSTimeInterval bufferDuration = .005;
+//        [sessionInstance setPreferredIOBufferDuration:bufferDuration error:nil];
+        [sessionInstance setMode:AVAudioSessionModeVideoChat error:nil];
+ //       [sessionInstance setPreferredSampleRate:441000 error:nil];
+ //       [sessionInstance overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+        NSLog(@"speaker:%lf",sessionInstance.sampleRate);
+        //[sessionInstance setActive:YES error:nil];
         sender.selected = YES;
     } else {
-        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+        AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+        //[sessionInstance setActive:NO error:nil];
+ //       [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord   error:nil];
+//        NSTimeInterval bufferDuration = .005;
+//        [sessionInstance setPreferredIOBufferDuration:bufferDuration error:nil];
+        [sessionInstance setMode:AVAudioSessionModeVoiceChat error:nil];
+//        [sessionInstance setPreferredSampleRate:441000 error:nil];
+      //  [sessionInstance setPreferredSampleRate:sessionInstance.sampleRate error:nil];
+        //[[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+         //[sessionInstance setMode:AVAudioSessionModeVoiceChat error:nil];
+               // [sessionInstance setActive:YES error:nil];
+        NSLog(@"none:%lf",sessionInstance.sampleRate);
         sender.selected = NO;
     }
+ //   [self.engine start];
 }
 - (IBAction)startAction:(UIButton *)sender {
     if (!sender.isSelected) {
