@@ -11,6 +11,7 @@
 		74860B97240E8E46006FF93B /* guitar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241AA240E443100F58A23 /* guitar.m4a */; };
 		74860B99240E9B1D006FF93B /* Synth.aif in Resources */ = {isa = PBXBuildFile; fileRef = 74860B98240E9B1D006FF93B /* Synth.aif */; };
 		74860B9A240E9B25006FF93B /* Synth.aif in Resources */ = {isa = PBXBuildFile; fileRef = 74860B98240E9B1D006FF93B /* Synth.aif */; };
+		B2239476245DB21800FE64CD /* AUCallbacks.mm in Sources */ = {isa = PBXBuildFile; fileRef = B2239474245DB21800FE64CD /* AUCallbacks.mm */; };
 		B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */; };
 		B27241AB240E443100F58A23 /* band.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241A9240E443100F58A23 /* band.m4a */; };
 		B27241AC240E443100F58A23 /* guitar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B27241AA240E443100F58A23 /* guitar.m4a */; };
@@ -57,6 +58,8 @@
 		74460F2E2423C1A000DDA7E3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		74860B98240E9B1D006FF93B /* Synth.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Synth.aif; sourceTree = "<group>"; };
 		B2106ED12411F4A10002044D /* GSAudioOutputNode+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GSAudioOutputNode+Private.h"; sourceTree = "<group>"; };
+		B2239474245DB21800FE64CD /* AUCallbacks.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AUCallbacks.mm; sourceTree = "<group>"; };
+		B2239475245DB21800FE64CD /* AUCallbacks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AUCallbacks.hpp; sourceTree = "<group>"; };
 		B26AE6C72408EAB900621829 /* AudioEngineTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioEngineTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioEngineTests.swift; sourceTree = "<group>"; };
 		B27241A9240E443100F58A23 /* band.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.m4a; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 		B28A785E2407B26500785F53 /* AudioEngineTests */ = {
 			isa = PBXGroup;
 			children = (
+				B2239474245DB21800FE64CD /* AUCallbacks.mm */,
+				B2239475245DB21800FE64CD /* AUCallbacks.hpp */,
 				7421596A243CC695008EB7F3 /* test.MP4 */,
 				B28A785F2407B26500785F53 /* AudioEngineTests.mm */,
 				B26AE6C82408EAB900621829 /* AVAudioEngineTests.swift */,
@@ -421,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28A78602407B26500785F53 /* AudioEngineTests.mm in Sources */,
+				B2239476245DB21800FE64CD /* AUCallbacks.mm in Sources */,
 				B26AE6C92408EAB900621829 /* AVAudioEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

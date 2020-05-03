@@ -16,6 +16,7 @@
 #import "GSAudioMixerNode.h"
 #import "AudioData.h"
 #import "GSAudioEngineStructures.h"
+#include "AUCallbacks.hpp"
 
 void printASBD(const struct AudioStreamBasicDescription asbd) {
  
@@ -39,8 +40,11 @@ OSStatus inputDataProc (  AudioConverterRef               inAudioConverter,
                                         AudioBufferList *               ioData,
                                         AudioStreamPacketDescription * __nullable * __nullable outDataPacketDescription,
                                              void * __nullable               inUserData) {
-    
+    AudioStreamBasicDescription inputFormat = {0};
+    UInt32 propertySize = sizeof(inputFormat);
+    AudioConverterGetProperty(inAudioConverter, kAudioConverterCurrentInputStreamDescription, &propertySize, &inputFormat);
     AudioBufferList* inputList = (AudioBufferList*)inUserData;
+    *ioNumberDataPackets = inputList->mBuffers[0].mDataByteSize / inputFormat.mBytesPerFrame;
     ioData->mNumberBuffers = 1;
     ioData->mBuffers[0].mData = inputList->mBuffers[0].mData;
     ioData->mBuffers[0].mNumberChannels = 1;
@@ -117,7 +121,7 @@ static GSAudioEngine* _engine = nil;
                                               channels:1
                                               interleaved:NO];
     AVAudioFormat* outputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16
-                                              sampleRate:48000
+                                              sampleRate:8000
                                               channels:1
                                               interleaved:NO];
     
@@ -234,6 +238,7 @@ static GSAudioEngine* _engine = nil;
     NSURL* fileURL = [NSURL fileURLWithPath:audioFilePath];
     AVAudioFile* file = [[AVAudioFile alloc] initForReading:fileURL error:nil];
     //file.fileFormat.formatDescription
+    NSLog(@"%@",file);
 }
 
 OSStatus (inputCallback)(void *                            inRefCon,
@@ -547,8 +552,9 @@ OSStatus (inputCallback)(void *                            inRefCon,
     usleep ((int)(duration * 1000.0 * 1000.0) * rgn.mLoopCount);
     NSLog(@"stop play");
     AUGraphStop(graph);
-    AUGraphUninitialize(graph);
     AUGraphClose(graph);
+    AUGraphUninitialize(graph);
+    DisposeAUGraph(graph);
     AudioFileClose(inputFile);
 }
 
@@ -857,6 +863,78 @@ OSStatus (inputCallback)(void *                            inRefCon,
     p += sizeof(Byte*);
     buffer[0] = p;
 }
+
+
+/// only use voice processing  io unit and  CARingBuffer   for  ear return
+- (void)testCARingBufferWithVoiceIOUnitForEarRetrun {
+    AudioStreamBasicDescription vpioInputFormat;
+    AudioUnit vpioAU;
+
+    OSStatus result = noErr;
+    
+    AudioComponentDescription outputcd = {0};
+    outputcd.componentType = kAudioUnitType_Output;
+    outputcd.componentSubType = kAudioUnitSubType_VoiceProcessingIO;
+    outputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    
+    AudioComponent foundIoUnitReference =
+        AudioComponentFindNext (NULL, &outputcd);
+    
+    AudioComponentInstanceNew(foundIoUnitReference, &vpioAU);
+    
+    UInt32 ioDataSize = sizeof(vpioInputFormat);
+    
+    AVAudioFormat* voiceInputFormat = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:44100 channels:1 interleaved:NO];
+    vpioInputFormat = *voiceInputFormat.streamDescription;
+    AudioUnitSetProperty(vpioAU, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &vpioInputFormat, ioDataSize);
+    NSAssert(noErr == result,@"AudioUnitGetProperty %@",@(result));
+    
+    AudioUnitSetProperty(vpioAU, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &vpioInputFormat, ioDataSize);
+    NSAssert(noErr == result,@"AudioUnitGetProperty %@",@(result));
+    
+    UInt32 enable = 1;
+    result = AudioUnitSetProperty(vpioAU, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Input, 1, &enable, sizeof(enable));
+    NSAssert(noErr == result,@"AudioUnitSetProperty %@",@(result));
+    
+    result = AudioUnitSetProperty(vpioAU, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output, 0, &enable, sizeof(enable));
+    NSAssert(noErr == result,@"AudioUnitSetProperty %@",@(result));
+
+    CARingBuffer audioBuffer;
+    audioBuffer.Allocate(1, 4, 2048);
+    AUCallbackRef callbackRef(vpioAU, &audioBuffer);
+    
+    AURenderCallbackStruct recorder_callback;
+    recorder_callback.inputProc = recordCallback1;
+    recorder_callback.inputProcRefCon = &callbackRef;
+
+    result = AudioUnitSetProperty(vpioAU,
+                                  kAudioOutputUnitProperty_SetInputCallback,
+                                  kAudioUnitScope_Global,
+                                  1,
+                                  &recorder_callback,
+                                  sizeof(recorder_callback));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioOutputUnitProperty_SetInputCallback %@", @(result));
+    
+    AURenderCallbackStruct input_callback;
+    input_callback.inputProc = playoutCallback1;
+    input_callback.inputProcRefCon = &callbackRef;
+
+    result = AudioUnitSetProperty(vpioAU, kAudioUnitProperty_SetRenderCallback,
+                                  kAudioUnitScope_Input, 0, &input_callback,
+                                  sizeof(input_callback));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_SetRenderCallback %@", @(result));
+    result = AudioUnitInitialize(vpioAU);
+    NSAssert(noErr == result,@"AUGraphInitialize %@",@(result));
+    NSLog(@"AUGraphInitialize");
+    result = AudioOutputUnitStart(vpioAU);
+    NSAssert(noErr == result,@"AUGraphStart %@",@(result));
+    NSLog(@"AUGraphStart");
+    sleep (60);
+    NSLog(@"stop play");
+    AudioOutputUnitStop(vpioAU);
+    AudioUnitInitialize(vpioAU);
+}
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

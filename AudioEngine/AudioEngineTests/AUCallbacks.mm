@@ -15,17 +15,31 @@ OSStatus recordCallback1 (void *                            inRefCon,
                          UInt32                            inBusNumber,
                          UInt32                            inNumberFrames,
                          AudioBufferList * __nullable      ioData) {
-    NSLog(@"recordCallback1 bus:%@ audioFrames:%@, bufferList:%p", @(inBusNumber), @(inNumberFrames), ioData);
-    AudioUnit unit = (AudioUnit)inRefCon;
+    //NSLog(@"recordCallback1 bus:%@ audioFrames:%@, bufferList:%p", @(inBusNumber), @(inNumberFrames), ioData);
+    AUCallbackRef* inRef = (AUCallbackRef*)inRefCon;
+    if (inRef->m_firstInputSampleTime < 0) {
+        inRef->m_firstInputSampleTime = inTimeStamp->mSampleTime;
+        if (inRef->m_firstOutputSampleTime > 0 &&
+            inRef->m_inToOutSampleTimeOffset < 0) {
+            inRef->m_inToOutSampleTimeOffset = inRef->m_firstInputSampleTime - inRef->m_firstOutputSampleTime;
+        }
+    }
+    AudioUnit unit = inRef->m_audioUnit;
     AudioBufferList audioData = {0};
     Byte buffer[4096] = {0};
     audioData.mNumberBuffers = 1;
     audioData.mBuffers[0].mData = buffer;
     audioData.mBuffers[0].mDataByteSize = inNumberFrames * 4;
     audioData.mBuffers[0].mNumberChannels = 1;
-    OSStatus result = AudioUnitRender(unit, ioActionFlags, inTimeStamp, 0, inNumberFrames, &audioData);
+    OSStatus result = AudioUnitRender(unit, ioActionFlags, inTimeStamp, inBusNumber, inNumberFrames, &audioData);
     assert(result == noErr);
-//    memcpy(ioData->mBuffers[0].mData, buffer, inNumberFrames*4);
+    CARingBuffer* ringBuf = inRef->m_buffer;
+    ringBuf->Store(&audioData, inNumberFrames, inTimeStamp->mSampleTime);
+//    printf("=======================");
+//    for (int i = 0; i < inNumberFrames * 4; ++ i) {
+//        printf("%02x,", buffer[i]);
+//    }
+//    printf("\n=======================");
     return noErr;
 }
 
@@ -36,16 +50,29 @@ OSStatus playoutCallback1 (void *                            inRefCon,
                          UInt32                            inBusNumber,
                          UInt32                            inNumberFrames,
                          AudioBufferList * __nullable      ioData) {
-    NSLog(@"recordCallback1 bus:%@ audioFrames:%@, bufferList:%p", @(inBusNumber), @(inNumberFrames), ioData);
-    AudioUnit unit = (AudioUnit)inRefCon;
+   // NSLog(@"recordCallback1 bus:%@ audioFrames:%@, bufferList:%p", @(inBusNumber), @(inNumberFrames), ioData);
+    AUCallbackRef* inRef = (AUCallbackRef*)inRefCon;
+    
+    if (inRef->m_firstOutputSampleTime < 0) {
+        inRef->m_firstOutputSampleTime = inTimeStamp->mSampleTime;
+        if (inRef->m_firstInputSampleTime > 0 &&
+            inRef->m_inToOutSampleTimeOffset < 0) {
+            inRef->m_inToOutSampleTimeOffset = inRef->m_firstInputSampleTime - inRef->m_firstOutputSampleTime;
+        }
+    }
+    //AudioUnit unit = inRef.m_audioUnit;
+    CARingBuffer* ringBuf = inRef->m_buffer;
     AudioBufferList audioData = {0};
     Byte buffer[4096] = {0};
     audioData.mNumberBuffers = 1;
     audioData.mBuffers[0].mData = buffer;
     audioData.mBuffers[0].mDataByteSize = inNumberFrames * 4;
     audioData.mBuffers[0].mNumberChannels = 1;
-    OSStatus result = AudioUnitRender(unit, ioActionFlags, inTimeStamp, 0, inNumberFrames, &audioData);
-    assert(result == noErr);
-//    memcpy(ioData->mBuffers[0].mData, buffer, inNumberFrames*4);
+    ringBuf->Fetch(ioData, inNumberFrames, inTimeStamp->mSampleTime + inRef->m_inToOutSampleTimeOffset);
+//        printf("=======================");
+//        for (int i = 0; i < inNumberFrames * 4; ++ i) {
+//            printf("%02x,", buffer[i]);
+//        }
+//        printf("\n=======================");
     return noErr;
 }
