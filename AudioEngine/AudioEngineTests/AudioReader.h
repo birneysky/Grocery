@@ -7,10 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AudioReader : NSObject
+
+- (instancetype)initWithFileURL:(NSURL*)url;
+
+- (AVAudioFormat*)outputFormat;
+
+- (AVAssetReaderStatus)status;
+
+- (CMSampleBufferRef)fetchNextSampleBuffer;
 
 @end
 

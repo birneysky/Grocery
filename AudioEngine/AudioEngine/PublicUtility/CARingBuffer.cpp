@@ -93,7 +93,8 @@ CARingBuffer::CARingBuffer() :
     mBuffers(NULL),
     mNumberChannels(0),
     mCapacityFrames(0),
-    mCapacityBytes(0) {
+    mCapacityBytes(0),
+    mRemainingCapacity(0) {
 
 }
 
@@ -111,7 +112,8 @@ void CARingBuffer::Allocate(int nChannels, UInt32 bytesPerFrame, UInt32 capacity
 	mCapacityFrames = capacityFrames;
 	mCapacityFramesMask = capacityFrames - 1;
 	mCapacityBytes = bytesPerFrame * capacityFrames;
-
+    mRemainingCapacity = capacityFrames;
+    
 	// put everything in one memory allocation, first the pointers, then the deinterleaved channels
 	UInt32 allocSize = (mCapacityBytes + sizeof(Byte *)) * nChannels;
 	Byte *p = (Byte *)CA_malloc(allocSize);
@@ -180,6 +182,21 @@ inline void ZeroABL(AudioBufferList *abl, int destOffset, int nbytes) {
 	}
 }
 
+bool CARingBuffer::CanStore(UInt32 nframes) {
+    if (nframes == 0) {
+        return true;
+    }
+    
+    if (nframes > mCapacityFrames) {
+        return false;
+    }
+    
+    if (nframes > mRemainingCapacity) {
+        return false;
+    }
+    
+    return true;
+}
 
 CARingBufferError CARingBuffer::Store(const AudioBufferList *abl, UInt32 framesToWrite, SampleTime startWrite) {
 	if (framesToWrite == 0)
@@ -187,6 +204,10 @@ CARingBufferError CARingBuffer::Store(const AudioBufferList *abl, UInt32 framesT
 	
 	if (framesToWrite > mCapacityFrames)
 		return kCARingBufferError_TooMuch;		// too big!
+    
+    if (framesToWrite > mRemainingCapacity) {
+        return kCARingBufferError_TooMuch;
+    }
 
 	SampleTime endWrite = startWrite + framesToWrite;
 	
@@ -234,7 +255,7 @@ CARingBufferError CARingBuffer::Store(const AudioBufferList *abl, UInt32 framesT
 	
 	// now update the end time
 	SetTimeBounds(StartTime(), endWrite);
-	
+    mRemainingCapacity -= framesToWrite;
 	return kCARingBufferError_OK;	// success
 }
 
@@ -337,6 +358,8 @@ CARingBufferError CARingBuffer::Fetch(AudioBufferList *abl, UInt32 nFrames, Samp
 		dest->mDataByteSize = nbytes;
 		dest++;
 	}
+    
+    mRemainingCapacity += nFrames;
 
 	return noErr;
 }

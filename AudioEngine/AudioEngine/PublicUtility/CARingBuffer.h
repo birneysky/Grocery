@@ -90,6 +90,8 @@ public:
 								// will alter mNumDataBytes of the buffers
 	
 	CARingBufferError	GetTimeBounds(SampleTime &startTime, SampleTime &endTime);
+    
+    bool                CanStore(UInt32 nframes);
 	
 protected:
 
@@ -109,6 +111,7 @@ protected:
 	UInt32					mCapacityFrames;		// per channel, must be a power of 2
 	UInt32					mCapacityFramesMask;
 	UInt32					mCapacityBytes;			// per channel
+    UInt32                  mRemainingCapacity;
 	
 	// range of valid sample time in the buffer
 	typedef struct {

@@ -45,6 +45,13 @@ OSStatus playoutCallback1(void* _Nullable                      inRefCon,
                           UInt32                               inNumberFrames,
                           AudioBufferList* __nullable          ioData);
 
+OSStatus playoutCallback2(void* _Nullable                      inRefCon,
+                          AudioUnitRenderActionFlags* _Nonnull ioActionFlags,
+                          const AudioTimeStamp* _Nonnull       inTimeStamp,
+                          UInt32                               inBusNumber,
+                          UInt32                               inNumberFrames,
+                          AudioBufferList* __nullable          ioData);
+
 
 NS_ASSUME_NONNULL_END
 #endif /* AUCallbacks_hpp */

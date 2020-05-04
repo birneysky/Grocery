@@ -7,7 +7,7 @@
 //
 
 #include "AUCallbacks.hpp"
-
+#include "AUQueuue.hpp"
 
 OSStatus recordCallback1 (void *                            inRefCon,
                          AudioUnitRenderActionFlags *      ioActionFlags,
@@ -74,5 +74,17 @@ OSStatus playoutCallback1 (void *                            inRefCon,
 //            printf("%02x,", buffer[i]);
 //        }
 //        printf("\n=======================");
+    return noErr;
+}
+
+
+OSStatus playoutCallback2(void* _Nullable                      inRefCon,
+                          AudioUnitRenderActionFlags* _Nonnull ioActionFlags,
+                          const AudioTimeStamp* _Nonnull       inTimeStamp,
+                          UInt32                               inBusNumber,
+                          UInt32                               inNumberFrames,
+                          AudioBufferList* __nullable          ioData) {
+    AUQueue* queue = (AUQueue*)inRefCon;
+    queue->Fetch(ioData, inNumberFrames, inTimeStamp->mSampleTime);
     return noErr;
 }

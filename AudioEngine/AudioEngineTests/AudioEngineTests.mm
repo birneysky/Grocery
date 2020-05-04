@@ -17,6 +17,8 @@
 #import "AudioData.h"
 #import "GSAudioEngineStructures.h"
 #include "AUCallbacks.hpp"
+#include "AUQueuue.hpp"
+#import "AudioReader.h"
 
 void printASBD(const struct AudioStreamBasicDescription asbd) {
  
@@ -848,12 +850,21 @@ OSStatus (inputCallback)(void *                            inRefCon,
     XCTAssertEqual(32 - __builtin_clz(256 - 1), 8);
     XCTAssertEqual(32 - __builtin_clz(512 -1), 9);
     XCTAssertEqual(32 - __builtin_clz(1024- 1), 10);
+    XCTAssertEqual(32 - __builtin_clz(2048- 1), 11);
+    XCTAssertEqual(32 - __builtin_clz(4096- 1), 12);
+    XCTAssertEqual(32 - __builtin_clz(8192- 1), 13);
+    XCTAssertEqual(32 - __builtin_clz(16384- 1), 14);
 }
 
 - (void)test_builtin_clz3 {
     XCTAssertEqual(1 << (32 - __builtin_clz(256 - 1)), 256);
     XCTAssertEqual(1 << (32 - __builtin_clz(512) - 1), 512);
     XCTAssertEqual(1 << (32 - __builtin_clz(1024 - 1)), 1024);
+    XCTAssertEqual(1 << (32 - __builtin_clz(2048 - 1)), 2048);
+    XCTAssertEqual(1 << (32 - __builtin_clz(4096 - 1)), 4096);
+    XCTAssertEqual(1 << (32 - __builtin_clz(8192 - 1)), 8192);
+    XCTAssertEqual(1 << 13, 8192);
+    XCTAssertEqual(1 << 14, 16384);
 }
 
 - (void)testPointer {
@@ -933,6 +944,83 @@ OSStatus (inputCallback)(void *                            inRefCon,
     NSLog(@"stop play");
     AudioOutputUnitStop(vpioAU);
     AudioUnitInitialize(vpioAU);
+}
+
+- (void)testAUQueue {
+    NSString* path =  [[NSBundle bundleForClass:self.class] pathForResource:@"test" ofType:@"MP4"];
+    NSURL* fileURL = [NSURL fileURLWithPath:path];
+    AudioReader* reader =  [[AudioReader alloc] initWithFileURL:fileURL];
+    AUQueue* audioQueue = new AUQueue(*reader.outputFormat.streamDescription);
+    dispatch_queue_t queue = dispatch_queue_create("fetch.audio.sample.queue", DISPATCH_QUEUE_SERIAL);
+    __block SInt64 sampleTime = 0;
+    dispatch_async(queue, ^{
+        while (true) {
+            CMSampleBufferRef sample = [reader fetchNextSampleBuffer];
+            if (!sample && [reader status] == AVAssetReaderStatusCompleted) {
+                NSLog(@"audio store");
+                break;
+            }
+            AudioBufferList abl = {0};
+            CMBlockBufferRef blockBuffer;
+            CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sample,
+                                                                    NULL,
+                                                                    &abl,
+                                                                    sizeof(abl),
+                                                                    NULL,
+                                                                    nullptr,
+                                                                    0,
+                                                                    &blockBuffer);
+            CMItemCount count =  CMSampleBufferGetNumSamples(sample);
+            NSLog(@"audio store begin");
+            audioQueue->Store(&abl, (UInt32)count, sampleTime);
+            NSLog(@"audio store end");
+            sampleTime += count;
+            CFRelease(blockBuffer);
+            CFRelease(sample);
+        }
+        
+    });
+    
+    AudioUnit rioau;
+    OSStatus result = noErr;
+    AudioComponentDescription outputcd = {0};
+    outputcd.componentType = kAudioUnitType_Output;
+    outputcd.componentSubType = kAudioUnitSubType_RemoteIO;
+    outputcd.componentManufacturer = kAudioUnitManufacturer_Apple;
+    
+    AudioComponent foundIoUnitReference =
+        AudioComponentFindNext (NULL, &outputcd);
+    
+    AudioComponentInstanceNew(foundIoUnitReference, &rioau);
+    
+    UInt32 ioDataSize = sizeof(AudioStreamBasicDescription);
+    
+    AudioStreamBasicDescription asbd = *[reader outputFormat].streamDescription;
+    
+    
+    AudioUnitSetProperty(rioau, kAudioUnitProperty_StreamFormat,
+                         kAudioUnitScope_Input, 0, &asbd, ioDataSize);
+
+    
+    AURenderCallbackStruct playout_callback;
+    playout_callback.inputProc = playoutCallback2;
+    playout_callback.inputProcRefCon = audioQueue;
+
+    result = AudioUnitSetProperty(rioau, kAudioUnitProperty_SetRenderCallback,
+                                  kAudioUnitScope_Input, 0,
+                                  &playout_callback,sizeof(playout_callback));
+    NSAssert(noErr == result, @"AudioUnitSetProperty kAudioUnitProperty_SetRenderCallback %@", @(result));
+    result = AudioUnitInitialize(rioau);
+    NSAssert(noErr == result,@"AUGraphInitialize %@",@(result));
+    NSLog(@"AUGraphInitialize");
+    result = AudioOutputUnitStart(rioau);
+    NSAssert(noErr == result,@"AUGraphStart %@",@(result));
+    NSLog(@"AUGraphStart");
+    sleep (20);
+    NSLog(@"stop play");
+    AudioOutputUnitStop(rioau);
+    AudioUnitInitialize(rioau);
+    delete audioQueue;
 }
 
 
